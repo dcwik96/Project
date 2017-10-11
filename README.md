@@ -1,5 +1,5 @@
 # Ile dasz? - Aplikacja webowa.
-## Użytkownicy
+## 1.Użytkownicy
 ### 1.Administrator
 * Blokowanie kont użytkowników
 * Możliwość usuwania/edycji wszystkich ofert
@@ -22,7 +22,7 @@
 
 ## 2. Funkcjonalności, co się dzieje
 
-### 1.  MENU
+### 1. MENU
 * Strona główna
 	* Tutaj będą najnowsze przedmioty, kafelki ze zdjęciem, po najechaniu pokazywałaby się nazwa przedmiotu i skrócony opis( tytuł w razie braku)
 		* Losuj przedmiot 
