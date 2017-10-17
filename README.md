@@ -16,7 +16,7 @@
 * Możliwość usuniecia strefy czerwonej, jezeli ktos nie jest zainteresowany cenami ponizej ceny minimalnej. “Wyłącz oferty pozostałe”
 * Możliwość wyboru czasu ‘aukcji’ bezterminowego  lub terminowego, 1, 3, 7 dni. W bezterminowym możliwość zakończenia aukcji w dowolnym czasie po minięciu minimalnego czasu trwania aukcji.
 * Możliwość wyboru dowolnej oferty, to nie jest tak, że dobiera nam tylko najwyższą ofertę, sprzedający może wybrać nawet tą najniższą, po wciśnięciu opcji “Wybierz”, jest takie jakby “Dopasowanie”, wtedy kupujący dostaje powiadomienie “Sprzedający wybrał Twoją ofertę, czy akceptujesz?” Po wciśnięciu Tak, następuje wymiana danymi pomiędzy sprzedającym a kupującym, po wciśnięciu Nie sprzedający otrzymuje powiadomienie, a ta oferta zostaje podkreślona na czerwono jako odrzucona. Czas oczekiwania na odpowiedź wstępnie 24h?
-* Możliwość zapytania o przedmiot w przeglądaniu ofert
+* Możliwość wystawienia komentarza pod każdą aukcją, w celu zapytania o przedmiot
 * Sprawdzenie złożonych ofert, edycja, anulowanie
 * Sprawdzenie historii wystawionych przedmiotów, zakończonych powodzeniem, niepowodzeniem etc.
 
