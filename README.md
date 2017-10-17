@@ -3,10 +3,10 @@
 ### 1.Administrator
 * Blokowanie kont użytkowników
 * Możliwość usuwania/edycji wszystkich ofert
-* Możliwość usuwania/edycji przedmiotów wystawionych //dublet powyzej?
 * Dodawanie/edycja kategorii przedmiotów  
 * Przeglądanie oczekujących na akceptację przedmiotów //aby dodac ogloszenie musi byc zaakceptowane ?
 * Wgląd do danych wszystkich użytkowników, możliwość zmiany hasła, zmiany wszystkich danych, brak wglądu do hasła //mozliwosc zamiany hasla a potem brak wgladu do hasla ?!
+//Odpowiedź: Szyfrowanie, administrator może zmienić hasło, ale nie ma potem do niego wglądu, jest szyfrowane.
 * Edycja/usuwanie opinii o użytkowniku
 
 ### 2.Użytkownik zalogowany    
