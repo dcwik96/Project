@@ -19,21 +19,48 @@
 
 ### Odwiedzający
 * Przegladanie ofert
-* Ukazuje mu się menu dodaj przedmiot, losuj adnotacja na czerwono, że aby móc składać oferty potrzeba być zalogowanym
+* Ukazuje mu się menu dodaj przedmiot oraz losuj, po wejściu adnotacja na czerwono, że aby móc składać oferty potrzeba być zalogowanym, następnie przekierowanie do panelu logowania/rejestracji
 
 ## 2. Funkcjonalności, co się dzieje
 
 ### 1. MENU
 * Strona główna
 	* Tutaj będą najnowsze przedmioty, kafelki ze zdjęciem, po najechaniu pokazywałaby się nazwa przedmiotu i skrócony opis( tytuł w razie braku)
+
+	* Dodaj przedmiot
+	* Wybór kategorii, opis, zdjęcia, cena minimalna - Tak, ile? Lub nie. Czas bezterminowy, czy ustalony 1, 3, 7 dni.
+
 		* Losuj przedmiot
 		* Po wejściu w to ukazuje nam się menu, gdzie wybieramy konkretne filtry, kategorie, co potrzebujemy, jeżeli nie chcemy żadnego filtru, to nic nie wybieramy i wciskamy losuj, wtedy pokazuje nam się przedmiot z opisem i mamy na dole TAK i NIE, jeżeli wciśniemy TAK to wyświetla się formułka “Podaj cenę za przedmiot”, wprowadzamy kwotę i sprzedający dostaje nową ofertę, a nam ukazują się kolejne przedmioty
 
 		* Przeglądaj
 		* Jeżeli nie chcemy aby losowało nam przedmioty wchodzimy tutaj i ukazują nam się kafelki z miniaturkami zdjęć kategorii, np rower, jakaś lodówka oznaczająca sprzęt RTV. U góry mamy wyszukiwarkę, po wciśnięciu w kategorię, pole wyszukiwania się ogranicza, po lewej ukazują się filtry do wyboru, po wciśnięciu w dowolny filtr, dodajemy kolejne ograniczenia do tego co wyszukaliśmy
-		* Dodaj przedmiot -> Wybór kategorii, opis, zdjęcia, cena minimalna - Tak, ile? Lub nie. Czas bezterminowy, czy ustalony 1, 3, 7 dni.
+
 
 ## 3. Działanie aplikacji, czyli co się dzieje, jak to działa?
+## Opis
+* Aplikacja działa na zasadzie OLX i Allegro tylko, że nie znamy ceny jaką chcielibyśmy uzyskać za przedmiot,
+a więc wystawiamy go i otrzymujemy przeróżne oferty, możemy ustalić cenę minimalną, aby nie przeglądać tych "śmieciowych"
+ofert.
+## Jak działa to wszystko, czyli co się dzieje?
+1. Wystawienie przedmiotu
+Wystawiamy przedmiot, ukazują się nam oferty, wszystkie dane są zamazane, sprzedającemu ukazują się tylko informacje
+jak długo użytkownik jest już w serwisie, ile uzbierał punktów (Zrobimy system punktów za każdą pomyślnie zakończoną transakcję, np + 5 pkt) i cenę jaką zaoferował za przedmiot oraz forma odbioru (Osobisty/Wysyłka). Po prawej stronie przy każdej ofercie właściciel przedmiotu będzie mógł wcisnąć Wybierz. Nikt inny nie widzi najwyższej kwoty oferowanej za przedmiot.
+2. Czas bezterminowy, a ustalony.
+Mamy możliwość ustawienia czasu bezterminowego oraz 24h, 3 dni i 7 dni. Jaka jest różnica? Otóż w czasie bezterminowym
+sprzedający będzie miał możliwość wybrania oferty odpowiadającej mu, może nawet wybrać najniższą, przy każdej ofercie ma tą opcje, w czasie bezterminowym może to zrobić w dowolnym momencie, natomiast w czasie ustalonym opcje wybierz będą dostępne dopiero po zakończeniu.
+3. Opcja wybierz, co dzieje się dalej?
+Po wybraniu danej oferty, kupujący zostaje powiadomiony, że jego oferta została zaakceptowana, a on ma możliwość potwierdzenia,
+że dalej jest zainteresowany i chce wymienić się danymi. No właśnie, a co w przypadku gdy ofertę odrzuci? Wtedy nie następuje
+wymiana danymi, a pozycja z jego ofertą zostaje przeniesiona na dół do pola "Odrzucone", lub "Pozostałe", lub po prostu zostaje
+podkreślona na czerwono (Według uznania co będzie bardziej przejrzyste). Aukcja cały czas trwa, zakończenie następuje dopiero po wymianie danymi, gdy kupujący zaakceptuje jeszcze raz ofertę, którą złożył. Co w przypadku, gdy wszyscy kupujący odrzucą ofertę, którą złożyli, a aukcja jest zakończona, bo minęły np. 24h - wtedy nie pozostaje nic innego jak ponowne wystawienie przedmiotu, ale mimo tego w historii użytkownika aukcja wcześniejsza pojawia się w historii "Niesprzedane".
+4. Kontaktowanie się ze sprzedającym w trakcie trwania aukcji jest możliwe. Odbywa się to mailowo.
+5. W przeglądaniu ofert przy każdym przedmiocie jest opcja "Chcę to!", następnie pokazuje się formułka z zapytaniem "Ile dasz?", wprowadzamy kwotę i to wszystko :). Oferty można wycofać
+6. W losowaniu przedmiotów mamy fotki, opis, oraz na samym dole Czerwony kwadracik Nie chcę i zielony Chcę. Po wciśnięciu Nie chcę ukazuje nam się kolejny przedmiot, po wciśnięciu Chcę ukazuje się okienko Ile dasz? No i to wszystko.
+7. Każdy użytkownik w swoim profilu może zobaczyć swoje oferty, wystawione przedmioty, historię aukcji w których uczestniczył, ile aukcji wygrał (Doszło do transakcji), ile dostał punktów, może edytować swoje wszystkie dane, itp., itd.
+8. Po zakończonej aukcji i po wciśnięciu przez sprzedającego, że doszło do transakcji, kupujący gdy to zatwierdzi oboje mogą wystawić sobie ocenę, czyli Łapka w górę/W dół lapkiwgore++, lapkiwdol++
+
+
 
 
 # [ENG]
