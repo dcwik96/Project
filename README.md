@@ -19,6 +19,7 @@
 
 ### Odwiedzający
 * Przegladanie ofert
+* Ukazuje mu się menu dodaj przedmiot, losuj adnotacja na czerwono, że aby móc składać oferty potrzeba być zalogowanym
 
 ## 2. Funkcjonalności, co się dzieje
 
@@ -30,6 +31,9 @@
 
 		* Przeglądaj
 		* Jeżeli nie chcemy aby losowało nam przedmioty wchodzimy tutaj i ukazują nam się kafelki z miniaturkami zdjęć kategorii, np rower, jakaś lodówka oznaczająca sprzęt RTV. U góry mamy wyszukiwarkę, po wciśnięciu w kategorię, pole wyszukiwania się ogranicza, po lewej ukazują się filtry do wyboru, po wciśnięciu w dowolny filtr, dodajemy kolejne ograniczenia do tego co wyszukaliśmy
+		* Dodaj przedmiot -> Wybór kategorii, opis, zdjęcia, cena minimalna - Tak, ile? Lub nie. Czas bezterminowy, czy ustalony 1, 3, 7 dni.
+
+## 3. Działanie aplikacji, czyli co się dzieje, jak to działa?
 
 
 # [ENG]
@@ -61,4 +65,4 @@
 		* After choosing drawing, we can filter what we want. If we do not choose filter, we just draw everything and after that appear advert with description and we decide if we want to make bid. We write how many we can pay for it and after that seller gets notification. This action repeats and new advert shows up.
 
 		* Browse
-		* If we do not want to draw a thing, we can choose this and browse all adverts in table/list, just like eg. eBay. Of course we can search for thing using search option, choosing categories. We can narrow search down by adding more and more categories. 
+		* If we do not want to draw a thing, we can choose this and browse all adverts in table/list, just like eg. eBay. Of course we can search for thing using search option, choosing categories. We can narrow search down by adding more and more categories.
