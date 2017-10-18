@@ -81,7 +81,7 @@ podkreślona na czerwono (Według uznania co będzie bardziej przejrzyste). Aukc
 * Getting in touch with interested person who is able to pay satisfying price
 * Ability to price a product, bids under this price are avaible as "Other", on main page are only bids over and equal given floor price
 * User can hide bids under floor price, "Do not show other offer"
-* Choosing duration of advert, termless or 1, 3, 7, 14 days. Choosing termless you can close advert anytime
+* Choosing duration of advert, termless or 1, 3, 7 days. Choosing termless you can close advert anytime
 * Ability to choose any bid. Seller can choose even the lowest one. Pressing this bid gives us ability to communicate with interested person who also gets notification about it. If he accept it they can exchange of personal data. If he decline, this bid is cross out. Initially, waiting time on answer is few hours
 
 ### Guest
@@ -96,3 +96,22 @@ podkreślona na czerwono (Według uznania co będzie bardziej przejrzyste). Aukc
 
 		* Browse
 		* If we do not want to draw a thing, we can choose this and browse all adverts in table/list, just like eg. eBay. Of course we can search for thing using search option, choosing categories. We can narrow search down by adding more and more categories.
+
+## 3. Description. What happens and how it works ?
+## Description
+* Application works like OLX or Allegro, the only difference is the fact that we do not know the value which we want to get. We put things up on sale and we get variable bids. We are allowed to set floore price and hide bids under it.
+## What happens and how it works ?
+1. Put things up on sale
+We put things up on sale, bids show up, all personal data is hidden, seller is able to see only since when is user registered and how many points he has(We will make system on the princile, finished transaction = 5 points) and price with the form of transportation(collection in person/potally/carrier). On the right side of bid, the seller will be able to press "Choose". No one else can see the highest price.
+2. Termless/Limited time
+Otóż w czasie bezterminowym sprzedający będzie miał możliwość wybrania oferty odpowiadającej mu, może nawet wybrać najniższą, przy każdej ofercie ma tą opcje, w czasie bezterminowym może to zrobić w dowolnym momencie, natomiast w czasie ustalonym opcje wybierz będą dostępne dopiero po zakończeniu.
+We are able to choose duration of advert, termless or 1, 3, 7 days. What is the difference? .....
+
+3. "Choose", what happens next?
+When we choose bid, Interested person gets notification that his bid was accepted and he is able to confirm his bid and change personal data. What if he will decline ? Then they will not exchange personal data, the bid goes to "Decline" or "Others" or just crossed with red line, what will be more transparent. 
+The offer is still avaible. It ends only when both sides accept the terms and exchange personal data. What if all buyers decline to exchange personal data and limited time for the offer ran out ? Seller is able to put this thing up on sale again and additionaly he is able to see history of this product.
+4. Buyer is able to communicate with seller during the advert is avaible.
+5. Browsing adverts there is button "Want it!", next we see textfield with question "How much?", put value and thats all. Offers can be deleted
+6. Draw adverts gives you photo, description and two buttons, Want it, after which you put your price, and Dont want it, after which you see next advert. 
+7. Every user is able to see his adverts, bids, history, statistics with number of won adverts, points. he as able to edit personal data etc.
+8. After success, both sides are able to vote special grade, like plus/minus
