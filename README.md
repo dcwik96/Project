@@ -1,28 +1,30 @@
 # Ile dasz? - Aplikacja webowa.
 ## 1.Użytkownicy
 ### 1.Administrator
-* Blokowanie kont użytkowników
+* Blokowanie kont użytkowników naruszających wartoćci moralne
 * Możliwość usuwania/edycji wszystkich ofert
-* Dodawanie/edycja kategorii przedmiotów  
-* Przeglądanie oczekujących na akceptację przedmiotów //aby dodac ogloszenie musi byc zaakceptowane ?
-* Wgląd do danych wszystkich użytkowników, możliwość zmiany hasła, zmiany wszystkich danych, brak wglądu do hasła //mozliwosc zamiany hasla a potem brak wgladu do hasla ?!
-//Odpowiedź: Szyfrowanie, administrator może zmienić hasło, ale nie ma potem do niego wglądu, jest szyfrowane.
-* Edycja/usuwanie opinii o użytkowniku
+* Dodawanie/edycja kategorii przedmiotów
+* Wgląd do danych wszystkich użytkowników, możliwość zmiany hasła, zmiany wszystkich danych
+
 
 ### 2.Użytkownik zalogowany    
-* Możliwość wystawienia przedmiotu NIE PODAJAC ceny
+* Możliwość przeglądania, składania ofert , oraz pisania komentarzy pod wybraną ofertą
+* Możliwość wystawienia przedmiotu NIE PODAJAC ceny. lub z cenną minimalną  wtedy oferty poniżej tej cent są pokazywane jako “Pozostałe”( strefa czerwona, strefa zielona)
 * Kontaktowanie się z zainteresowanym który podał satysfakcjonującą cenę za przedmiot
-* Możliwość ustawienia ceny minimalnej za przedmiot, wtedy oferty poniżej są pokazywane jako “Pozostałe”, taka strefa czerwona, strefa zielona oferty powyżej
 * Możliwość usuniecia strefy czerwonej, jezeli ktos nie jest zainteresowany cenami ponizej ceny minimalnej. “Wyłącz oferty pozostałe”
-* Możliwość wyboru czasu ‘aukcji’ bezterminowego  lub terminowego, 1, 3, 7 dni. W bezterminowym możliwość zakończenia aukcji w dowolnym czasie po minięciu minimalnego czasu trwania aukcji.
-* Możliwość wyboru dowolnej oferty, to nie jest tak, że dobiera nam tylko najwyższą ofertę, sprzedający może wybrać nawet tą najniższą, po wciśnięciu opcji “Wybierz”, jest takie jakby “Dopasowanie”, wtedy kupujący dostaje powiadomienie “Sprzedający wybrał Twoją ofertę, czy akceptujesz?” Po wciśnięciu Tak, następuje wymiana danymi pomiędzy sprzedającym a kupującym, po wciśnięciu Nie sprzedający otrzymuje powiadomienie, a ta oferta zostaje podkreślona na czerwono jako odrzucona. Czas oczekiwania na odpowiedź wstępnie 24h?
-* Możliwość wystawienia komentarza pod każdą aukcją, w celu zapytania o przedmiot
+* Możliwość wyboru czasu ‘aukcji’ bezterminowego  lub terminowego, 1, 3, 7 dni. W bezterminowym możliwość zakończenia aukcji w dowolnym czasie.
+* Możliwość wyboru dowolnej oferty, sprzedający decyduje z którą oferte wybierze.
+* Po wybraniu oferty, zostaje wysłane powiadomienie do kupującego, z koniecznością odpowiedzi w przeciągu czasu proporcjonalnego do długości trwania oferty
+* w przypadku braku odpowiedzi ze strony kupującego lub odpowiedzi negatywnej- oferta zostaje usunięta, sprzedający wybiera następną
+* Możliwość wystawienia komentarza pod każdą aukcją, w celu zapytania o przedmiot, komentarze i odpowiedzi widzą wszyscy
 * Sprawdzenie złożonych ofert, edycja, anulowanie
 * Sprawdzenie historii wystawionych przedmiotów, zakończonych powodzeniem, niepowodzeniem etc.
 
 ### Odwiedzający
 * Przegladanie ofert
-* Ukazuje mu się menu dodaj przedmiot oraz losuj, po wejściu adnotacja na czerwono, że aby móc składać oferty potrzeba być zalogowanym, następnie przekierowanie do panelu logowania/rejestracji
+
+##-----------------------------------------------------------------------------------------------------------------------
+##Dla twórców:
 
 ## 2. Funkcjonalności, co się dzieje
 
@@ -108,10 +110,10 @@ Otóż w czasie bezterminowym sprzedający będzie miał możliwość wybrania o
 We are able to choose duration of advert, termless or 1, 3, 7 days. What is the difference? .....
 
 3. "Choose", what happens next?
-When we choose bid, Interested person gets notification that his bid was accepted and he is able to confirm his bid and change personal data. What if he will decline ? Then they will not exchange personal data, the bid goes to "Decline" or "Others" or just crossed with red line, what will be more transparent. 
+When we choose bid, Interested person gets notification that his bid was accepted and he is able to confirm his bid and change personal data. What if he will decline ? Then they will not exchange personal data, the bid goes to "Decline" or "Others" or just crossed with red line, what will be more transparent.
 The offer is still avaible. It ends only when both sides accept the terms and exchange personal data. What if all buyers decline to exchange personal data and limited time for the offer ran out ? Seller is able to put this thing up on sale again and additionaly he is able to see history of this product.
 4. Buyer is able to communicate with seller during the advert is avaible.
 5. Browsing adverts there is button "Want it!", next we see textfield with question "How much?", put value and thats all. Offers can be deleted
-6. Draw adverts gives you photo, description and two buttons, Want it, after which you put your price, and Dont want it, after which you see next advert. 
+6. Draw adverts gives you photo, description and two buttons, Want it, after which you put your price, and Dont want it, after which you see next advert.
 7. Every user is able to see his adverts, bids, history, statistics with number of won adverts, points. he as able to edit personal data etc.
 8. After success, both sides are able to vote special grade, like plus/minus
