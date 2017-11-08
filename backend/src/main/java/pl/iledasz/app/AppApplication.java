@@ -1,0 +1,13 @@
+package pl.iledasz.app;
+
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+
+@SpringBootApplication(scanBasePackages="pl.iledasz")
+public class AppApplication {
+
+	public static void main(String[] args) {
+		new SpringApplicationBuilder(AppApplication.class).run(args);
+	}
+}
