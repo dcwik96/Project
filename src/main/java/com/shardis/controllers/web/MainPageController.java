@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- * Created by Tomasz Kucharzyk
- */
-
 @Controller
 @RequestMapping("/")
 public class MainPageController {
@@ -22,6 +18,7 @@ public class MainPageController {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping("/")
     public ModelAndView mainPage() {
+        testJenk;
         if (environmentProvider.isProduction()) {
             return new ModelAndView("forward://dist/index.html");
         } else {
