@@ -1,8 +1,17 @@
+<<<<<<< HEAD
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
 .apt_generated
+=======
+#MAC
+.DSstore
+#Test
+# eclipse ignore
+.settings/
+.project
+>>>>>>> master
 .classpath
 .factorypath
 .project
