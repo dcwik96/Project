@@ -14,7 +14,7 @@ pipeline {
                 docker { image 'node:7-alpine' }
             }
             steps {
-                sh 'cd frondend && node run dev && cd .. '
+                sh 'cd /var/jenkins_home/workspace/IleDasz/frondend && node run dev && cd .. '
             }
         }
     }
