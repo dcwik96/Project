@@ -2,11 +2,14 @@ pipeline {
     agent none
     stages {
         stage('Back-end') {
+            
             agent {
                 docker { image 'maven:3-alpine' }
             }
             steps {
-                sh 'mvn --version'
+                dir("iledasz/backend") {
+                    sh 'mvn spring-boot:run'
+                }
             }
         }
         stage('Front-end') {
@@ -14,14 +17,11 @@ pipeline {
                 docker { image 'node:7-alpine' }
             }
             steps {
-                sh 'node -v'
+                dir("iledasz/frontend") {
+                    sh 'npm install && npm run-script build'
+                }
             }
         }
-        stage('Build') {
-                agent any
-                steps {
-                    sh 'mvn install && mvn --projects backend spring-boot:start'
-                }
-        }
+    
     }
 }
