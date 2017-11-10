@@ -6,7 +6,7 @@ pipeline {
                 docker { image 'maven:3-alpine' }
             }
             steps {
-                sh 'cd backend && mvn spring-boot:run && cd ..'
+                sh 'cd backend && mvn spring-boot:repackage && cd ..'
             }
         }
         stage('Front-end') {
