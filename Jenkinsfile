@@ -6,7 +6,7 @@ pipeline {
                 docker { image 'maven:3-alpine' }
             }
             steps {
-                sh 'pwd && cd backend && mvn spring-boot:start && cd ..'
+                sh 'mvn --version'
             }
         }
         stage('Front-end') {
@@ -14,8 +14,13 @@ pipeline {
                 docker { image 'node:7-alpine' }
             }
             steps {
-                sh 'cd /var/jenkins_home/workspace/IleDasz/frondend && node run dev && cd .. '
+                sh 'node -v'
             }
-        }
+            stage('Build') {
+                agent any
+                steps {
+                    sh 'mvn install && mvn --projects backend spring-boot:start'
+                }
+            }       
     }
 }
