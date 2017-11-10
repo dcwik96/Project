@@ -1,17 +1,20 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v /root/.m2:/root/.m2'
-            image 'node:6-alpine' 
-            args '-p 3000:3000'
-        }
-    }
+    agent none
     stages {
-        stage('Build') {
+        stage('Back-end') {
+            agent {
+                docker { image 'maven:3-alpine' }
+            }
             steps {
-                sh 'cd fronted && npm install && cd ..'
-                sh 'mvn install && mvn --projects backend spring-boot:run'
+                sh 'mvn --version'
+            }
+        }
+        stage('Front-end') {
+            agent {
+                docker { image 'node:7-alpine' }
+            }
+            steps {
+                sh 'node --version'
             }
         }
     }
