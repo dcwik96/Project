@@ -10,7 +10,6 @@ target/
 # eclipse ignore
 .settings/
 .project
->>>>>>> master
 .classpath
 .factorypath
 .project
