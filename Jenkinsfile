@@ -6,7 +6,7 @@ pipeline {
                 docker { image 'maven:3-alpine' }
             }
             steps {
-                sh 'mvn --version'
+                sh 'cd backend && mvn spring-boot:run && cd ..'
             }
         }
         stage('Front-end') {
@@ -14,7 +14,7 @@ pipeline {
                 docker { image 'node:7-alpine' }
             }
             steps {
-                sh 'node --version'
+                sh 'cd frondend && node run dev && cd .. '
             }
         }
     }
