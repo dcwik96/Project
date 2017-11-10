@@ -7,7 +7,7 @@ pipeline {
                 docker { image 'maven:3-alpine' }
             }
             steps {
-                dir("iledasz/backend") {
+                dir("IleDasz/backend") {
                     sh 'mvn spring-boot:start'
                 }
             }
@@ -17,7 +17,7 @@ pipeline {
                 docker { image 'node:7-alpine' }
             }
             steps {
-                dir("iledasz/frontend") {
+                dir("IleDasz/frontend") {
                     sh 'npm install && npm run-script build'
                 }
             }
