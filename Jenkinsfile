@@ -8,7 +8,7 @@ pipeline {
             }
             steps {
                 dir("iledasz/backend") {
-                    sh 'mvn spring-boot:run'
+                    sh 'mvn spring-boot:start'
                 }
             }
         }
