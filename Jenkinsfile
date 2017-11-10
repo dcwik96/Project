@@ -11,7 +11,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install'
-                sh 'mvn install && mvn --projects backend spring-boot:run
+                sh 'mvn install && mvn --projects backend spring-boot:run'
             }
         }
     }
