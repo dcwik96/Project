@@ -63,7 +63,7 @@ podkreślona na czerwono (Według uznania co będzie bardziej przejrzyste). Aukc
 5. W przeglądaniu ofert przy każdym przedmiocie jest opcja "Chcę to!", następnie pokazuje się formułka z zapytaniem "Ile dasz?", wprowadzamy kwotę i to wszystko :). Oferty można wycofać
 6. W losowaniu przedmiotów mamy fotki, opis, oraz na samym dole Czerwony kwadracik Nie chcę i zielony Chcę. Po wciśnięciu Nie chcę ukazuje nam się kolejny przedmiot, po wciśnięciu Chcę ukazuje się okienko Ile dasz? No i to wszystko.
 7. Każdy użytkownik w swoim profilu może zobaczyć swoje oferty, wystawione przedmioty, historię aukcji w których uczestniczył, ile aukcji wygrał (Doszło do transakcji), ile dostał punktów, może edytować swoje wszystkie dane, itp., itd.
-8. Po zakończonej aukcji i po wciśnięciu przez sprzedającego, że doszło do transakcji, kupujący gdy to zatwierdzi oboje mogą wystawić sobie ocenę, czyli Łapka w górę/W dół lapkiwgore++, lapkiwdol++
+8. Po zakończonej aukcji i po wciśnięciu przez sprzedającego, że doszło do transakcji, kupujący gdy to zatwierdzi oboje mogą wystawić sobie ocenę, czyli Łapka w górę/W dół lapkiwgore++, lapkiwdol++
 
 
 
