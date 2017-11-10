@@ -16,11 +16,12 @@ pipeline {
             steps {
                 sh 'node -v'
             }
-            stage('Build') {
+        }
+        stage('Build') {
                 agent any
                 steps {
                     sh 'mvn install && mvn --projects backend spring-boot:start'
                 }
-            }       
+        }
     }
 }
