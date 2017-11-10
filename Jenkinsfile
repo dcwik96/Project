@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'npm install'
+                sh 'cd fronted && npm install && cd ..'
                 sh 'mvn install && mvn --projects backend spring-boot:run'
             }
         }
