@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import pl.iledasz.app.entities.Photo;
 import pl.iledasz.app.repository.PhotoReposiory;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
 @Service
@@ -28,6 +31,10 @@ public class PhotoServiceImpl {
 
     public Photo findByFilename(String filename) {
         return photoReposiory.findByFilename(filename);
+    }
+
+    public byte[] findPhotoAndConvertToByte(String path) throws IOException{
+        return Files.readAllBytes(new File(path).toPath());
     }
 
 }
