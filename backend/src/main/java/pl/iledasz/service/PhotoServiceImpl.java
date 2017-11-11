@@ -1,10 +1,10 @@
-package pl.iledasz.app.service;
+package pl.iledasz.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.iledasz.app.entities.Photo;
-import pl.iledasz.app.repository.PhotoReposiory;
+import pl.iledasz.entities.Photo;
+import pl.iledasz.repository.PhotoReposiory;
 
 import java.io.File;
 import java.io.IOException;

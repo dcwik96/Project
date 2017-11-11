@@ -1,6 +1,6 @@
-package pl.iledasz.app.service;
+package pl.iledasz.service;
 
-import pl.iledasz.app.entities.Photo;
+import pl.iledasz.entities.Photo;
 
 import java.util.List;
 

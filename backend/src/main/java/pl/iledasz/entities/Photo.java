@@ -1,4 +1,4 @@
-package pl.iledasz.app.entities;
+package pl.iledasz.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

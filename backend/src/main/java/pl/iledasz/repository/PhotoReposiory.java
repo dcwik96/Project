@@ -1,8 +1,8 @@
-package pl.iledasz.app.repository;
+package pl.iledasz.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.iledasz.app.entities.Photo;
+import pl.iledasz.entities.Photo;
 
 @Repository
 public interface PhotoReposiory extends JpaRepository<Photo, Long> {
