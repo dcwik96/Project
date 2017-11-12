@@ -4,21 +4,15 @@
 sudo -u postgres  createuser --interactive <system.username>
 
 //create base
-sudo -u postgres createdb IleDasz?Base
+sudo -u postgres createdb base
 
 //manage base
-psql -d IleDasz?Base
+psql -d base
 
-//create web user
-CREATE USER baseuser PASSWORD 'Postgres@123';
+ALTER USER postgres with password 'postgres@321'; 
 
-//give him access
-GRANT ALL PRIVILEGES ON DATABASE "IleDasz?Base" to "baseuser";
-
-
-
-
-//Tested on Ubuntu 17.10, if it doesn't work, please install Ubuntu
+s
+//Tested on Ubuntu 17.10, if it doesn't work for you, please install Ubuntu
 
 
 
