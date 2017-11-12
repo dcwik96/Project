@@ -3,9 +3,7 @@ pipeline {
     stages {
         stage('Back-end') {
             
-            agent {
-                docker { image 'maven:3-alpine' }
-            }
+            agent any
             steps {
                  sh 'cd backend && mvn spring-boot:start'
             }
