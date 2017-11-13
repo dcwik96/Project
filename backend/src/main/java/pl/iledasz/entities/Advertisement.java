@@ -1,29 +1,29 @@
 package pl.iledasz.entities;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "advert")
 public class Advertisement {
 
     @Id
     @GeneratedValue
+    @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "title", nullable = false)
     private String title;
+
+    @Column(name = "description", nullable = false)
     private String description;
-    private String item;
 
     public Advertisement() {
     }
 
-    public Advertisement(Long id, String title, String description, String item) {
-        this.id = id;
+    public Advertisement(String title, String description) {
         this.title = title;
         this.description = description;
-        this.item = item;
     }
 
     public Long getId() {
@@ -48,13 +48,5 @@ public class Advertisement {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getItem() {
-        return item;
-    }
-
-    public void setItem(String item) {
-        this.item = item;
     }
 }

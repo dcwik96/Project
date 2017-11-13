@@ -16,25 +16,4 @@ public class PhotoServiceImpl {
 
     @Autowired
     private PhotoReposiory photoReposiory;
-
-    public void addPhoto(Photo photo) {
-        photoReposiory.save(photo);
-    }
-
-    public List<Photo> findAllPhotos() {
-        return photoReposiory.findAll();
-    }
-
-    public Photo findById(Long id) {
-        return photoReposiory.findById(id);
-    }
-
-    public Photo findByFilename(String filename) {
-        return photoReposiory.findByFilename(filename);
-    }
-
-    public byte[] findPhotoAndConvertToByte(String path) throws IOException{
-        return Files.readAllBytes(new File(path).toPath());
-    }
-
 }

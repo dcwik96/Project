@@ -16,11 +16,6 @@ public class HomeController {
         return "gello";
     }
 
-    @RequestMapping(value = "/api/photo")
-    public Photo createPhotos() {
-        return new Photo("Tytul");
-    }
-
     @RequestMapping(value = "api/advert")
     public List<Advertisement> getAdverts() {
         List<Advertisement> adverts = new ArrayList<>();
@@ -29,8 +24,7 @@ public class HomeController {
             Long id = Long.valueOf(i);
             String title = "Tytul" + i;
             String description = "Opis" + i;
-            String name = "Przedmiot" + i;
-            adverts.add(new Advertisement(id, title, description, name));
+            adverts.add(new Advertisement(title,description ));
         }
 
         return adverts;
