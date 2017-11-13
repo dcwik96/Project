@@ -15,7 +15,7 @@
         <column name="title" type="varchar(50)">
            <constraints nullable="false"/>
         </column>
-        <column name="description" type="varchar(200)">
+        <column name="description" type="varchar(400)">
             <constraints nullable="false"/>
         </column>
     </createTable>
@@ -27,7 +27,7 @@
         <column name="advert_id" type="int">
             <constraints nullable="false"/>
         </column>
-        <column name="image" type="BLOB">
+        <column name="image" type="bytea">
             <constraints nullable="false"/>
         </column>
 
