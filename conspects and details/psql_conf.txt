@@ -1,0 +1,18 @@
+
+
+// create user for base
+sudo -u postgres  createuser --interactive <system.username>
+
+//create base
+sudo -u postgres createdb base
+
+//manage base
+psql -d base
+
+ALTER USER postgres with password 'postgres@321'; 
+
+s
+//Tested on Ubuntu 17.10, if it doesn't work for you, please install Ubuntu
+
+
+
