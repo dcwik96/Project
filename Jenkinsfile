@@ -3,7 +3,7 @@ pipeline {
     tools {
         maven 'Maven'
         jdk 'OpenJDK 8'
-        node 'Node'
+        nodejs 'Node'
     }
     stages {
         stage('Build') {
