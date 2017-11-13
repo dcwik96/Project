@@ -2,18 +2,21 @@ pipeline {
     agent none
     stages {
         stage('Build') {
-           	
             steps {
-            	 try {
-            	 	notifyStarted()
                  	sh 'mvn --projects backend spring-boot:start'
-                 	notifySuccess()
-                 } catch(e) {
-                 	currentBuild.result = "FAILED"
-                 	notyfiFailed()
-                 	throw e
-                 }
             }
+        }
+    }
+
+    post {
+        always {
+            notifyStarted()
+        }
+        failure {
+            notifyFailed()
+        }
+        success {
+            notifySuccess()
         }
     }
 }
