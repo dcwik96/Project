@@ -8,4 +8,5 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <include file="data/changelogs/changelog-0.xml"/>
+    <include file="data/changelogs/changelog-0-inserts.xml"/>
 </databaseChangeLog>
