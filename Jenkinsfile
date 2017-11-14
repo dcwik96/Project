@@ -9,6 +9,8 @@ pipeline {
         stage('Build') {
             steps {
                  dir ('frontend') {
+                 	sh 'rm -rf node_modules'
+                 	sh 'npm install'
                  	sh 'npm run-script build'
                  }
             }
