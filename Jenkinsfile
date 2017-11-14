@@ -8,7 +8,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                 	sh 'cd fronted && npm run-script build'
+                 dir ('fronend') {
+                 	sh 'pwd'
+                 }
             }
         }
     }
