@@ -17,6 +17,7 @@ target/
 .springBeans
 node_modules/
 package-lock.json
+package.json
 
 ### IntelliJ IDEA ###
 .idea
