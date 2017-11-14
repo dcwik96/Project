@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="2" author="mario">
+        <insert schemaName="public"
+                tableName="advert">
+            <column name="title" value=" Samsung galaxy A5 jak nowy "/>
+            <column name="description" value="A5 stan jak nowy bez rys czy zadrapań caly komplet plus szybka hartowana plus 3 różne pokrowce . bateria w bdb stanie tel jak nowy "/>
+        </insert>
+        <insert schemaName="public"
+                tableName="advert">
+            <column name="title" value="Passat B4 -swieżo sprowadzony"/>
+            <column name="description" value="Prawie jak nowy, niemiec płakał jak sprzedawał!"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="advert">
+            <column name="title" value="Huawei P9 Lite "/>
+            <column name="description" value="Mam do sprzedania Telefon Huawei P9 Lite, jest nowy bez simlocka każda sieć działa."/>
+        </insert>
+        <insert schemaName="public"
+                tableName="advert">
+            <column name="title" value="Sprzedam Nokie N8-00 16GB 12MPX Carl Zeiss"/>
+            <column name="description" value="Witam. Posiadam na sprzedaż bardzo dobra Nokie N8. W super stanie jak na swoje lata. Delikatne zadrapania po lewej strony i to w zasadzie wszystko. Ekran nie posiada rys. Wygrzebana została z szafki. Bateria trzyma bardzo dobrze 5 do 6 dni."/>
+        </insert>
+        <insert schemaName="public"
+                tableName="advert">
+            <column name="title" value="Sony M4 Aqua wraz z etui super stan"/>
+            <column name="description" value="Witam. Mam do sprzedania telefon Sony Xperia M4 Aqua. Telefon w idealnym stanie technicznym jak i wizualnym. Użytkowany cały czas w etui i z szkłem hartowanym. "/>
+        </insert>
+         <insert schemaName="public"
+                tableName="photo">
+             <column name="advert_id" valueNumeric="1"/>
+             <column name="image" valueBlobFile="id1.jpeg"/>
+         </insert>
+        <insert schemaName="public"
+                tableName="photo">
+            <column name="advert_id" valueNumeric="2"/>
+            <column name="image" valueBlobFile="id2.jpg"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="photo">
+            <column name="advert_id" valueNumeric="3"/>
+            <column name="image" valueBlobFile="id3.png"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="photo">
+            <column name="advert_id" valueNumeric="4"/>
+            <column name="image" valueBlobFile="id4.jpeg"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="photo">
+            <column name="advert_id" valueNumeric="5"/>
+            <column name="image" valueBlobFile="id5.jpg"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>
