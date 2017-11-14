@@ -14,7 +14,7 @@ public class Photo {
     private Long id;
 
     @Lob
-    @Type(type="org.hibernate.type.BinaryType")
+    @Type(type = "org.hibernate.type.BinaryType")
     @Column(name = "image", nullable = false)
     private byte[] image;
 
