@@ -5,7 +5,7 @@ target/
 .apt_generated
 =======
 #MAC
-.DSstore
+.DS_Store
 #Test
 # eclipse ignore
 .settings/
@@ -24,7 +24,6 @@ target/
 
 ### NetBeans ###
 nbproject/private/
-build/
 nbbuild/
 dist/
 nbdist/
