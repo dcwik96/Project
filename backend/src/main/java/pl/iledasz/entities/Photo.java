@@ -1,5 +1,7 @@
 package pl.iledasz.entities;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,11 +14,12 @@ public class Photo {
     private Long id;
 
     @Lob
+    @Type(type="org.hibernate.type.BinaryType")
     @Column(name = "image", nullable = false)
     private byte[] image;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "advert_id", referencedColumnName = "id")
+    @JoinColumn(name = "advert_id")
     private Advertisement advertisement;
 
     public Photo() {
