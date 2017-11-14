@@ -8,8 +8,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                 dir ('fronend') {
-                 	sh 'pwd'
+                 dir ('frontend') {
+                 	sh 'npm run-script build'
                  }
             }
         }
