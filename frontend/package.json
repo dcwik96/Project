@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "whoamix <mfierek@protonmail.ch>",
+  "author": "wkorol <wiktorkorol@icloud.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
@@ -75,6 +75,8 @@
     "portfinder": "^1.0.13",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.9.1",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.18.2",
     "webpack-merge": "^4.1.0"
   },
   "engines": {
