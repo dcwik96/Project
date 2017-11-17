@@ -3,6 +3,7 @@ package pl.iledasz.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.iledasz.DTO.AdvertPhotoDTO;
 import pl.iledasz.entities.AdvertPhoto;
 import pl.iledasz.service.AdvertPhotoService;
 
@@ -20,7 +21,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "api/advertphoto")
-    public List<AdvertPhoto> getAll() {
+    public List<AdvertPhotoDTO> getAll() {
         return advertPhotoService.list();
     }
 
