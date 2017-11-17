@@ -8,11 +8,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                 dir ('frontend') {
-                 	sh 'rm -rf node_modules'
-                 	sh 'npm install'
-                 	sh 'npm run-script build'
-                 }
+                 	sh 'mvn clean && mvn install && mvn --projects backend spring-boot:start'
             }
         }
     }
