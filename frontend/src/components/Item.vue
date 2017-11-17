@@ -1,7 +1,7 @@
 <template>
-  <div class="Item" v-for="advert in adverts">
+  <div class="Item">
     <div class="card" style="width: 200px;">
-          <h7 class="card-title">{{}}</h7>
+          <h7 class="card-title">Komputer stacjonarny!</h7>
           <img class="card-img-top"
                src="https://media.gcflearnfree.org/content/55e0730c7dd48174331f5164_01_17_2014/desktop_mac_full_view_alt.jpg"
                alt="Card image cap">
@@ -14,20 +14,12 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   name: 'Item',
   data () {
     return {
-      adverts: []
+      msg: 'Item'
     }
-  },
-  created() {
-    axios.get("/api/adverts").then(response => {
-      this.adverts = response.data;
-    }).catch( e => {
-      this.errors.push(e);
-    })
   }
 }
 </script>
