@@ -19,15 +19,15 @@ public class Photo {
     private byte[] image;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "advert_id")
-    private Advertisement advertisement;
+    @JoinColumn(name = "advertphoto_id")
+    private AdvertPhoto advertphoto;
 
     public Photo() {
     }
 
-    public Photo(byte[] image, Advertisement advertisement) {
+    public Photo(byte[] image, AdvertPhoto advertphoto) {
         this.image = image;
-        this.advertisement = advertisement;
+        this.advertphoto = advertphoto;
     }
 
     public Long getId() {
@@ -46,11 +46,13 @@ public class Photo {
         this.image = image;
     }
 
-    public Advertisement getAdvertisement() {
-        return advertisement;
+    public AdvertPhoto getAdvertphoto() {
+        return advertphoto;
     }
 
-    public void setAdvertisement(Advertisement advertisement) {
-        this.advertisement = advertisement;
+    public void setAdvertphoto(AdvertPhoto advertphoto) {
+        this.advertphoto = advertphoto;
     }
 }
+
+
