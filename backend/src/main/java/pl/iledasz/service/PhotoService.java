@@ -1,15 +1,24 @@
 package pl.iledasz.service;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.iledasz.entities.Photo;
+import pl.iledasz.repository.PhotoRepository;
 
 import java.util.List;
 
-public interface PhotoService {
+@Service
+public class PhotoService {
 
-    Photo findById(Long id);
+    @Autowired
+    private PhotoRepository photoRepository;
 
-    Photo findByFilename(String filename);
+    public List<Photo> list() {
+        return photoRepository.findAll();
+    }
 
-    List<Photo> findAllPhotos();
-
+    public Photo findPhotoById(Long id) {
+        return photoRepository.findOneById(id);
+    }
 }

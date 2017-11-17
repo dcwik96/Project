@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+<changeSet id="1" author="mario">
+    <createTable tableName="advert">
+        <column name="id" type="int" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false"/>
+        </column>
+        <column name="title" type="varchar(50)">
+           <constraints nullable="false"/>
+        </column>
+        <column name="description" type="varchar(400)">
+            <constraints nullable="false"/>
+        </column>
+    </createTable>
+
+    <createTable tableName="advertphoto">
+        <column name="id" type="int" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false"/>
+        </column>
+        <column name="advert_id" type="int">
+            <constraints nullable="false"/>
+        </column>
+        <column name="description" type="varchar(50)">
+            <constraints nullable="false"/>
+        </column>
+    </createTable>
+
+    <createTable tableName="photo">
+        <column name="id" type="int" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false"/>
+        </column>
+        <column name="advertphoto_id" type="int">
+            <constraints nullable="false"/>
+        </column>
+        <column name="image" type="bytea">
+            <constraints nullable="false"/>
+        </column>
+    </createTable>
+
+    <addForeignKeyConstraint baseColumnNames="advert_id"
+                             baseTableName="advertphoto"
+                             constraintName="fk_advertphoto_advert"
+                             deferrable="true"
+                             initiallyDeferred="true"
+                             onDelete="CASCADE"
+                             onUpdate="RESTRICT"
+                             referencedColumnNames="id"
+                             referencedTableName="advert"/>
+
+    <addForeignKeyConstraint baseColumnNames="advertphoto_id"
+                             baseTableName="photo"
+                             constraintName="fk_photo_advertphoto"
+                             deferrable="true"
+                             initiallyDeferred="true"
+                             onDelete="CASCADE"
+                             onUpdate="RESTRICT"
+                             referencedColumnNames="id"
+                             referencedTableName="advertphoto"/>
+</changeSet>
+
+</databaseChangeLog>
