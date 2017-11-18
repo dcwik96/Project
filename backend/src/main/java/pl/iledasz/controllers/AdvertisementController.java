@@ -2,6 +2,7 @@ package pl.iledasz.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.iledasz.entities.Advertisement;
@@ -15,6 +16,7 @@ public class AdvertisementController {
     @Autowired
     private AdvertisementRepository advertisementRepository;
 
+    @CrossOrigin(origins="http://localhost:8081")
     @RequestMapping(value = "api/adverts")
     public List<Advertisement> getAdverts() {
         return advertisementRepository.findAll();

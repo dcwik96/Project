@@ -1,25 +1,41 @@
 <template>
-  <div class="Item">
-    <div class="card" style="width: 200px;">
-          <h7 class="card-title">Komputer stacjonarny!</h7>
-          <img class="card-img-top"
-               src="https://media.gcflearnfree.org/content/55e0730c7dd48174331f5164_01_17_2014/desktop_mac_full_view_alt.jpg"
-               alt="Card image cap">
-          <div class="card-body">
-            <p class="card-text">Pozostało czasu: xx:xx:xx</p>
-            <a href="#" class="btn btn-primary">Zobacz więcej</a>
-          </div>
-    </div>
-    </div>
+
+  <ul v-if="adverts && adverts.length">
+    <li v-for="advert in adverts">
+      <p><strong>{{advert.title}}</strong></p>
+    </li>
+  </ul>
+  <ul v-else>
+    <li v-for="error of errors">
+      {{error.message}}
+    </li>
+  </ul>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Item',
   data () {
     return {
-      msg: 'Item'
+      adverts: [],
+      errors: []
     }
+  },
+  created() {
+    var config = {
+      headers: {'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*"
+      }
+    }
+    axios.get('http://localhost:8080/api/adverts', {},config)
+    .then(response => {
+      this.adverts = response.data
+    })
+    .catch(e => {
+      this.errors.push(e)
+    })
   }
 }
 </script>
