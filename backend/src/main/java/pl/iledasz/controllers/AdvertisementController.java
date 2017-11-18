@@ -2,10 +2,12 @@ package pl.iledasz.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.iledasz.DTO.AdvertisementDTO;
 import pl.iledasz.entities.Advertisement;
-import pl.iledasz.repository.AdvertisementRepository;
+import pl.iledasz.service.AdvertisementService;
 
 import java.util.List;
 
@@ -13,11 +15,17 @@ import java.util.List;
 public class AdvertisementController {
 
     @Autowired
-    private AdvertisementRepository advertisementRepository;
+    private AdvertisementService advertisementService;
 
     @RequestMapping(value = "api/adverts")
-    public List<Advertisement> getAdverts() {
-        return advertisementRepository.findAll();
+    public List<AdvertisementDTO> getAdverts() {
+        return advertisementService.randomList();
     }
+
+    @RequestMapping(value = "api/advert/{id}")
+    public Advertisement getAdvertById(@PathVariable("id") Long id) {
+        return advertisementService.findOneById(id);
+    }
+
 
 }

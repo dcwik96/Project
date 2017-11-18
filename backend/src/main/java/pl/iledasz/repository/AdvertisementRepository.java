@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface AdvertisementRepository extends JpaRepository<Advertisement, Long> {
 
+    Advertisement findOneById(Long id);
+
 }
