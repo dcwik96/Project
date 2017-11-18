@@ -7,6 +7,7 @@ pipeline {
     }
     stages {
         stage('Build') {
+
             steps {
                  	sh 'mvn clean && mvn install && mvn --projects backend spring-boot:start'
             }
@@ -22,6 +23,7 @@ pipeline {
         }
         success {
             notifySuccess()
+
         }
     }
 }

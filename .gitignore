@@ -17,6 +17,7 @@ target/
 .springBeans
 node_modules/
 package-lock.json
+package.json
 
 ### IntelliJ IDEA ###
 .idea
@@ -26,7 +27,6 @@ package-lock.json
 
 ### NetBeans ###
 nbproject/private/
-build/
 nbbuild/
 dist/
 nbdist/
