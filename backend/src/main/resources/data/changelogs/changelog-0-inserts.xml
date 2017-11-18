@@ -33,29 +33,58 @@
             <column name="title" value="Sony M4 Aqua wraz z etui super stan"/>
             <column name="description" value="Witam. Mam do sprzedania telefon Sony Xperia M4 Aqua. Telefon w idealnym stanie technicznym jak i wizualnym. Użytkowany cały czas w etui i z szkłem hartowanym. "/>
         </insert>
+
+        <insert schemaName="public"
+                tableName="advertphoto">
+            <column name="advert_id" valueNumeric="1"/>
+            <column name="description" value="Simple desc"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="advertphoto">
+            <column name="advert_id" valueNumeric="2"/>
+            <column name="description" value="Simple desc"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="advertphoto">
+            <column name="advert_id" valueNumeric="3"/>
+            <column name="description" value="Simple desc"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="advertphoto">
+            <column name="advert_id" valueNumeric="4"/>
+            <column name="description" value="Simple desc"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="advertphoto">
+            <column name="advert_id" valueNumeric="5"/>
+            <column name="description" value="Simple desc"/>
+        </insert>
+
+
+
          <insert schemaName="public"
                 tableName="photo">
-             <column name="advert_id" valueNumeric="1"/>
+             <column name="advertphoto_id" valueNumeric="1"/>
              <column name="image" valueBlobFile="id1.jpeg"/>
          </insert>
         <insert schemaName="public"
                 tableName="photo">
-            <column name="advert_id" valueNumeric="2"/>
+            <column name="advertphoto_id" valueNumeric="2"/>
             <column name="image" valueBlobFile="id2.jpg"/>
         </insert>
         <insert schemaName="public"
                 tableName="photo">
-            <column name="advert_id" valueNumeric="3"/>
+            <column name="advertphoto_id" valueNumeric="3"/>
             <column name="image" valueBlobFile="id3.png"/>
         </insert>
         <insert schemaName="public"
                 tableName="photo">
-            <column name="advert_id" valueNumeric="4"/>
+            <column name="advertphoto_id" valueNumeric="4"/>
             <column name="image" valueBlobFile="id4.jpeg"/>
         </insert>
         <insert schemaName="public"
                 tableName="photo">
-            <column name="advert_id" valueNumeric="5"/>
+            <column name="advertphoto_id" valueNumeric="5"/>
             <column name="image" valueBlobFile="id5.jpg"/>
         </insert>
 

@@ -1,0 +1,33 @@
+package pl.iledasz.service;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pl.iledasz.DTO.AdvertPhotoDTO;
+import pl.iledasz.entities.AdvertPhoto;
+import pl.iledasz.repository.AdvertPhotoRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class AdvertPhotoService {
+
+    @Autowired
+    private AdvertPhotoRepository advertPhotoRepository;
+
+    public List<AdvertPhotoDTO> list() {
+        ModelMapper modelMapper = new ModelMapper();
+
+        List<AdvertPhoto> advertPhotos = advertPhotoRepository.findAll();
+        List<AdvertPhotoDTO> advertPhotoDTOS = new ArrayList<>();
+
+        for (AdvertPhoto advertPhoto : advertPhotos) {
+            AdvertPhotoDTO advertPhotoDTO = modelMapper.map(advertPhoto, AdvertPhotoDTO.class);
+            advertPhotoDTOS.add(advertPhotoDTO);
+        }
+
+        return advertPhotoDTOS;
+    }
+
+}
