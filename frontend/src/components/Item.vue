@@ -1,6 +1,6 @@
 <template>
-
-  <ul v-if="adverts && adverts.length">
+  
+  <!-- <ul v-if="adverts && adverts.length" class="col-sm-12">
     <li v-for="advert in adverts">
       <p><strong>{{advert.title}}</strong></p>
     </li>
@@ -9,7 +9,7 @@
     <li v-for="error of errors">
       {{error.message}}
     </li>
-  </ul>
+  </ul> -->
 </template>
 
 <script>
@@ -40,7 +40,7 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!-- Add "scoped" attribute to limit CSS to this component only
 <style scoped>
 h1, h2 {
   font-weight: normal;
@@ -60,3 +60,4 @@ a {
   color: #42b983;
 }
 </style>
+ -->
