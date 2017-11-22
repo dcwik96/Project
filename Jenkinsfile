@@ -7,6 +7,10 @@ pipeline {
     }
     stages {
         stage('Build') {
+<<<<<<< HEAD
+=======
+
+>>>>>>> bootstrap-layout
             steps {
                  	sh 'mvn clean && mvn install && mvn --projects backend spring-boot:start'
             }
@@ -22,6 +26,10 @@ pipeline {
         }
         success {
             notifySuccess()
+<<<<<<< HEAD
+=======
+
+>>>>>>> bootstrap-layout
         }
     }
 }
