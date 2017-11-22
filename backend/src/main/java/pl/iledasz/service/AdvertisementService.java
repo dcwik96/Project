@@ -1,10 +1,13 @@
 package pl.iledasz.service;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.iledasz.DTO.AdvertisementDTO;
 import pl.iledasz.entities.Advertisement;
 import pl.iledasz.repository.AdvertisementRepository;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,11 +21,19 @@ public class AdvertisementService {
         return advertisementRepository.findAll();
     }
 
-    public List<Advertisement> randomList() {
-        List<Advertisement> list = advertisementRepository.findAll();
-        Collections.shuffle(list);
+    public List<AdvertisementDTO> randomList() {
+        ModelMapper modelMapper = new ModelMapper();
 
-        return list;
+        List<Advertisement> adverts = advertisementRepository.findAll();
+        Collections.shuffle(adverts);
+        List<AdvertisementDTO> advertisementDTOS = new ArrayList<>();
+
+        for (Advertisement advertisement : adverts) {
+            AdvertisementDTO advertisementDTO = modelMapper.map(advertisement, AdvertisementDTO.class);
+            advertisementDTOS.add(advertisementDTO);
+        }
+
+        return advertisementDTOS;
     }
 
     public Advertisement findOneById(Long id) {
