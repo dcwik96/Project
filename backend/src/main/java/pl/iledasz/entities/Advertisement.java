@@ -18,12 +18,17 @@ public class Advertisement {
     @Column(name = "description", nullable = false)
     private String description;
 
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "app_user_id")
+    private AppUser appUser;
+
     public Advertisement() {
     }
 
-    public Advertisement(String title, String description) {
+    public Advertisement(String title, String description, AppUser appUser) {
         this.title = title;
         this.description = description;
+        this.appUser = appUser;
     }
 
     public Long getId() {
@@ -48,5 +53,13 @@ public class Advertisement {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 }

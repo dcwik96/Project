@@ -9,4 +9,7 @@
 
     <include file="data/changelogs/changelog-0.xml"/>
     <include file="data/changelogs/changelog-0-inserts.xml"/>
+
+    <include file="data/changelogs/changelog-1.xml"/>
+    <include file="data/changelogs/changelog-1-inserts.xml"/>
 </databaseChangeLog>
