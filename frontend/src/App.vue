@@ -4,8 +4,8 @@
       <div class="row" v-for="i in Math.ceil(adverts.length / 3)">
         <div v-for="advert in adverts.slice((i - 1) * 3, i * 3)" class="col-sm-4" >
 
-          <div class="card text-center align-middle">
-            <img v-bind:src="'http://localhost:8080/api/photos/' + advert.id" class="mx-auto d-block" style="width: 200px;">
+          <div class="card text-center align-middle" style="height: 350px; margin-bottom: 20px;">
+            <img v-bind:src="'http://localhost:8080/api/photos/' + advert.id" class="mx-auto d-block" style="width: 200px; height: 150px;">
             <div class="card-block">
               <h6 class="card-title">{{advert.title}}</h6>
               <div class="card-body">

@@ -18,6 +18,7 @@ target/
 node_modules/
 package-lock.json
 package.json
+backend/src/main/resources/public
 
 ### IntelliJ IDEA ###
 .idea
