@@ -1,22 +1,17 @@
 <template>
   <div>
     <button
-      @click="$modal.show('demo-login')">
+      @click="$modal.show('login')">
       modal
     </button>
-    <demo-login-modal></demo-login-modal>
+    <login-modal></login-modal>
   </div>
 </template>
 <script>
   import Modal from './Modal.vue'
 
   export default {
-    components: {DemoLoginModal: Modal},
-    methods: {
-      show: function () {
-        this.$modal.show('dialog')
-      }
-    }
+    components: {LoginModal: Modal},
   }
 </script>
 <style lang="css">
