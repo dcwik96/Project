@@ -1,15 +1,48 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Item from '@/components/Item'
+import Home from '../components/Home.vue';
+import Header from '../components/shared/Header.vue';
+import ItemBrowse from '../components/ItemBrowse.vue';
+//
+// const User = resolve => {
+//   require.ensure(['./components/user/User.vue'], () => {
+//     resolve(require('./components/user/User.vue'))
+//   }, 'user');
+// };
+// const UserDetail = resolve => {
+//   require.ensure(['./components/user/UserDetail.vue'], () => {
+//     resolve(require('./components/user/UserDetail.vue'))
+//   }, 'user');
+// };
+// const UserEdit = resolve => {
+//   require.ensure(['./components/user/UserEdit.vue'], () => {
+//     resolve(require('./components/user/UserEdit.vue'))
+//   }, 'user');
+// };
+// const UserStart = resolve => {
+//   require.ensure(['./components/user/UserStart.vue'], () => {
+//     resolve(require('./components/user/UserStart.vue'))
+//   }, 'user');
+// };
 
-Vue.use(Router)
+export const routes = [
+  { path: '', name: 'home', components: {
+    default: Home,
+    'header-top': Header
+  }},
+  {path: '/browse', name: 'browse', component: ItemBrowse},
+  { path: '*', redirect: '/'}
 
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Item',
-      component: Item
-    }
-  ]
-})
+  // { path: '/browse', components: {
+  //   default: ItemBrowse,
+  //   'header-bottom': Header
+  // }, children: [
+  //   {path: '', component: UserStart},
+  //   {path: ':id', component: UserDetail, beforeEnter: (to,from,next) =>{
+  //     console.log('inside route setup');
+  //     next();
+  //   }},
+  //   {path: ':id/edit', component: UserEdit, name: 'userEdit'}
+  // ]},
+  // { path: '/redirect-me', redirect: {name: 'home'}},
+
+];
+
