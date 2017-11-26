@@ -24,21 +24,18 @@ Utworzenie bazy:
 sudo -u postgres createuser --interactive $USER
 sudo -u postgres createdb base 
 psql -d base
-ALTER USER postgres with password 'postgres@321;
+ALTER USER postgres with password 'postgres@321';
 ```
 
-Aby uruchomić frontend.
-Przechodzimy do katalogu frontend i wywyołujemy:
-```
-npm install # instalacja zależności
-npm run dev # server z hotswapem
-```
-
-Uruchominie backendu 
-Przechodzimy do katalogu backend i wywołujemy:
+Uruchominie aplikacji
 
 ```
-mvn install && mvn --project backend spring-boot:run
+mvn install && mvn --projects backend spring-boot:run
+```
+
+Aby uruchomić frontend na serwerze z hotswapem, przechodzimy do katalogu frontend i wywołujemy:
+```
+npm run dev
 ```
 
 ## Deployment
