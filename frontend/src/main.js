@@ -3,9 +3,13 @@ import App from './App'
 import VueRouter from 'vue-router'
 import { routes } from './router/index'
 import VModal from 'vue-js-modal'
+import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 Vue.use(VModal)
 Vue.use(VueRouter)
+Vue.use(BootstrapVue);
 
 const Plugin = {
   install (Vue, options = {}) {

@@ -19,7 +19,10 @@
 
             <router-link to="/" tag="li" active-class="active" exact><a>Strona główna</a></router-link>
             <router-link to="/browse" tag="li" active-class="active"><a>Przeglądaj</a></router-link>
-
+            <li>  <button
+              @click="$modal.show('login')">
+              modal
+            </button></li>
             <!--<li class="nav-item">-->
               <!--<a class="nav-link active" href="/">Strona główna</a>-->
             <!--</li>-->
@@ -53,6 +56,7 @@
 </template>
 
 <script>
+  import ModalForm from '../ModalForm.vue'
   import LogPanel from './LogPanel.vue'
   export default {
     components: {
