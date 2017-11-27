@@ -5,4 +5,6 @@ import pl.iledasz.entities.AppUser;
 
 
 public interface AppUserRepository extends JpaRepository<AppUser,Long> {
+
+    public AppUser findOneByLogin(String login);
 }
