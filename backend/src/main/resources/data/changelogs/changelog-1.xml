@@ -43,8 +43,16 @@
         <column name="password" type="varchar(20)">
             <constraints nullable="false"/>
         </column>
+        <column name="enable" type="boolean">
+        </column>
     </createTable>
+
+    <addDefaultValue columnName="enable"
+                     defaultValueBoolean="true"
+                     schemaName="public"
+                     tableName="app_user"/>
     <addColumn tableName="advert">
+
         <column name="app_user_id" type="int"/>
     </addColumn>
 
