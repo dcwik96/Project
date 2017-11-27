@@ -14,7 +14,8 @@
               <input id="n-password2" type="password" placeholder="Password">
             </form>
             <div style="margin-top: 42px">
-            </div>
+            </div>ls
+
             <div class="button-set">
               <button id="goto-signin-btn">Sign In</button>
               <button id="register-btn">Register</button>
