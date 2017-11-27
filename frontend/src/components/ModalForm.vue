@@ -1,7 +1,7 @@
 <template>
   <modal name="login" transition="pop-out" :width="modalWidth" :height="400">
     <b-card no-body>
-      <b-tabs pills card end>
+      <b-tabs pills card>
         <b-tab title="Zaloguj" active>
           <app-login-form></app-login-form>
         </b-tab>
@@ -35,11 +35,11 @@
   }
 </script>
 <style>
-  .nav-pills a {
+  .pills a {
     color: white;
   }
 
-  .nav-pills a:hover {
+  .pills a:hover {
     color: black;
   }
 </style>

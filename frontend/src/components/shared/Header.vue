@@ -1,5 +1,6 @@
 <template>
   <div>
+    <modal-form></modal-form>
   <div class="row ">
 
     <div class="col-md-12 "><img src="img/logo.png"><log-panel></log-panel></div>
@@ -19,10 +20,9 @@
 
             <router-link to="/" tag="li" active-class="active" exact><a>Strona główna</a></router-link>
             <router-link to="/browse" tag="li" active-class="active"><a>Przeglądaj</a></router-link>
-            <li>  <button
-              @click="$modal.show('login')">
-              modal
-            </button></li>
+            <li class="nav-item">
+            <a class="nav-link"  @click="$modal.show('login')">Konto</a>
+            </li>
             <!--<li class="nav-item">-->
               <!--<a class="nav-link active" href="/">Strona główna</a>-->
             <!--</li>-->
@@ -60,7 +60,8 @@
   import LogPanel from './LogPanel.vue'
   export default {
     components: {
-      LogPanel
+      LogPanel,
+      ModalForm
     }
   }
 </script>
