@@ -18,8 +18,7 @@ target/
 node_modules/
 package-lock.json
 package.json
-backend/src/main/resources/public
-
+npm-debug.log
 ### IntelliJ IDEA ###
 .idea
 *.iws
