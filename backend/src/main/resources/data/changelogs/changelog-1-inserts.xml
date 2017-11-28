@@ -24,7 +24,7 @@
             <column name="login" value="mfierek"/>
             <column name="email" value="kfierek@pornhub.com"/>
             <column name="phone_number" value="342124543"/>
-            <column name="password" value="mfirules"/>
+            <column name="password" value="$2a$06$Vd2jyu2c9/L42uYz1lxTdeQDWNb5Y.MjIOwI/ELdRMa3HQMwnVJEy"/>
         </insert>
         <insert schemaName="public"
                 tableName="app_user">
@@ -34,7 +34,7 @@
             <column name="login" value="cwiq"/>
             <column name="email" value="wcwik@pornhub.com"/>
             <column name="phone_number" value="342324543"/>
-            <column name="password" value="mfirules"/>
+            <column name="password" value="$2a$06$Vd2jyu2c9/L42uYz1lxTdeQDWNb5Y.MjIOwI/ELdRMa3HQMwnVJEy"/>
         </insert>
         <update schemaName="public"
                 tableName="advert">

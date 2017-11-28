@@ -16,7 +16,6 @@ public class AppUserService {
     public AppUserDTO getUser(Long id)
     {
         ModelMapper mapper = new ModelMapper();
-        System.out.println("Mam:" +appUserRepository.findOne(id));
         return mapper.map(appUserRepository.findOne(id),AppUserDTO.class);
     }
 
