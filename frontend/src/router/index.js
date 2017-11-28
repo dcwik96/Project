@@ -36,6 +36,8 @@ export const routes = [
   {path: '/browse', name: 'browse', component: ItemBrowse},
   { path: '*', redirect: '/'}
 
+
+
   // { path: '/browse', components: {
   //   default: ItemBrowse,
   //   'header-bottom': Header

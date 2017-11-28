@@ -1,14 +1,50 @@
 <template>
 <div>
-    <div style="margin-bottom: 5px;"><img src="img/avatar.png" alt=""
-                                          style="width: 30px; vertical-align: middle;"><a
-      style="vertical-align: middle; margin-left: 10px;">Witaj, Mariusz!</a><br></div>
 
-  <button class="btn btn-primary">Konto</button>
-    <button class="btn btn-primary">Test1</button>
-    <button class="btn btn-primary">Test2</button>
-    <button class="btn btn-primary">Test3</button>
-    <button class="btn btn-primary">Test4</button>
+  <modal-form></modal-form>
+  <div class="btn-group-justified">
+  <div v-if="!loggedIn" class="btn btn-success" @click="$modal.show('login')"><a>Panel logowania</a></div>
+  </div>
+
+  <div v-if="loggedIn" >
+
+  <div class="dropdown">
+    <button id="avatarButton" class="btn btn-default" type="button" data-toggle="dropdown">
+      <img class="mr-2" src="img/avatar.png" style="width: 30px;">
+      Witaj, Mariusz!
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href="#" >Ustawienia konta</a></li>
+      <!--<li><a href="#">Test</a></li>-->
+      <li><a href="#">Wyloguj</a></li>
+    </ul>
+    <div id="functionPanel" class="btn-group-vertical">
+      <div class="btn btn-default mb-1 text-left">Wystaw przedmiot</div>
+      <div class="input-group">
+      <div class="btn btn-default mb-1">Twoje przedmioty <span class="badge badge-default badge-pill">1</span></div>
+      </div>
+    <div class="btn btn-default text-left">Złożone oferty <span class="badge badge-default badge-pill">0</span></div>
+
+    </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+  <!--<div class="btn-group mb-1">-->
+  <!--<button class="btn mr-1 btn-secondary">Wystaw ></button>-->
+    <!--<button class="btn mr-1 btn-secondary">Konto ></button>-->
+    <!--<button class="btn mr-1 btn-secondary">Przedmioty</button>-->
+    <!--<button class="btn mr-1 btn-secondary">Oferty</button>-->
+    <!--<button class="btn mr-1 btn-secondary">Wygrane</button>-->
+    <!--<button class="btn mr-1 btn-secondary">Wyloguj</button>-->
+  <!--</div>-->
 
 
     <!--<button type="button" class="btn btn-info mr-1"-->
@@ -37,3 +73,25 @@
 
 </div>
 </template>
+
+<script>
+  import ModalForm from '../ModalForm.vue'
+  export default {
+    data() {
+      return {
+        loggedIn: true
+      }
+    },
+    components: {
+      ModalForm
+    }
+
+  }
+
+
+
+//    document.getElementById('#logButton').style.height = height;
+
+
+</script>
+

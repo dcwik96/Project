@@ -52,3 +52,6 @@ new Vue({
   router,
   render: h => h(App)
 })
+
+var height = document.getElementById('functionPanel').clientHeight;
+document.getElementById('avatarButton').style.height = height + 'px';

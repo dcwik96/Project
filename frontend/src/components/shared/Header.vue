@@ -1,10 +1,10 @@
 <template>
   <div>
-    <modal-form></modal-form>
+
   <div class="row align-items-center">
 
-    <div class="col-md-4 col-sm-12"><img src="img/logo.png"></div>
-    <div class="col-md-4 col-md-offset-4 col-sm-12"><log-panel></log-panel></div>
+    <div class="col-md-4 mr-auto"><img src="img/logo.png"></div>
+    <div class="col-md-4"><log-panel></log-panel></div>
   </div>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark m-auto">
@@ -17,21 +17,16 @@
 
 
 
-          <ul class="nav nav-pills nav-fill mr-auto">
+          <ul class="nav nav-pills mr-auto">
 
             <router-link to="/" tag="li" active-class="active" exact><a>Strona główna</a></router-link>
             <router-link to="/browse" tag="li" active-class="active"><a>Przeglądaj</a></router-link>
-            <li class="nav-item">
-            <a class="nav-link"  @click="$modal.show('login')">Konto</a>
-            </li>
-
 
           </ul>
 
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Wyszukaj" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Szukaj</button>
-        </form>
+
+
+
       </div>
     </nav>
 
@@ -49,12 +44,10 @@
 </template>
 
 <script>
-  import ModalForm from '../ModalForm.vue'
   import LogPanel from './LogPanel.vue'
   export default {
     components: {
-      LogPanel,
-      ModalForm
+      LogPanel
     }
   }
 </script>
