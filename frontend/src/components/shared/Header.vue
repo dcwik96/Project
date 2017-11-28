@@ -1,9 +1,10 @@
 <template>
   <div>
     <modal-form></modal-form>
-  <div class="row ">
+  <div class="row align-items-center">
 
-    <div class="col-md-12 "><img src="img/logo.png"><log-panel></log-panel></div>
+    <div class="col-md-4 col-sm-12"><img src="img/logo.png"></div>
+    <div class="col-md-4 col-md-offset-4 col-sm-12"><log-panel></log-panel></div>
   </div>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark m-auto">
@@ -23,15 +24,7 @@
             <li class="nav-item">
             <a class="nav-link"  @click="$modal.show('login')">Konto</a>
             </li>
-            <!--<li class="nav-item">-->
-              <!--<a class="nav-link active" href="/">Strona główna</a>-->
-            <!--</li>-->
-            <!--<li class="nav-item">-->
-              <!--<a class="nav-link" href="/">Przeglądaj</a>-->
-            <!--</li>-->
-            <!--<li class="nav-item">-->
-              <!--<a class="nav-link" href="/">Losuj</a>-->
-            <!--</li>-->
+
 
           </ul>
 
