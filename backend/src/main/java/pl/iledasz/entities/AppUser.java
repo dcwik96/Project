@@ -1,9 +1,9 @@
 package pl.iledasz.entities;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 
@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class AppUser {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -32,6 +32,7 @@ public class AppUser {
     @Column(name = "login", nullable = false)
     private String login;
 
+    @Email
     @Column(name = "email", nullable = false)
     private String email;
 

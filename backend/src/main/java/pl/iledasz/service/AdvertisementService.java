@@ -40,7 +40,7 @@ public class AdvertisementService {
 
         ModelMapper modelMapper = new ModelMapper();
         AdvertisementDTO advertisementDTO = modelMapper.map(
-                advertisementRepository.findOneById(id),AdvertisementDTO.class);
+                advertisementRepository.findOneById(id), AdvertisementDTO.class);
         return advertisementDTO;
     }
 

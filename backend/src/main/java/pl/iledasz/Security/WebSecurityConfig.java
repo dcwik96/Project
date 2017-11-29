@@ -9,8 +9,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.iledasz.service.UserDetailsServiceImpl;
@@ -27,10 +25,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
 
-            DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-            authProvider.setUserDetailsService(userDetailsService);
-            authProvider.setPasswordEncoder(encoder());
-            return authProvider;
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(encoder());
+        return authProvider;
     }
 
     @Bean
@@ -45,20 +43,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/hello" ).permitAll()
-                .antMatchers("/hellosecure" ).authenticated()
-                .antMatchers("/helloadmin" ).hasAuthority("ADMINISTRATOR")
+                .antMatchers("/registration").permitAll()
+                .antMatchers("/hello").permitAll()
+                .antMatchers("/hellosecure").authenticated()
+                .antMatchers("/helloadmin").hasAuthority("ADMINISTRATOR")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .permitAll();
+
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
-    throws Exception {
-      auth.authenticationProvider(authenticationProvider());
+            throws Exception {
+        auth.authenticationProvider(authenticationProvider());
     }
 
 }

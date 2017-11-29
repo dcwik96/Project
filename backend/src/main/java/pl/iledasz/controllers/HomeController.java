@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.iledasz.DTO.AdvertPhotoDTO;
 import pl.iledasz.DTO.AppUserDTO;
+import pl.iledasz.entities.AppUser;
 import pl.iledasz.service.AdvertPhotoService;
 import pl.iledasz.service.AppUserService;
 
@@ -21,7 +22,8 @@ public class HomeController {
     @Autowired
     private AppUserService appUserService;
 
-    BCryptPasswordEncoder bcrypt= new BCryptPasswordEncoder(6);
+
+    BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder(6);
 
     @RequestMapping(value = "/hello")
     public String hello() {
@@ -49,10 +51,16 @@ public class HomeController {
         return appUserService.getUser(id);
     }
 
+    @RequestMapping(value = "/users")
+    public List<AppUser> getUsers() {
+        return appUserService.getUsers();
+    }
+
     //Temporary request for getting password hash
     @RequestMapping(value = "api/passwd/{passwd}")
     public String passhash(@PathVariable("passwd") String pass) {
         return bcrypt.encode(pass);
     }
+
 
 }
