@@ -22,10 +22,9 @@ public class AdvertPhotoService {
         List<AdvertPhoto> advertPhotos = advertPhotoRepository.findAll();
         List<AdvertPhotoDTO> advertPhotoDTOS = new ArrayList<>();
 
-        for (AdvertPhoto advertPhoto : advertPhotos) {
-            AdvertPhotoDTO advertPhotoDTO = modelMapper.map(advertPhoto, AdvertPhotoDTO.class);
-            advertPhotoDTOS.add(advertPhotoDTO);
-        }
+        for (AdvertPhoto advertPhoto : advertPhotos)
+            advertPhotoDTOS.add(modelMapper.map(advertPhoto, AdvertPhotoDTO.class));
+
 
         return advertPhotoDTOS;
     }

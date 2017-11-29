@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="2" author="mario">
+        <insert schemaName="public"
+                tableName="role">
+            <column name="role" value="ADMINISTRATOR"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="role">
+            <column name="role" value="USER"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="app_user">
+            <column name="name" value="Dawid"/>
+            <column name="role_id" valueNumeric="1"/>
+            <column name="surname" value="Korol"/>
+            <column name="login" value="mfierek"/>
+            <column name="email" value="kfierek@pornhub.com"/>
+            <column name="phone_number" value="342124543"/>
+            <column name="password" value="$2a$06$Vd2jyu2c9/L42uYz1lxTdeQDWNb5Y.MjIOwI/ELdRMa3HQMwnVJEy"/>
+        </insert>
+        <insert schemaName="public"
+                tableName="app_user">
+            <column name="name" value="Wiktor"/>
+            <column name="role_id" valueNumeric="2"/>
+            <column name="surname" value="Fierek"/>
+            <column name="login" value="cwiq"/>
+            <column name="email" value="wcwik@pornhub.com"/>
+            <column name="phone_number" value="342324543"/>
+            <column name="password" value="$2a$06$Vd2jyu2c9/L42uYz1lxTdeQDWNb5Y.MjIOwI/ELdRMa3HQMwnVJEy"/>
+        </insert>
+        <update schemaName="public"
+                tableName="advert">
+            <column name="app_user_id" valueNumeric="1"/>
+            <where>id = 1</where>
+        </update>
+        <update schemaName="public"
+                tableName="advert">
+            <column name="app_user_id" valueNumeric="2"/>
+            <where>id = 2</where>
+        </update>
+        <update schemaName="public"
+                tableName="advert">
+            <column name="app_user_id" valueNumeric="2"/>
+            <where>id = 3</where>
+        </update>
+        <update schemaName="public"
+                tableName="advert">
+            <column name="app_user_id" valueNumeric="2"/>
+            <where>id = 4</where>
+        </update>
+        <update schemaName="public"
+                tableName="advert">
+            <column name="app_user_id" valueNumeric="2"/>
+            <where>id = 5</where>
+        </update>
+
+
+    </changeSet>
+</databaseChangeLog>

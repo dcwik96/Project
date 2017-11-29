@@ -36,8 +36,12 @@ public class AdvertisementService {
         return advertisementDTOS;
     }
 
-    public Advertisement findOneById(Long id) {
-        return advertisementRepository.findOneById(id);
+    public AdvertisementDTO findOneById(Long id) {
+
+        ModelMapper modelMapper = new ModelMapper();
+        AdvertisementDTO advertisementDTO = modelMapper.map(
+                advertisementRepository.findOneById(id), AdvertisementDTO.class);
+        return advertisementDTO;
     }
 
 }
