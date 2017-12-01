@@ -1,10 +1,17 @@
 package pl.iledasz.entities;
 
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "advert")
+@NoArgsConstructor
+@Getter
+@Setter
 public class Advertisement {
 
     @Id
@@ -22,44 +29,10 @@ public class Advertisement {
     @JoinColumn(name = "app_user_id")
     private AppUser appUser;
 
-    public Advertisement() {
-    }
-
     public Advertisement(String title, String description, AppUser appUser) {
         this.title = title;
         this.description = description;
         this.appUser = appUser;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public AppUser getAppUser() {
-        return appUser;
-    }
-
-    public void setAppUser(AppUser appUser) {
-        this.appUser = appUser;
-    }
 }

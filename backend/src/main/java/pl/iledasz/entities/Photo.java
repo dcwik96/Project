@@ -1,11 +1,17 @@
 package pl.iledasz.entities;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "photo")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Photo {
 
     @Id
@@ -22,8 +28,6 @@ public class Photo {
     @JoinColumn(name = "advertphoto_id")
     private AdvertPhoto advertphoto;
 
-    public Photo() {
-    }
 
     public Photo(byte[] image, AdvertPhoto advertphoto) {
         this.image = image;
@@ -34,25 +38,6 @@ public class Photo {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public AdvertPhoto getAdvertphoto() {
-        return advertphoto;
-    }
-
-    public void setAdvertphoto(AdvertPhoto advertphoto) {
-        this.advertphoto = advertphoto;
-    }
 }
 
 
