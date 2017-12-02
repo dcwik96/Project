@@ -29,15 +29,20 @@ public class AppUserValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "NotEmpty", "Login nie moze byc pusty!");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty", "Haslo nie moze byc puste!");
 
-        if (user.getLogin().length() < 3) {
-            errors.rejectValue("login", "loginLenght", "Login jest za krótki!");
-        }
-        if (appUserService.findByLogin(user.getLogin()) != null) {
-            errors.rejectValue("login", "loginDuplicate", "Taki login juz istnieje!");
+
+        if(!errors.hasErrors())
+        {
+            if (user.getLogin().length() < 3) {
+                errors.rejectValue("login", "loginLenght", "Login jest za krótki!");
+            }
+            if (appUserService.findByLogin(user.getLogin()) != null) {
+                errors.rejectValue("login", "loginDuplicate", "Taki login juz istnieje!");
+            }
+
+            if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
+                errors.rejectValue("password", "Size.userForm.password", "Za krótkie haslo!");
+            }
         }
 
-        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
-            errors.rejectValue("password", "Size.userForm.password", "Za krótkie haslo!");
-        }
     }
 }

@@ -2,12 +2,12 @@ package pl.iledasz.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import pl.iledasz.DTO.AdvertisementDTO;
 import pl.iledasz.entities.Advertisement;
+import pl.iledasz.entities.AppUser;
 import pl.iledasz.service.AdvertisementService;
 
 import java.util.List;

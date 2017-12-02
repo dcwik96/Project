@@ -8,7 +8,6 @@ import javax.persistence.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import pl.iledasz.DTO.AdvertPhotoDTO;
 
 import java.util.List;
 
@@ -37,7 +36,6 @@ public class Advertisement {
 
     @OneToMany (mappedBy = "advertisement")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @Fetch(FetchMode.SELECT)
     private List<AdvertPhoto> photos;
 
     public Advertisement(String title, String description, AppUser appUser, List<AdvertPhoto> photos) {
