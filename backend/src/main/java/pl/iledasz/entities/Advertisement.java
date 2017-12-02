@@ -8,6 +8,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import pl.iledasz.DTO.AdvertPhotoDTO;
 
 import java.util.List;
 

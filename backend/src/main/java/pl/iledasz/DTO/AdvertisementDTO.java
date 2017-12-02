@@ -18,6 +18,6 @@ public class AdvertisementDTO {
     private Long id;
     private String title;
     private String description;
-    private List<AdvertPhoto> photos;
+    private List<AdvertPhotoDTO> photos;
 
 }
