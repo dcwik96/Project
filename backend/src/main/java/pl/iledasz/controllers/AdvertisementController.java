@@ -26,7 +26,14 @@ public class AdvertisementController {
 
     @RequestMapping(value = "api/advert/{id}")
     public AdvertisementDTO getAdvertById(@PathVariable("id") Long id) {
+
         return advertisementService.findOneById(id);
+    }
+
+    @RequestMapping(value = "api/advert1")
+    public List<Advertisement> getAdverts1() {
+
+        return advertisementService.orderedList();
     }
 
 
