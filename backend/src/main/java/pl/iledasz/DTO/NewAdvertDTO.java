@@ -1,9 +1,15 @@
 package pl.iledasz.DTO;
 
+import javassist.bytecode.Descriptor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.TreeMap;
 
 @Getter
 @Setter
@@ -17,8 +23,21 @@ public class NewAdvertDTO {
     private String description;
 
     //Photo-Advert elements
-    private String photo_description;
-
+    private List <String> imagesDescriptions;
     //Photo elements
-    private byte[] image;
+    private List<MultipartFile> images;
+
+    public TreeMap<String, MultipartFile > getPhotoswithDescriptions ()
+    {
+        TreeMap <String, MultipartFile > imagesWithDescriptions = new TreeMap<>();
+
+        Iterator<String>imageDescriptionIterator = imagesDescriptions.iterator();
+        Iterator<MultipartFile> imageIterator = images.iterator();
+
+        while (imageDescriptionIterator.hasNext() && imageIterator.hasNext()) {
+            imagesWithDescriptions.put(imageDescriptionIterator.next(),imageIterator.next());
+        }
+
+        return imagesWithDescriptions;
+    }
 }
