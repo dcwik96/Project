@@ -42,6 +42,11 @@ public class AppUserValidator implements Validator {
             if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
                 errors.rejectValue("password", "Size.userForm.password", "Za krótkie haslo!");
             }
+            if (!user.getEmail().matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
+                errors.rejectValue("email", "Email.form", "Zły mail!");
+
+            }
         }
 
     }
