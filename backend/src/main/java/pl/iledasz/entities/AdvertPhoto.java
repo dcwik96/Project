@@ -1,9 +1,16 @@
 package pl.iledasz.entities;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "advertphoto")
+@NoArgsConstructor
+@Getter
+@Setter
 public class AdvertPhoto {
 
     @Id
@@ -23,30 +30,4 @@ public class AdvertPhoto {
         this.Description = description;
     }
 
-    public AdvertPhoto() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Advertisement getAdvertisement() {
-        return advertisement;
-    }
-
-    public void setAdvertisement(Advertisement advertisement) {
-        this.advertisement = advertisement;
-    }
-
-    public String getDescription() {
-        return Description;
-    }
-
-    public void setDescription(String description) {
-        Description = description;
-    }
 }

@@ -1,10 +1,22 @@
 package pl.iledasz.entities;
 
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import javax.persistence.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import pl.iledasz.DTO.AdvertPhotoDTO;
+
+import java.util.List;
 
 @Entity
 @Table(name = "advert")
+@NoArgsConstructor
+@Getter
+@Setter
 public class Advertisement {
 
     @Id
@@ -18,35 +30,20 @@ public class Advertisement {
     @Column(name = "description", nullable = false)
     private String description;
 
-    public Advertisement() {
-    }
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "app_user_id")
+    private AppUser appUser;
 
-    public Advertisement(String title, String description) {
+
+    @OneToMany (mappedBy = "advertisement")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Fetch(FetchMode.SELECT)
+    private List<AdvertPhoto> photos;
+
+    public Advertisement(String title, String description, AppUser appUser, List<AdvertPhoto> photos) {
         this.title = title;
         this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+        this.appUser = appUser;
+        this.photos = photos;
     }
 }

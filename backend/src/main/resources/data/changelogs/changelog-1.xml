@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+<changeSet id="2" author="mario">
+
+    <createTable tableName="role">
+        <column name="id" type="int" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false"/>
+        </column>
+        <column name="role" type="varchar(30)">
+            <constraints nullable="false"/>
+        </column>
+    </createTable>
+
+    <createTable tableName="app_user">
+        <column name="id" type="int" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false"/>
+        </column>
+        <column name="role_id" type="int">
+            <constraints nullable="false"/>
+        </column>
+        <column name="name" type="varchar(50)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="surname" type="varchar(50)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="login" type="varchar(20)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="email" type="varchar(30)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="phone_number" type="varchar(10)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="password" type="varchar(100)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="enable" type="boolean">
+        </column>
+    </createTable>
+
+    <addDefaultValue columnName="enable"
+                     defaultValueBoolean="true"
+                     schemaName="public"
+                     tableName="app_user"/>
+    <addColumn tableName="advert">
+
+        <column name="app_user_id" type="int"/>
+    </addColumn>
+
+    <addForeignKeyConstraint baseColumnNames="app_user_id"
+                             baseTableName="advert"
+                             constraintName="fk_advert_user"
+                             deferrable="true"
+                             initiallyDeferred="true"
+                             onDelete="CASCADE"
+                             onUpdate="RESTRICT"
+                             referencedColumnNames="id"
+                             referencedTableName="app_user"/>
+
+    <addForeignKeyConstraint baseColumnNames="role_id"
+                             baseTableName="app_user"
+                             constraintName="fk_user_role"
+                             deferrable="true"
+                             initiallyDeferred="true"
+                             onDelete="CASCADE"
+                             onUpdate="RESTRICT"
+                             referencedColumnNames="id"
+                             referencedTableName="role"/>
+</changeSet>
+
+</databaseChangeLog>

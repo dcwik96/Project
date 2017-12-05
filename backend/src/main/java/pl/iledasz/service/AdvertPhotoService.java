@@ -19,15 +19,16 @@ public class AdvertPhotoService {
     public List<AdvertPhotoDTO> list() {
         ModelMapper modelMapper = new ModelMapper();
 
+
         List<AdvertPhoto> advertPhotos = advertPhotoRepository.findAll();
+
         List<AdvertPhotoDTO> advertPhotoDTOS = new ArrayList<>();
 
-        for (AdvertPhoto advertPhoto : advertPhotos) {
-            AdvertPhotoDTO advertPhotoDTO = modelMapper.map(advertPhoto, AdvertPhotoDTO.class);
-            advertPhotoDTOS.add(advertPhotoDTO);
-        }
+        for (AdvertPhoto advertPhoto : advertPhotos)
+            advertPhotoDTOS.add(modelMapper.map(advertPhoto, AdvertPhotoDTO.class));
 
         return advertPhotoDTOS;
     }
+
 
 }
