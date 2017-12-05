@@ -8,6 +8,8 @@ import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
+
+
 Vue.use(VModal)
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
@@ -17,7 +19,6 @@ Vue.http.options.xhr = {withCredentials: true}
 Vue.http.options.emulateJSON = true
 Vue.http.options.emulateHTTP = true
 Vue.http.options.crossOrigin = true
-
 
 const Plugin = {
   install (Vue, options = {}) {
@@ -55,6 +56,7 @@ new Vue({
   router,
   render: h => h(App)
 })
+export const eventBus = new Vue();
 
 var height = document.getElementById('functionPanel').clientHeight;
 document.getElementById('avatarButton').style.height = height + 'px';

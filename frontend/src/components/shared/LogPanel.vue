@@ -5,9 +5,7 @@
   <div class="btn-group-justified">
   <div v-if="!loggedIn" class="btn btn-success" @click="$modal.show('login')"><a>Panel logowania</a></div>
   </div>
-
   <div v-if="loggedIn" >
-
   <div class="dropdown">
     <button id="avatarButton" class="btn btn-default" type="button" data-toggle="dropdown">
       <img class="mr-2" src="img/avatar.png" style="width: 30px;">
@@ -17,7 +15,7 @@
     <ul class="dropdown-menu">
       <li><a href="#" >Ustawienia konta</a></li>
       <!--<li><a href="#">Test</a></li>-->
-      <li><a href="#">Wyloguj</a></li>
+      <li><a href="#" @click="logOut">Wyloguj</a></li>
     </ul>
     <div id="functionPanel" class="btn-group-vertical">
       <div class="btn btn-default mb-1 text-left">Wystaw przedmiot</div>
@@ -33,6 +31,7 @@
 </template>
 
 <script>
+  import {eventBus} from "../../main"
   import ModalForm from '../ModalForm.vue'
   export default {
     data() {
@@ -42,6 +41,19 @@
     },
     components: {
       ModalForm
+    },
+    created() {
+      eventBus.$on('loggedIn', () => {
+        this.loggedIn = true;
+      })
+    },
+    methods: {
+      logOut() {
+        this.$http.get('http://localhost:8080/logout')
+          .then(() => {
+            this.loggedIn = false
+          })
+      }
     }
   }
 </script>

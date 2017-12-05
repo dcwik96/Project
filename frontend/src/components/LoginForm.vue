@@ -22,6 +22,8 @@
   </div>
 </template>
 <script>
+  import {eventBus} from "../main"
+
   export default {
     data() {
       return {
@@ -33,9 +35,14 @@
     },
     methods: {
       login() {
-        this.$http.post('/login',userData)
+        this.$http.post('http://localhost:8080/login',this.userData)
           .then((response) => {
-            console.log(response)
+           if (response.status == 200) {
+             eventBus.$emit('loggedIn')
+           }
+          })
+          .then((request) => {
+            console.log(request)
           })
       }
     }
