@@ -29,48 +29,6 @@
     </div>
   </div>
   </div>
-
-
-
-
-
-
-
-
-  <!--<div class="btn-group mb-1">-->
-  <!--<button class="btn mr-1 btn-secondary">Wystaw ></button>-->
-    <!--<button class="btn mr-1 btn-secondary">Konto ></button>-->
-    <!--<button class="btn mr-1 btn-secondary">Przedmioty</button>-->
-    <!--<button class="btn mr-1 btn-secondary">Oferty</button>-->
-    <!--<button class="btn mr-1 btn-secondary">Wygrane</button>-->
-    <!--<button class="btn mr-1 btn-secondary">Wyloguj</button>-->
-  <!--</div>-->
-
-
-    <!--<button type="button" class="btn btn-info mr-1"-->
-            <!--style="width: 123px; font-size: 10px; background-color: #7A7F7C">Wystaw >-->
-    <!--</button>-->
-    <!--<button type="button" class="btn btn-secondary"-->
-            <!--style="width: 123px; font-size: 10px; background-color: #7A7F7C">Konto >-->
-    <!--</button>-->
-  <!--</div>-->
-  <!--<div>-->
-    <!--<button type="button" class="btn btn-secondary mb-1"-->
-            <!--style="width: 123px; font-size: 10px; background-color: #7A7F7C">Przedmioty <span-->
-      <!--class="badge badge-danger">0</span></button>-->
-    <!--<button type="button" class="btn btn-secondary mr-1 mb-1"-->
-            <!--style="width: 123px; font-size: 10px; background-color: #7A7F7C">Oferty <span-->
-      <!--class="badge badge-danger">0</span></button>-->
-
-  <!--</div>-->
-  <!--<button type="button" class="btn btn-secondary mb-1"-->
-          <!--style="width: 123px; font-size: 10px; background-color: #7A7F7C">Wygrane <span-->
-    <!--class="badge badge-danger">0</span></button>-->
-  <!--<button type="button" class="btn btn-secondary mr-1 mb-1 "-->
-          <!--style="width: 123px; font-size: 10px; background-color: #7A7F7C">Wyloguj-->
-  <!--</button>-->
-
-
 </div>
 </template>
 
@@ -79,19 +37,12 @@
   export default {
     data() {
       return {
-        loggedIn: true
+        loggedIn: false
       }
     },
     components: {
       ModalForm
     }
-
   }
-
-
-
-//    document.getElementById('#logButton').style.height = height;
-
-
 </script>
 

@@ -1,17 +1,19 @@
 <template>
   <div>
-    <b-form>
-      <b-form-group label="Adres e-mail: " label-for="email">
-        <b-form-input id="email"
-                      type="email" required
-                      placeholder="Enter email"
+    <b-form @submit.prevent="login">
+      <b-form-group label="Nazwa użytkownika: " label-for="username">
+        <b-form-input id="username"
+                      type="text" required
+                      placeholder="Podaj nazwę użytkownika"
+                      v-model="userData.username"
         ></b-form-input>
       </b-form-group>
       <b-form-group
                     label="Hasło: " label-for="password">
-        <b-form-input id="exampleInput2"
+        <b-form-input id="password"
                       type="password"  required
                       placeholder="Podaj hasło"
+                      v-model="userData.password"
         ></b-form-input>
       </b-form-group>
       <b-button type="submit" variant="primary">Zaloguj</b-button>
@@ -20,6 +22,21 @@
   </div>
 </template>
 <script>
+  export default {
+    data() {
+      return {
+        userData: {
+          username: '',
+          password: ''
+        }
+      }
+    },
+    methods: {
+      login() {
+        this.$http.post('/login',JSON.stringify(this.userData))
+      }
+    }
+  }
 </script>
 <style lang="css">
 </style>

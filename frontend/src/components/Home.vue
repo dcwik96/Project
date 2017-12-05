@@ -16,24 +16,11 @@
         </div>
       </div>
     </div>
-    <ul v-else>
-      <li v-for="error in errors">
-        {{error.message}}
-      </li>
-    </ul>
-
   </div>
-
-
-
-
-
-
-
 </template>
 
 <script>
-  import axios from 'axios'
+
   export default {
     name: 'app',
     data () {
@@ -45,19 +32,11 @@
     },
 
     created() {
-      var config = {
-        headers: {'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-        },
-
-      }
-      axios.get('http://localhost:8080/api/adverts', {},config)
+      this.$http.get('http://localhost:8080/api/adverts')
         .then(response => {
           this.adverts = response.data
-        })
-        .catch(e => {
-          this.errors.push(e)
+        }, e => {
+          console.log(e)
         })
 
     }
@@ -65,5 +44,4 @@
 </script>
 
 <style>
-
 </style>

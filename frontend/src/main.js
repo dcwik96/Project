@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
 import { routes } from './router/index'
 import VModal from 'vue-js-modal'
 import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm';
@@ -9,23 +10,21 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 Vue.use(VModal)
 Vue.use(VueRouter)
-Vue.use(BootstrapVue);
+Vue.use(BootstrapVue)
+Vue.use(VueResource)
+
+
 
 const Plugin = {
   install (Vue, options = {}) {
-    /**
-     * Makes sure that plugin can be insstalled only once
-     */
+
     if (this.installed) {
       return
     }
 
     this.installed = true
     this.event = new Vue()
-    /**
-     * Plugin API
-     */
-    Vue.prototype.$modal = {
+    type.$modal = {
       show (name, params) {
         Plugin.event.$emit('toggle', name, true, params)
       },
