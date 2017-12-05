@@ -13,6 +13,10 @@ Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.use(VueResource)
 
+Vue.http.options.xhr = {withCredentials: true}
+Vue.http.options.emulateJSON = true
+Vue.http.options.emulateHTTP = true
+Vue.http.options.crossOrigin = true
 
 
 const Plugin = {

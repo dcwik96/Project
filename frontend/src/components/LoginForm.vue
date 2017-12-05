@@ -33,7 +33,10 @@
     },
     methods: {
       login() {
-        this.$http.post('/login',JSON.stringify(this.userData))
+        this.$http.post('/login',userData)
+          .then((response) => {
+            console.log(response)
+          })
       }
     }
   }
