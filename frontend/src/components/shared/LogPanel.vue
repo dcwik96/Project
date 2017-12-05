@@ -1,6 +1,5 @@
 <template>
 <div>
-
   <modal-form></modal-form>
   <div class="btn-group-justified">
   <div v-if="!loggedIn" class="btn btn-success" @click="$modal.show('login')"><a>Panel logowania</a></div>
@@ -23,7 +22,6 @@
       <div class="btn btn-default mb-1">Twoje przedmioty <span class="badge badge-default badge-pill">1</span></div>
       </div>
     <div class="btn btn-default text-left">Złożone oferty <span class="badge badge-default badge-pill">0</span></div>
-
     </div>
   </div>
   </div>
@@ -31,7 +29,7 @@
 </template>
 
 <script>
-  import {eventBus} from "../../main"
+  import {eventBus} from "../../main";
   import ModalForm from '../ModalForm.vue'
   export default {
     data() {
@@ -53,7 +51,7 @@
           .then(() => {
             this.loggedIn = false
           })
-      }
+      },
     }
   }
 </script>

@@ -19,7 +19,7 @@ Vue.http.options.xhr = {withCredentials: true}
 Vue.http.options.emulateJSON = true
 Vue.http.options.emulateHTTP = true
 Vue.http.options.crossOrigin = true
-
+export const eventBus = new Vue();
 const Plugin = {
   install (Vue, options = {}) {
 
@@ -56,7 +56,5 @@ new Vue({
   router,
   render: h => h(App)
 })
-export const eventBus = new Vue();
 
-var height = document.getElementById('functionPanel').clientHeight;
-document.getElementById('avatarButton').style.height = height + 'px';
+

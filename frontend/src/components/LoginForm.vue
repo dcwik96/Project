@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="alert alert-danger" v-if="badCredentials">Podałeś złe dane</div>
     <b-form @submit.prevent="login">
       <b-form-group label="Nazwa użytkownika: " label-for="username">
         <b-form-input id="username"
@@ -23,26 +24,30 @@
 </template>
 <script>
   import {eventBus} from "../main"
-
   export default {
     data() {
       return {
         userData: {
           username: '',
           password: ''
-        }
+        },
+        registerState: '',
+        badCredentials: false
       }
     },
     methods: {
       login() {
+        this.badCredentials = false
         this.$http.post('http://localhost:8080/login',this.userData)
           .then((response) => {
-           if (response.status == 200) {
-             eventBus.$emit('loggedIn')
-           }
-          })
-          .then((request) => {
-            console.log(request)
+            this.$http.get('http://localhost:8080/hellosecure')
+              .then(() => {
+                console.log('Udało się')
+                eventBus.$emit('loggedIn')
+              },() => {
+                console.log('Nie udało sie')
+                this.badCredentials = true
+              })
           })
       }
     }
