@@ -39,15 +39,8 @@
       login() {
         this.badCredentials = false
         this.$http.post('http://localhost:8080/login',this.userData)
-          .then((response) => {
-            this.$http.get('http://localhost:8080/hellosecure')
-              .then(() => {
-                console.log('Udało się')
-                eventBus.$emit('loggedIn')
-              },() => {
-                console.log('Nie udało sie')
-                this.badCredentials = true
-              })
+          .then( () => {
+              this.$cookie.set('login', 'dddd', 1)
           })
       }
     }

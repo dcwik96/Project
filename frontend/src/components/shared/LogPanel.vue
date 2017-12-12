@@ -41,15 +41,16 @@
       ModalForm
     },
     created() {
-      eventBus.$on('loggedIn', () => {
-        this.loggedIn = true;
-      })
+      if (this.$cookie.get('login') != null) {
+        this.loggedIn = true
+      }
     },
     methods: {
       logOut() {
         this.$http.get('http://localhost:8080/logout')
           .then(() => {
             this.loggedIn = false
+            this.$cookie.delete('login')
           })
       },
     }

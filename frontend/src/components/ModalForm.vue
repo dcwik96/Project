@@ -1,12 +1,12 @@
 <template>
-  <modal name="login" transition="pop-out" :width="modalWidth" :height="400">
+  <modal name="login" transition="pop-out" :width="modalWidth" :height="modalWidth">
     <b-card no-body>
       <b-tabs pills card>
         <b-tab title="Zaloguj" active>
           <app-login-form></app-login-form>
         </b-tab>
         <b-tab title="Zarejestruj">
-          <app-register-form></app-register-form>
+          <app-register-form ref="appRegisterForm"></app-register-form>
         </b-tab>
       </b-tabs>
     </b-card>
@@ -27,6 +27,9 @@
       this.modalWidth = window.innerWidth < MODAL_WIDTH
         ? MODAL_WIDTH / 2
         : MODAL_WIDTH
+      if(this.$refs.appRegisterForm != undefined) {
+        this.modalHeight = this.$refs.appRegisterForm.height + 'px'
+      }
     },
     components: {
       appLoginForm : LoginForm,

@@ -1,16 +1,39 @@
 <template>
   <div>
-    <b-form>
-      <b-form-group label="Nazwa użytkownika: " label-for="username">
-        <b-form-input id="username"
+    <b-form @submit.prvent="register">
+      <b-form-group label="Imię: " label-for="name">
+        <b-form-input id="name"
                       type="text" required
-                      placeholder="Wprowadź nazwę użytkownika"
+                      placeholder="Podaj swoje imie"
+                      v-model="userDetails.name"
         ></b-form-input>
       </b-form-group>
-        <b-form-group label="Adres e-mail: " label-for="username">
+      <b-form-group label="Nazwisko: " label-for="surname">
+        <b-form-input id="surname"
+                      type="text" required
+                      placeholder="Podaj swoje nazwisko"
+                      v-model="userDetails.surname"
+        ></b-form-input>
+      </b-form-group>
+      <b-form-group label="Nazwa użytkownika: " >
+        <b-form-input id="name"
+                      type="text" required
+                      placeholder="Podaj swoje imie"
+                      v-model="userDetails.login"
+        ></b-form-input>
+      </b-form-group>
+        <b-form-group label="Adres e-mail: " >
         <b-form-input id="email"
                       type="email" required
                       placeholder="Wprowadź e-mail"
+                      v-model="userDetails.email"
+        ></b-form-input>
+      </b-form-group>
+      <b-form-group label="Numer telefonu: " >
+        <b-form-input id="phone_number"
+                      type="text" required
+                      placeholder="Podaj numer telefonu"
+                      v-model="userDetails.phone_number"
         ></b-form-input>
       </b-form-group>
       <b-form-group
@@ -18,13 +41,7 @@
         <b-form-input id="pass1"
                       type="password" required
                       placeholder="Podaj hasło"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        label="Powtórz hasło" label-for="pass2">
-        <b-form-input id="pass2"
-                      type="password" required
-                      placeholder="Wprowadź jeszcze raz to samo hasło"
+                      v-model="userDetails.password"
         ></b-form-input>
       </b-form-group>
       <b-button type="submit" variant="primary">Zaloguj</b-button>
@@ -33,7 +50,31 @@
   </div>
 </template>
 <script>
-
+export default {
+  data() {
+    return {
+        userDetails: {
+          name: '',
+          surname: '',
+          login: '',
+          email: '',
+          phone_number: '',
+          password: '',
+        }
+    }
+  },
+  methods: {
+    register() {
+      this.$http.post('http://localhost:8080/register', this.userDetails)
+        .then(() => {
+          console.log('poszło')
+        },
+          (response) => {
+          console.log('nie poszło')
+          })
+    }
+  }
+}
 </script>
 <style lang="css">
   .nav-link {

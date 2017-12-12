@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
+import VueCookie from 'vue-cookie'
 import VueResource from 'vue-resource'
 import { routes } from './router/index'
 import VModal from 'vue-js-modal'
@@ -14,6 +15,7 @@ Vue.use(VModal)
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.use(VueResource)
+Vue.use(VueCookie)
 
 Vue.http.options.xhr = {withCredentials: true}
 Vue.http.options.emulateJSON = true
