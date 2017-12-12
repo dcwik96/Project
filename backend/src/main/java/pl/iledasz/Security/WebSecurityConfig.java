@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/hello").permitAll()
-                .antMatchers("/hellosecure").authenticated()
+                .antMatchers("/hellosecure","/api/newadvert").authenticated()
                 .antMatchers("/helloadmin").hasAuthority("ADMINISTRATOR")
                 .anyRequest().permitAll()
                 .and()

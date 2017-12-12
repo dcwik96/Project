@@ -32,7 +32,6 @@ public class AppUser {
     @Column(name = "login", nullable = false)
     private String login;
 
-    @Email
     @Column(name = "email", nullable = false)
     private String email;
 
