@@ -13,8 +13,12 @@
   </modal>
 </template>
 <script>
+
   import LoginForm from './LoginForm.vue'
   import RegisterForm from './RegisterForm.vue'
+  import { eventBus } from "../main"
+
+
   const MODAL_WIDTH = 656
   export default {
     name: 'LoginModal',
@@ -30,10 +34,19 @@
       if(this.$refs.appRegisterForm != undefined) {
         this.modalHeight = this.$refs.appRegisterForm.height + 'px'
       }
+      eventBus.$on('loggedIn', this.hide)
     },
     components: {
       appLoginForm : LoginForm,
       appRegisterForm : RegisterForm
+    },
+    methods: {
+      show () {
+        this.$modal.show('login');
+      },
+      hide () {
+        this.$modal.hide('login');
+      }
     }
   }
 </script>

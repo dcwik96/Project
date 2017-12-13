@@ -4,7 +4,7 @@
   <div class="btn-group-justified">
   <div v-if="!loggedIn" class="btn btn-success" @click="$modal.show('login')"><a>Panel logowania</a></div>
   </div>
-  <div v-if="loggedIn" >
+  <div v-show="loggedIn" >
   <div class="dropdown">
     <button id="avatarButton" class="btn btn-default" type="button" data-toggle="dropdown">
       <img class="mr-2" src="img/avatar.png" style="width: 30px;">
@@ -44,6 +44,7 @@
       if (this.$cookie.get('login') != null) {
         this.loggedIn = true
       }
+
     },
     methods: {
       logOut() {
@@ -56,4 +57,5 @@
     }
   }
 </script>
+
 

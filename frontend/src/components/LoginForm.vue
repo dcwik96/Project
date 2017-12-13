@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="alert alert-danger" v-if="badCredentials">Podałeś złe dane</div>
+    <b-alert variant="danger" v-show="badCredentials">Niepoprawny login lub hasło</b-alert>
     <b-form @submit.prevent="login">
       <b-form-group label="Nazwa użytkownika: " label-for="username">
         <b-form-input id="username"
@@ -35,12 +35,18 @@
         badCredentials: false
       }
     },
+    created() {
+
+    },
     methods: {
       login() {
-        this.badCredentials = false
-        this.$http.post('http://localhost:8080/login',this.userData)
-          .then( () => {
-              this.$cookie.set('login', 'dddd', 1)
+        this.$http.post('http://localhost:8080/login', this.userData)
+          .then(() => {
+              this.$cookie.set('login', 'G4D74V98CJTY8JNFCH6J2QU2', 1)
+              eventBus.$emit('loggedIn')
+          }, () => {
+              this.badCredentials = true
+              eventBus.$emit('loginFailed')
           })
       }
     }

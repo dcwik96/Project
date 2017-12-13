@@ -65,12 +65,12 @@ export default {
   },
   methods: {
     register() {
-      this.$http.post('http://localhost:8080/register', this.userDetails)
+      this.$http.post('http://localhost:8080/registration', this.userDetails)
         .then(() => {
           console.log('poszło')
         },
           (response) => {
-          console.log('nie poszło')
+          console.log(response)
           })
     }
   }

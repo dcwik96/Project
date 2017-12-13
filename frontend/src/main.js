@@ -21,7 +21,9 @@ Vue.http.options.xhr = {withCredentials: true}
 Vue.http.options.emulateJSON = true
 Vue.http.options.emulateHTTP = true
 Vue.http.options.crossOrigin = true
+
 export const eventBus = new Vue();
+
 const Plugin = {
   install (Vue, options = {}) {
 
