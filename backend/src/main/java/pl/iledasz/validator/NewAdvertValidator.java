@@ -23,9 +23,10 @@ public class NewAdvertValidator implements Validator {
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "NotEmpty", "Tytuł nie moze byc pusty!");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "NotEmpty", "Opis nie moze byc pusty!");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "duration", "NotEmpty", "Czas trwania oferty nie moze byc pusty!");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "images", "NotEmpty", "Przynajmniej jedno zdjęcie!");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "imagesDescriptions", "NotEmpty", "Opis  zdjęcia nie może byc pusty!");
 
-//        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "imagesDescriptions", "NotEmpty", "Opis  zdjęcia nie może byc pusty!");
-//        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "images", "NotEmpty", "Przynajmniej jedno zdjęcie!");
 
         if(!errors.hasErrors())
         {

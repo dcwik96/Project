@@ -23,6 +23,7 @@ import pl.iledasz.validator.NewAdvertValidator;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.security.Principal;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -77,6 +78,9 @@ public class AdvertisementController {
 
         newAdvertisement.setDescription(newAdvertForm.getDescription());
         newAdvertisement.setTitle(newAdvertForm.getTitle());
+        newAdvertisement.setStartDate(OffsetDateTime.now());
+        newAdvertisement.setEndDate(newAdvertisement.getStartDate().plusDays(newAdvertForm.getDuration()));
+        newAdvertisement.setDuration(newAdvertForm.getDuration());
 
         AppUser appUser = appUserRepository.findByLogin(principal.getName());
 
@@ -93,16 +97,6 @@ public class AdvertisementController {
             Photo photo = new Photo(imageWithDescription.getValue().getBytes(), advertPhoto);
             photoRepository.save(photo);
         }
-
-
-
-//            AdvertPhoto advertPhoto = new AdvertPhoto(newAdvertisement,image_descripton);
-//            advertPhotoRepository.save(advertPhoto);
-//            Photo photo = new Photo(image.getBytes(), advertPhoto);
-//            photoRepository.save(photo);
-
-
-
 
         return new ResponseEntity<>("Nowe ogłoszenie zostało dodane", HttpStatus.OK);
     }

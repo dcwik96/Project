@@ -1,6 +1,5 @@
 package pl.iledasz.DTO;
 
-import javassist.bytecode.Descriptor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +20,7 @@ public class NewAdvertDTO {
     //Advertisement elements
     private String title;
     private String description;
+    private Long duration;
 
     //Photo-Advert elements
     private List <String> imagesDescriptions;
