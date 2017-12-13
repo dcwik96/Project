@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -28,6 +30,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private AuthenticationFailureHandler authenticationFailureHandler;
+
+    @Autowired
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
+
+
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -52,11 +62,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/hello").permitAll()
-                .antMatchers("/hellosecure").authenticated()
+                .antMatchers("/hellosecure","/api/newadvert").authenticated()
                 .antMatchers("/helloadmin").hasAuthority("ADMINISTRATOR")
                 .anyRequest().permitAll()
                 .and()
-                .formLogin()
+                .formLogin().failureHandler(authenticationFailureHandler)
+                .and()
+                .formLogin().successHandler(authenticationSuccessHandler)
                 .loginPage("/login")
                 .permitAll()
                 .and()
