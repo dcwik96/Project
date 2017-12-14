@@ -27,7 +27,7 @@ public class NewAdvertDTO {
     //Photo elements
     private List<MultipartFile> images;
 
-    public TreeMap<String, MultipartFile > getPhotoswithDescriptions ()
+    public TreeMap<String, MultipartFile > getPhotosWithDescriptions()
     {
         TreeMap <String, MultipartFile > imagesWithDescriptions = new TreeMap<>();
 

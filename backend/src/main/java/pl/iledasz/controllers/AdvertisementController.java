@@ -52,7 +52,7 @@ public class AdvertisementController {
     @CrossOrigin(origins="http://localhost:8081")
     @RequestMapping(value = "api/adverts")
     public List<AdvertisementDTO> getAdverts() {
-        return advertisementService.randomList();
+        return advertisementService.getLatestAdverts();
     }
 
     @RequestMapping(value = "api/advert/{id}")
@@ -88,7 +88,7 @@ public class AdvertisementController {
 
         advertisementRepository.save(newAdvertisement);
 
-        TreeMap <String, MultipartFile> imagesWithDescriptions = newAdvertForm.getPhotoswithDescriptions();
+        TreeMap <String, MultipartFile> imagesWithDescriptions = newAdvertForm.getPhotosWithDescriptions();
 
         for (Map.Entry<String, MultipartFile> imageWithDescription : imagesWithDescriptions.entrySet())
         {

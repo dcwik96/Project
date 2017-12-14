@@ -9,6 +9,7 @@ import pl.iledasz.repository.AdvertisementRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -42,6 +43,21 @@ public class AdvertisementService {
         AdvertisementDTO advertisementDTO = modelMapper.map(
                 advertisementRepository.findOneById(id), AdvertisementDTO.class);
         return advertisementDTO;
+    }
+
+    public List<AdvertisementDTO> getLatestAdverts() {
+        ModelMapper modelMapper = new ModelMapper();
+
+        List<Advertisement> adverts = advertisementRepository.findAll();
+        adverts.sort(Comparator.comparing(Advertisement::getEndDate));
+        List<AdvertisementDTO> advertisementDTOS = new ArrayList<>();
+
+        for (Advertisement advertisement : adverts) {
+            AdvertisementDTO advertisementDTO = modelMapper.map(advertisement, AdvertisementDTO.class);
+            advertisementDTOS.add(advertisementDTO);
+        }
+
+        return advertisementDTOS;
     }
 
 
