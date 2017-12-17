@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form @submit.prvent="register">
+    <b-form @submit.prevent="register">
       <b-form-group label="Imię: " label-for="name">
         <b-form-input id="name"
                       type="text" required
@@ -16,9 +16,9 @@
         ></b-form-input>
       </b-form-group>
       <b-form-group label="Nazwa użytkownika: " >
-        <b-form-input id="name"
+        <b-form-input id="login"
                       type="text" required
-                      placeholder="Podaj swoje imie"
+                      placeholder="Podaj swój login"
                       v-model="userDetails.login"
         ></b-form-input>
       </b-form-group>
