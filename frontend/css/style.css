@@ -8,6 +8,19 @@
     /*background-image: url("/assets/img/bg.png")*/
 }
 
+.page-header {
+  position: relative;
+}
+
 #login-panel {
 	text-align: right;
+}
+
+@media screen and (min-width: 991px) {
+  .vcenter {
+    display: flex;
+    align-items: center;     /* Align the flex-items vertically */
+    justify-content: center; /* Optional, to align inner flex-items
+                                horizontally within the column  */
+  }
 }

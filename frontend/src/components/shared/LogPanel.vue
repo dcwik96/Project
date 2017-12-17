@@ -1,8 +1,9 @@
 <template>
 <div>
   <modal-form></modal-form>
-  <div class="btn-group-justified">
-  <div v-if="!loggedIn" class="btn btn-success" @click="$modal.show('login')"><a>Panel logowania</a></div>
+  <div class="btn-group btn-group-justified">
+
+  <div v-if="!loggedIn" class="btn btn-success" @click="$modal.show('login')">Panel logowania</div>
   </div>
   <div v-show="loggedIn" >
   <div class="dropdown">
@@ -57,5 +58,3 @@
     }
   }
 </script>
-
-

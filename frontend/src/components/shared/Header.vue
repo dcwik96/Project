@@ -1,7 +1,11 @@
 <template>
   <div>
   <div class="page-header">
-  <h1>Example page header <small>Subtext for header</small></h1>
+    <div class="row vcenter">
+      <div class="col-md-8"><img src="img/logo.png" class="img-responsive"></div><div class="col-md-4 "><log-panel></log-panel></div>
+    </div>
+
+  <!-- <h1>Example page header <small>Subtext for header</small></h1> -->
 </div>
   <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -13,14 +17,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Brand</a>
+      <a class="navbar-brand" href="#">iledasz.pl</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
+        <li class="active"><a href="#">Przeglądaj <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Losowy przedmiot</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
