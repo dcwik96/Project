@@ -12,8 +12,23 @@
   position: relative;
 }
 
-#login-panel {
-	text-align: right;
+
+#functionPanel div {
+  margin-bottom: 5px;
+}
+
+#functionPanel div:last-child {
+  margin-bottom: 0px;
+}
+.mr-test {
+  margin-right: 5px;
+}
+
+.blocks
+{
+    padding: 24px 12px;
+    margin: 0 5px;
+    border-radius: 0;
 }
 
 @media screen and (min-width: 991px) {
@@ -23,4 +38,7 @@
     justify-content: center; /* Optional, to align inner flex-items
                                 horizontally within the column  */
   }
+
+
+
 }
