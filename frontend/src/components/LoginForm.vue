@@ -20,6 +20,8 @@
       <b-button type="submit" variant="primary">Zaloguj</b-button>
       <b-button type="reset" variant="secondary">Reset</b-button>
     </b-form>
+    <br>
+    <b-link :to="registerPath" @click="hide">Nie masz jeszcze konta?</b-link>
   </div>
 </template>
 <script>
@@ -32,24 +34,23 @@
           password: ''
         },
         registerState: '',
-        badCredentials: false
+        badCredentials: false,
+        registerPath: { path:'register' }
       }
-    },
-    created() {
-
     },
     methods: {
       login() {
         this.$http.post('http://localhost:8080/login', this.userData)
           .then(() => {
-              this.$cookie.set('login', 'G4D74V98CJTY8JNFCH6J2QU2', 1)
-              eventBus.$emit('loggedIn')
+              this.$cookie.set('login', 'There will be user data', 1)
               this.$router.go({name: 'home'})
+              this.hide()
           }, () => {
               this.badCredentials = true
-              console.log("Nie powiodło się!")
-
           })
+      },
+      hide() {
+        this.$modal.hide('login')
       }
     }
   }

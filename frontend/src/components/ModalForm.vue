@@ -1,44 +1,31 @@
 <template>
   <modal name="login" transition="pop-out" :width="modalWidth" :height="modalWidth">
-    <b-card no-body>
-      <b-tabs pills card>
-        <b-tab title="Zaloguj" active>
-          <app-login-form></app-login-form>
-        </b-tab>
-        <b-tab title="Zarejestruj">
-          <app-register-form ref="appRegisterForm"></app-register-form>
-        </b-tab>
-      </b-tabs>
-    </b-card>
+    <app-login-form></app-login-form>
   </modal>
 </template>
 <script>
 
   import LoginForm from './LoginForm.vue'
-  import RegisterForm from './RegisterForm.vue'
   import { eventBus } from "../main"
 
-
   const MODAL_WIDTH = 656
+  const MODAL_HEIGHT = 330
   export default {
     name: 'LoginModal',
     data () {
       return {
-        modalWidth: MODAL_WIDTH
+        modalWidth: MODAL_WIDTH,
+        modalHeight: MODAL_HEIGHT
       }
     },
     created () {
       this.modalWidth = window.innerWidth < MODAL_WIDTH
         ? MODAL_WIDTH / 2
         : MODAL_WIDTH
-      if(this.$refs.appRegisterForm != undefined) {
-        this.modalHeight = this.$refs.appRegisterForm.height + 'px'
-      }
-      eventBus.$on('loggedIn', this.hide)
+      this.modalHeight = MODAL_HEIGHT
     },
     components: {
       appLoginForm : LoginForm,
-      appRegisterForm : RegisterForm
     },
     methods: {
       show () {

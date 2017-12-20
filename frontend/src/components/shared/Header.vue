@@ -12,7 +12,6 @@
           <ul class="nav nav-pills mr-auto">
             <router-link to="/" tag="li" active-class="active" exact><a>Strona główna</a></router-link>
             <router-link to="/browse" tag="li" active-class="active"><a>Przeglądaj</a></router-link>
-
           </ul>
       </div>
     </nav>

@@ -2,6 +2,7 @@ import Home from '../components/Home.vue'
 import Header from '../components/shared/Header.vue'
 import ItemBrowse from '../components/ItemBrowse.vue'
 import ModalForm from '../components/ModalForm.vue'
+import RegisterForm from '../components/RegisterForm.vue'
 
 export const routes = [
   { path: '', name: 'home', components: {
@@ -12,7 +13,7 @@ export const routes = [
     default: ModalForm
   }},
   {path: '/browse', name: 'browse', component: ItemBrowse},
+  {path: '/register', name: 'register', component: RegisterForm},
   { path: '*', redirect: '/'}
-
 ];
 
