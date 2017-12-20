@@ -1,7 +1,8 @@
 <template>
   <div>
-    <b-alert variant="danger" v-show="badCredentials">Niepoprawny login lub hasło</b-alert>
+
     <b-form @submit.prevent="login">
+      <b-alert variant="danger" :show="badCredentials">Niepoprawny login lub hasło</b-alert>
       <b-form-group label="Nazwa użytkownika: " label-for="username">
         <b-form-input id="username"
                       type="text" required
@@ -44,9 +45,11 @@
           .then(() => {
               this.$cookie.set('login', 'G4D74V98CJTY8JNFCH6J2QU2', 1)
               eventBus.$emit('loggedIn')
+              this.$router.go({name: 'home'})
           }, () => {
               this.badCredentials = true
-              eventBus.$emit('loginFailed')
+              console.log("Nie powiodło się!")
+
           })
       }
     }

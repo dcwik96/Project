@@ -46,7 +46,6 @@
       if (this.$cookie.get('login') != null) {
         this.loggedIn = true
       }
-
     },
     methods: {
       logOut() {
