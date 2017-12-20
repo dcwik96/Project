@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <b-form @submit.prevent="login">
       <b-alert variant="danger" :show="badCredentials">Niepoprawny login lub hasło</b-alert>
       <b-form-group label="Nazwa użytkownika: " label-for="username">

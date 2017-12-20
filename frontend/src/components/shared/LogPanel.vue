@@ -4,16 +4,15 @@
   <div class="btn-group-justified">
   <div v-if="!loggedIn" class="btn btn-success" @click="$modal.show('login')"><a>Panel logowania</a></div>
   </div>
-  <div v-show="loggedIn" >
+  <div v-if="loggedIn">
   <div class="dropdown">
     <button id="avatarButton" class="btn btn-default" type="button" data-toggle="dropdown">
-      <img class="mr-2" src="avatarUrl" style="width: 30px;">
+      <img class="mr-2" :src="avatarUrl" style="width: 30px;">
       Witaj, Mariusz!
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-      <li><a href="#" >Ustawienia konta</a></li>
-      <!--<li><a href="#">Test</a></li>-->
+      <li><a href="#" >Ustawienia konta</a></li>git
       <li><a href="#" @click="logOut">Wyloguj</a></li>
     </ul>
     <div id="functionPanel" class="btn-group-vertical">
