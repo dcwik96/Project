@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row align-items-center">
-      <div class="col-md-4 mr-auto"><img src="img/logo.png"></div>
+      <div class="col-md-4 mr-auto"><img :src="logoUrl"></div>
       <div class="col-md-4"><log-panel></log-panel></div>
     </div>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark m-auto">
@@ -25,7 +25,13 @@
 
 <script>
   import LogPanel from './LogPanel.vue'
+  import logo from '../../assets/logo.png'
   export default {
+    data() {
+      return {
+        logoUrl : logo,
+      }
+    },
     components: {
       LogPanel
     }

@@ -7,7 +7,7 @@
   <div v-show="loggedIn" >
   <div class="dropdown">
     <button id="avatarButton" class="btn btn-default" type="button" data-toggle="dropdown">
-      <img class="mr-2" src="img/avatar.png" style="width: 30px;">
+      <img class="mr-2" src="avatarUrl" style="width: 30px;">
       Witaj, Mariusz!
       <span class="caret"></span>
     </button>
@@ -31,10 +31,12 @@
 <script>
   import {eventBus} from "../../main";
   import ModalForm from '../ModalForm.vue'
+  import avatar from '../../assets/avatar.png'
   export default {
     data() {
       return {
-        loggedIn: false
+        loggedIn: false,
+        avatarUrl: avatar
       }
     },
     components: {

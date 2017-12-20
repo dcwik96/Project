@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form @submit.prvent="register">
+    <b-form @submit.prevent="register">
       <b-form-group label="Imię: " label-for="name">
         <b-form-input id="name"
                       type="text" required
