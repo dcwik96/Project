@@ -1,7 +1,6 @@
 package pl.iledasz.validator;
 
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -28,10 +27,9 @@ public class NewAdvertValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "imagesDescriptions", "NotEmpty", "Opis  zdjęcia nie może byc pusty!");
 
 
-        if(!errors.hasErrors())
-        {
-            if(advert.getImagesDescriptions().size() != advert.getImages().size())
-                errors.rejectValue("images","Liczba opisów zdjęć nie odpowiada liczbie zdjęć");
+        if (!errors.hasErrors()) {
+            if (advert.getImagesDescriptions().size() != advert.getImages().size())
+                errors.rejectValue("images", "Liczba opisów zdjęć nie odpowiada liczbie zdjęć");
         }
     }
 }
