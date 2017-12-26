@@ -5,19 +5,11 @@ import VueCookie from 'vue-cookie'
 import VueResource from 'vue-resource'
 import { routes } from './router/index'
 import VModal from 'vue-js-modal'
-import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
-import 'bootstrap/dist/css/bootstrap.css';
-
-
 
 Vue.use(VModal)
 Vue.use(VueRouter)
-Vue.use(BootstrapVue)
 Vue.use(VueResource)
 Vue.use(VueCookie)
-
-
 
 Vue.http.options.xhr = {withCredentials: true}
 Vue.http.options.emulateJSON = true
