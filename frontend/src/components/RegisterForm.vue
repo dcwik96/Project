@@ -28,6 +28,7 @@
 
   <button type="submit" variant="primary" class="btn btn-success">Zarejestruj</button>
   <button type="reset" variant="secondary" class="btn btn-primary">Wyczyść</button>
+  <div class="alert alert-danger" variant="danger" v-show="badCredentials" role="alert">Błąd podczas rejestracji</div>
 
 </form>
   </div>
