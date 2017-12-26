@@ -2,7 +2,7 @@
   <div>
   <div class="page-header">
     <div class="row vcenter">
-      <div class="col-md-8"><img src="img/logo.png" class="img-responsive"></div><div class="col-md-4"><log-panel></log-panel></div>
+      <div class="col-md-8"><img :src="logoUrl" class="img-responsive"></div><div class="col-md-4"><log-panel></log-panel></div>
     </div>
 
   <!-- <h1>Example page header <small>Subtext for header</small></h1> -->
@@ -33,7 +33,7 @@
   </div><!-- /.container-fluid -->
 </nav>
 </div>
-  
+
 </template>
 
 <script>
