@@ -1,6 +1,6 @@
 <template>
   <div>
-  <modal name="login" transition="pop-out" :width="modalWidth" :height="300">
+  <modal name="login" transition="pop-out" :width="modalWidth" :height="350">
 
           <app-login-form></app-login-form>
 
@@ -9,6 +9,7 @@
   <modal name="register" transition="pop-out" :width="modalWidth" :height="modalHeight">
 
           <app-register-form></app-register-form>
+
 
   </modal>
 </div>
@@ -21,6 +22,7 @@
 
 
   const MODAL_WIDTH = 400
+
   export default {
     name: 'LoginModal',
     name: 'RegisterModal',
@@ -28,6 +30,7 @@
       return {
         modalWidth: MODAL_WIDTH,
         modalHeight: 600
+
       }
     },
     created () {
@@ -40,10 +43,11 @@
         this.modalHeight = this.$refs.appRegisterForm.height + 'px'
       }
       eventBus.$on('loggedIn', this.hide)
+
     },
     components: {
       appLoginForm : LoginForm,
-      appRegisterForm : RegisterForm
+      appRegisterForm: RegisterForm
     },
     methods: {
 

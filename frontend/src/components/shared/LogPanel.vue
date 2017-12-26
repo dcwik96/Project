@@ -6,7 +6,7 @@
   <div v-if="!loggedIn" id="loginBtn" v-bind:style="loginBtnStyles" class="btn btn-success mr-test" @click="$modal.show('login')">Zaloguj się</div>
   <div v-if="!loggedIn" ref="registerBtn"  class="btn btn-primary" @click="$modal.show('register')">Zarejestruj się</div>
   </div>
-  <div v-show="loggedIn" >
+  <div v-if="loggedIn">
   <div class="dropdown">
     <button id="avatarButton" ref="avatarBtn" v-bind:style="avatarBtnStyles" class="btn btn-default"  data-toggle="dropdown">
       <span class="glyphicon glyphicon-user"></span>
@@ -14,8 +14,7 @@
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-      <li><a href="#" >Ustawienia konta</a></li>
-      <!--<li><a href="#">Test</a></li>-->
+      <li><a href="#" >Ustawienia konta</a></li>git
       <li><a href="#" @click="logOut">Wyloguj</a></li>
     </ul>
     <div id="functionPanel" ref="functionPanel" class="btn-group-vertical">
@@ -33,12 +32,15 @@
 <script>
   import {eventBus} from "../../main";
   import ModalForm from '../ModalForm.vue'
+  import avatar from '../../assets/avatar.png'
   export default {
     data() {
       return {
         loggedIn: false,
+ 
         avatarBtnStyles: {height: ''},
         loginBtnStyles: {width: ''}
+
       }
     },
     components: {
@@ -48,7 +50,6 @@
       if (this.$cookie.get('login') != null) {
         this.loggedIn = true
       }
-
     },
     methods: {
       logOut() {

@@ -28,7 +28,7 @@
 
   <button type="submit" variant="primary" class="btn btn-success">Zarejestruj</button>
   <button type="reset" variant="secondary" class="btn btn-primary">Wyczyść</button>
-  <div class="alert alert-danger" variant="danger" v-show="badCredentials" role="alert">Błąd podczas rejestracji</div>
+
 
 </form>
   </div>
@@ -44,17 +44,19 @@ export default {
           email: '',
           phone_number: '',
           password: '',
-        }
+        },
+      dataError: false,
+      message: ''
     }
   },
   methods: {
     register() {
       this.$http.post('http://localhost:8080/registration', this.userDetails)
         .then(() => {
-          console.log('poszło')
-        },
-          (response) => {
-          console.log(response)
+            message = 'Twoje konto zostało założne możesz przejść do logwania.'
+        }, (response) => {
+            console.log(response.body)
+            this.dataError = true
           })
     }
   }
