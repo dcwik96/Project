@@ -1,15 +1,19 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Item from '@/components/Item'
+import Home from '../components/Home.vue'
+import Header from '../components/shared/Header.vue'
+import ItemBrowse from '../components/ItemBrowse.vue'
+import ModalForm from '../components/ModalForm.vue'
+import RegisterForm from '../components/RegisterForm.vue'
 
-Vue.use(Router)
+export const routes = [
+  { path: '', name: 'home', components: {
+    default: Home,
+    'header-top': Header
+  }},
+  { path: '/login', name: 'login', components: {
+    default: ModalForm
+  }},
+  {path: '/browse', name: 'browse', component: ItemBrowse},
+  {path: '/register', name: 'register', component: RegisterForm},
+  { path: '*', redirect: '/'}
+];
 
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Item',
-      component: Item
-    }
-  ]
-})

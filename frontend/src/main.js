@@ -1,15 +1,56 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+import VueRouter from 'vue-router'
+import VueCookie from 'vue-cookie'
+import VueResource from 'vue-resource'
+import { routes } from './router/index'
+import VModal from 'vue-js-modal'
+
+Vue.use(VModal)
+Vue.use(VueRouter)
+Vue.use(VueResource)
+Vue.use(VueCookie)
+
+Vue.http.options.xhr = {withCredentials: true}
+Vue.http.options.emulateJSON = true
+Vue.http.options.emulateHTTP = true
+Vue.http.options.crossOrigin = true
+
+export const eventBus = new Vue();
+
+const Plugin = {
+  install (Vue, options = {}) {
+
+    if (this.installed) {
+      return
+    }
+
+    this.installed = true
+    this.event = new Vue()
+    type.$modal = {
+      show (name, params) {
+        Plugin.event.$emit('toggle', name, true, params)
+      },
+
+      hide (name, params) {
+        Plugin.event.$emit('toggle', name, false, params)
+      },
+
+      toggle (name, params) {
+        Plugin.event.$emit('toggle', name, undefined, params)
+      }
+    }}}
+
+const router = new VueRouter({
+  routes,
+  mode: 'history'
+})
+
 
 Vue.config.productionTip = false
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  template: '<App/>',
-  components: { App }
+  render: h => h(App)
 })

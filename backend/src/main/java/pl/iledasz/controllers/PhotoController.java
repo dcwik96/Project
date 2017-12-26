@@ -22,13 +22,11 @@ public class PhotoController {
     @Autowired
     private PhotoService photoService;
 
-    @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "api/photos")
     public List<PhotoDTO> getPhotos() {
         return photoService.list();
     }
 
-    @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "api/photos/{id}")
     public ResponseEntity<byte[]> getPhotoById(@PathVariable("id") Long id) {
 

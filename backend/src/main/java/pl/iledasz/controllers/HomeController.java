@@ -56,7 +56,7 @@ public class HomeController {
         return appUserService.getUsers();
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @GetMapping(value = "/logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public String logout(HttpSession session) {
         session.invalidate();
