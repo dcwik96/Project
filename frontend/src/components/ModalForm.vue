@@ -1,16 +1,17 @@
 <template>
-  <modal name="login" transition="pop-out" :width="modalWidth" :height="modalWidth">
-    <b-card no-body>
-      <b-tabs pills card>
-        <b-tab title="Zaloguj" active>
+  <div>
+  <modal name="login" transition="pop-out" :width="modalWidth" :height="300">
+
           <app-login-form></app-login-form>
-        </b-tab>
-        <b-tab title="Zarejestruj">
-          <app-register-form ref="appRegisterForm"></app-register-form>
-        </b-tab>
-      </b-tabs>
-    </b-card>
+
   </modal>
+
+  <modal name="register" transition="pop-out" :width="modalWidth" :height="modalHeight">
+
+          <app-register-form></app-register-form>
+
+  </modal>
+</div>
 </template>
 <script>
 
@@ -19,18 +20,22 @@
   import { eventBus } from "../main"
 
 
-  const MODAL_WIDTH = 656
+  const MODAL_WIDTH = 400
   export default {
     name: 'LoginModal',
+    name: 'RegisterModal',
     data () {
       return {
-        modalWidth: MODAL_WIDTH
+        modalWidth: MODAL_WIDTH,
+        modalHeight: 600
       }
     },
     created () {
       this.modalWidth = window.innerWidth < MODAL_WIDTH
         ? MODAL_WIDTH / 2
         : MODAL_WIDTH
+
+
       if(this.$refs.appRegisterForm != undefined) {
         this.modalHeight = this.$refs.appRegisterForm.height + 'px'
       }
@@ -41,12 +46,7 @@
       appRegisterForm : RegisterForm
     },
     methods: {
-      show () {
-        this.$modal.show('login');
-      },
-      hide () {
-        this.$modal.hide('login');
-      }
+
     }
   }
 </script>

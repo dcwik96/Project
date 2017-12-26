@@ -2,13 +2,18 @@
   <div class="container">
     <app-header></app-header>
     <router-view></router-view>
+
+
+
   </div>
 </template>
 
 <script>
   import Header from './components/shared/Header.vue'
   import Home from './components/Home.vue'
+
   export default {
+
 
     components: {
       appHome: Home,

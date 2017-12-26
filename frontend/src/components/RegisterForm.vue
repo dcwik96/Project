@@ -1,52 +1,35 @@
 <template>
   <div>
-    <b-form @submit.prevent="register">
-      <b-form-group label="Imię: " label-for="name">
-        <b-form-input id="name"
-                      type="text" required
-                      placeholder="Podaj swoje imie"
-                      v-model="userDetails.name"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group label="Nazwisko: " label-for="surname">
-        <b-form-input id="surname"
-                      type="text" required
-                      placeholder="Podaj swoje nazwisko"
-                      v-model="userDetails.surname"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group label="Nazwa użytkownika: " >
-        <b-form-input id="login"
-                      type="text" required
-                      placeholder="Podaj swój login"
-                      v-model="userDetails.login"
-        ></b-form-input>
-      </b-form-group>
-        <b-form-group label="Adres e-mail: " >
-        <b-form-input id="email"
-                      type="email" required
-                      placeholder="Wprowadź e-mail"
-                      v-model="userDetails.email"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group label="Numer telefonu: " >
-        <b-form-input id="phone_number"
-                      type="text" required
-                      placeholder="Podaj numer telefonu"
-                      v-model="userDetails.phone_number"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        label="Hasło: " label-for="pass1">
-        <b-form-input id="pass1"
-                      type="password" required
-                      placeholder="Podaj hasło"
-                      v-model="userDetails.password"
-        ></b-form-input>
-      </b-form-group>
-      <b-button type="submit" variant="primary">Zaloguj</b-button>
-      <b-button type="reset" variant="secondary">Reset</b-button>
-    </b-form>
+    <form @submit.prevent="register" style="padding: 50px;">
+  <div class="form-group">
+    <label for="name">Imię:</label>
+    <input v-model="userDetails.name" type="text" class="form-control" placeholder="Wprowadź imię">
+  </div>
+  <div class="form-group">
+    <label for="surname">Nazwisko:</label>
+    <input v-model="userDetails.surname" type="text" class="form-control" placeholder="Wprowadź nazwisko">
+  </div>
+  <div class="form-group">
+    <label for="username">Nazwa użytkownika:</label>
+    <input v-model="userDetails.login" type="text" class="form-control" placeholder="Wprowadź nazwę użytkownika">
+  </div>
+  <div class="form-group">
+    <label for="email">Adres email:</label>
+    <input v-model="userDetails.email" type="email" class="form-control" placeholder="Wprowadź adres email">
+  </div>
+  <div class="form-group">
+    <label for="phoneNumber">Numer telefonu:</label>
+    <input v-model="userDetails.phone_number" type="email" class="form-control" placeholder="Wprowadź numer telefonu">
+  </div>
+  <div class="form-group">
+    <label for="password">Hasło:</label>
+    <input v-model="userDetails.password" type="password" class="form-control"  placeholder="Wprowadź hasło">
+  </div>
+
+  <button type="submit" variant="primary" class="btn btn-success">Zarejestruj</button>
+  <button type="reset" variant="secondary" class="btn btn-primary">Wyczyść</button>
+
+</form>
   </div>
 </template>
 <script>

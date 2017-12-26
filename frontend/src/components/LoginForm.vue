@@ -1,25 +1,21 @@
 <template>
   <div>
-    <b-alert variant="danger" v-show="badCredentials">Niepoprawny login lub hasło</b-alert>
-    <b-form @submit.prevent="login">
-      <b-form-group label="Nazwa użytkownika: " label-for="username">
-        <b-form-input id="username"
-                      type="text" required
-                      placeholder="Podaj nazwę użytkownika"
-                      v-model="userData.username"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-                    label="Hasło: " label-for="password">
-        <b-form-input id="password"
-                      type="password"  required
-                      placeholder="Podaj hasło"
-                      v-model="userData.password"
-        ></b-form-input>
-      </b-form-group>
-      <b-button type="submit" variant="primary">Zaloguj</b-button>
-      <b-button type="reset" variant="secondary">Reset</b-button>
-    </b-form>
+    <form @submit.prevent="login" style="padding: 50px;">
+  <div class="form-group">
+    <label for="username">Nazwa użytkownika</label>
+    <input id="username" type="text" class="form-control" placeholder="Wprowadź nazwę użytkownika" v-model="userData.username">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Hasło</label>
+    <input id="password" type="password" class="form-control"  placeholder="Wprowadź hasło" v-model="userData.password">
+  </div>
+
+
+  <button type="submit" variant="primary" class="btn btn-success">Zaloguj</button>
+  <button type="reset" variant="secondary" class="btn btn-default">Wyczyść</button>
+  <br><br>
+  <div class="alert alert-danger" variant="danger" v-show="badCredentials" role="alert">Niepoprawne dane logowania!</div>
+</form>
   </div>
 </template>
 <script>

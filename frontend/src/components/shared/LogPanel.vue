@@ -3,8 +3,8 @@
   <modal-form></modal-form>
   <div class="btn-group blocks">
 
-  <div v-if="!loggedIn" id="loginBtn" ref="loginBtn" class="btn btn-success mr-test" @click="$modal.show('login')">Panel logowania</div>
-  <div v-if="!loggedIn" v-bind:style="registerBtnStyles" class="btn btn-primary" @click="$modal.show('login')">Zarejestruj się</div>
+  <div v-if="!loggedIn" id="loginBtn" v-bind:style="loginBtnStyles" class="btn btn-success mr-test" @click="$modal.show('login')">Zaloguj się</div>
+  <div v-if="!loggedIn" ref="registerBtn"  class="btn btn-primary" @click="$modal.show('register')">Zarejestruj się</div>
   </div>
   <div v-show="loggedIn" >
   <div class="dropdown">
@@ -38,7 +38,7 @@
       return {
         loggedIn: false,
         avatarBtnStyles: {height: ''},
-        registerBtnStyles: {width: ''}
+        loginBtnStyles: {width: ''}
       }
     },
     components: {
@@ -64,9 +64,9 @@
         this.avatarBtnStyles.height = avatarHeight;
 
       }
-      if(this.$refs.loginBtn) {
-        let registerWidth = this.$refs.loginBtn.clientWidth + 'px';
-        this.registerBtnStyles.width = registerWidth;
+      if(this.$refs.registerBtn) {
+        let registerWidth = this.$refs.registerBtn.clientWidth + 'px';
+        this.loginBtnStyles.width = registerWidth;
 
       }
 
