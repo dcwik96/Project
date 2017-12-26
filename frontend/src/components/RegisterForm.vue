@@ -19,7 +19,7 @@
   </div>
   <div class="form-group">
     <label for="phoneNumber">Numer telefonu:</label>
-    <input v-model="userDetails.phone_number" type="email" class="form-control" placeholder="Wprowadź numer telefonu">
+    <input v-model="userDetails.phone_number" type="text" class="form-control" placeholder="Wprowadź numer telefonu">
   </div>
   <div class="form-group">
     <label for="password">Hasło:</label>
