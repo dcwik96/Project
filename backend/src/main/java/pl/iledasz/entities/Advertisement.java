@@ -4,12 +4,12 @@ package pl.iledasz.entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.*;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.List;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "advert")
@@ -45,7 +45,7 @@ public class Advertisement {
     private OffsetDateTime endDate;
 
 
-    @OneToMany (mappedBy = "advertisement")
+    @OneToMany(mappedBy = "advertisement")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<AdvertPhoto> photos;
 

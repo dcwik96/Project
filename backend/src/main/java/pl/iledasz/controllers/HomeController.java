@@ -23,7 +23,7 @@ public class HomeController {
     private AppUserService appUserService;
 
 
-    BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder(11);
+    private BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder(11);
 
     @RequestMapping(value = "/hello")
     public String hello() {

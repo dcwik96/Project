@@ -38,7 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationSuccessHandler authenticationSuccessHandler;
 
 
-
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
 
@@ -62,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/hello").permitAll()
-                .antMatchers("/hellosecure","/api/newadvert").authenticated()
+                .antMatchers("/hellosecure", "/api/newadvert").authenticated()
                 .antMatchers("/helloadmin").hasAuthority("ADMINISTRATOR")
                 .anyRequest().permitAll()
                 .and()
@@ -87,7 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:8081/"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

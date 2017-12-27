@@ -13,13 +13,11 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public List<Role>list ()
-    {
+    public List<Role> list() {
         return roleRepository.findAll();
     }
 
-    public Role getUserRole(long id)
-    {
+    public Role getUserRole(long id) {
         return roleRepository.findOne(id);
     }
 }
