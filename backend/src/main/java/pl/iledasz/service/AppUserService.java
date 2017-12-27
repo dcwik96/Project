@@ -41,6 +41,4 @@ public class AppUserService {
     public AppUser findByLogin(String login) {
         return appUserRepository.findByLogin(login);
     }
-
-
 }

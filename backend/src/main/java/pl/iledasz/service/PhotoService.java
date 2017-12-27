@@ -22,10 +22,9 @@ public class PhotoService {
         ModelMapper modelMapper = new ModelMapper();
 
         List<Photo> photos = photoRepository.findAll();
-        List<PhotoDTO> photosDTO= new ArrayList<>();
-        for (Photo photo : photos)
-        {
-            PhotoDTO photoDTO = modelMapper.map(photo,PhotoDTO.class);
+        List<PhotoDTO> photosDTO = new ArrayList<>();
+        for (Photo photo : photos) {
+            PhotoDTO photoDTO = modelMapper.map(photo, PhotoDTO.class);
             photosDTO.add(photoDTO);
         }
 
