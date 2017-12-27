@@ -31,3 +31,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+### Auto-generated files by Webpack ###
+backend/src/main/resources/public/static/*
