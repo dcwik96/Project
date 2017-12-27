@@ -49,10 +49,7 @@
       LogPanel
     }
   }
-
-
 </script>
-
 <style>
 
   .nav-pills a {

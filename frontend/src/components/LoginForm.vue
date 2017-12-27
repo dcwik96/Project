@@ -22,7 +22,6 @@
   </div>
 </template>
 <script>
-  import {eventBus} from "../main"
   export default {
     data() {
       return {
@@ -30,7 +29,6 @@
           username: '',
           password: ''
         },
-        registerState: '',
         badCredentials: false,
         registerPath: { path:'register' }
       }
@@ -40,8 +38,10 @@
         this.$http.post('http://localhost:8080/login', this.userData)
           .then(() => {
               this.$cookie.set('login', 'There will be user data', 1)
-              this.$router.go({name: 'home'})
+              this.userData.password = ''
+              this.$store.dispatch('setUsername', this.userData.username)
               this.hide()
+              this.$router.go({name: 'home'})
           }, () => {
               this.badCredentials = true
           })
