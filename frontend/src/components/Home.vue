@@ -44,37 +44,25 @@
 </template>
 
 <script>
-
+  import {mapGetters} from 'vuex'
   export default {
     name: 'app',
     data () {
       return {
-        adverts: [],
-        photos: [],
-        errors: []
       }
     },
-
+    computed: {
+      ...mapGetters({adverts: 'getArrayOfAdverts'}),
+    },
     created() {
-      this.$http.get('http://localhost:8080/api/adverts')
-        .then(response => {
-          this.adverts = response.data
-        }, e => {
-          console.log(e)
-        })
-
+      this.$store.dispatch('getAdverts')
     },
     filters: {
-
   	  truncate: function(string, value) {
     	return string.substring(0, value) + '...';
     }
   }
-
-
-
 }
 </script>
-
 <style>
 </style>
