@@ -18,7 +18,7 @@
       <li><a href="#" @click="logOut">Wyloguj</a></li>
     </ul>
     <div id="functionPanel" ref="functionPanel" class="btn-group-vertical">
-      <div class="btn btn-default mb-1">Wystaw przedmiot</div>
+      <router-link to="/additem" tag="div" class="btn btn-default mb-1" exact>Wystaw przedmiot</router-link>
       <div class="input-group">
       <div class="btn btn-default mb-1">Twoje przedmioty <span class="badge badge-default badge-pill pull-right">1</span></div>
       </div>
@@ -37,7 +37,7 @@
     data() {
       return {
         loggedIn: false,
- 
+
         avatarBtnStyles: {height: ''},
         loginBtnStyles: {width: ''}
 
