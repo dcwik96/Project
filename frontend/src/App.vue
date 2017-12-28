@@ -2,9 +2,6 @@
   <div class="container">
     <app-header></app-header>
     <router-view></router-view>
-
-
-
   </div>
 </template>
 
@@ -17,7 +14,6 @@
       appHome: Home,
       appHeader: Header
     }
-
   }
 </script>
 

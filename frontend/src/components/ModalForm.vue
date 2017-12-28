@@ -1,16 +1,10 @@
 <template>
   <div>
   <modal name="login" transition="pop-out" :width="modalWidth" :height="350">
-
           <app-login-form></app-login-form>
-
   </modal>
-
   <modal name="register" transition="pop-out" :width="modalWidth" :height="modalHeight">
-
           <app-register-form></app-register-form>
-
-
   </modal>
 </div>
 </template>
@@ -30,7 +24,6 @@
       return {
         modalWidth: MODAL_WIDTH,
         modalHeight: 600
-
       }
     },
     created () {
@@ -38,19 +31,13 @@
         ? MODAL_WIDTH / 2
         : MODAL_WIDTH
 
-
       if(this.$refs.appRegisterForm != undefined) {
         this.modalHeight = this.$refs.appRegisterForm.height + 'px'
       }
-      eventBus.$on('loggedIn', this.hide)
-
     },
     components: {
       appLoginForm : LoginForm,
       appRegisterForm: RegisterForm
-    },
-    methods: {
-
     }
   }
 </script>

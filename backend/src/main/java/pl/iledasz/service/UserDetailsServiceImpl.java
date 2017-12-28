@@ -25,8 +25,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         AppUser appUser = appUserRepository.findByLogin(login);
 
-       if (appUser == null)
-           throw new UsernameNotFoundException(login);
+        if (appUser == null)
+            throw new UsernameNotFoundException(login);
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(appUser.getRole().getRole()));

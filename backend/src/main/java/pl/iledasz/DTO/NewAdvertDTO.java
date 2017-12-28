@@ -23,19 +23,18 @@ public class NewAdvertDTO {
     private Long duration;
 
     //Photo-Advert elements
-    private List <String> imagesDescriptions;
+    private List<String> imagesDescriptions;
     //Photo elements
     private List<MultipartFile> images;
 
-    public TreeMap<String, MultipartFile > getPhotoswithDescriptions ()
-    {
-        TreeMap <String, MultipartFile > imagesWithDescriptions = new TreeMap<>();
+    public TreeMap<String, MultipartFile> getPhotosWithDescriptions() {
+        TreeMap<String, MultipartFile> imagesWithDescriptions = new TreeMap<>();
 
-        Iterator<String>imageDescriptionIterator = imagesDescriptions.iterator();
+        Iterator<String> imageDescriptionIterator = imagesDescriptions.iterator();
         Iterator<MultipartFile> imageIterator = images.iterator();
 
         while (imageDescriptionIterator.hasNext() && imageIterator.hasNext()) {
-            imagesWithDescriptions.put(imageDescriptionIterator.next(),imageIterator.next());
+            imagesWithDescriptions.put(imageDescriptionIterator.next(), imageIterator.next());
         }
 
         return imagesWithDescriptions;

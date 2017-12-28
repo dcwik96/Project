@@ -5,6 +5,7 @@ import VueCookie from 'vue-cookie'
 import VueResource from 'vue-resource'
 import { routes } from './router/index'
 import VModal from 'vue-js-modal'
+import store from './store'
 
 Vue.use(VModal)
 Vue.use(VueRouter)
@@ -52,5 +53,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })

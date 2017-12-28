@@ -3,7 +3,6 @@ package pl.iledasz.entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 
