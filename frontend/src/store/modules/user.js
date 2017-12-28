@@ -17,16 +17,6 @@ const actions = {
 }
 
 const mutations = {
-  // mutateUsername: (state) => {
-  //   Vue.http.get('http://localhost:8080/aboutMe')
-  //     .then((response) => {
-  //       console.log(response.data)
-  //       state.username = response.data
-  //     },
-  //     e => {
-  //       console.log(e)
-  //     })
-  // }
   mutateUsername(state, payload) {
     state.username = payload
   }

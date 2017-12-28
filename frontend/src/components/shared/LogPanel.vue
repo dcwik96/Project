@@ -19,7 +19,6 @@
         </button>
         <ul class="dropdown-menu">
           <li><a href="#">Ustawienia konta</a></li>
-          git
           <li><a href="#" @click="logOut">Wyloguj</a></li>
         </ul>
         <div id="functionPanel" ref="functionPanel" class="btn-group-vertical">
@@ -54,6 +53,7 @@
     created() {
       if (this.$cookie.get('login') != null) {
         this.loggedIn = true
+        this.$store.dispatch('setUsername', this.$cookie.get('login'))
       }
     },
     computed: {

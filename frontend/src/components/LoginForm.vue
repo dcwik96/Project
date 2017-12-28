@@ -37,8 +37,7 @@
       login() {
         this.$http.post('http://localhost:8080/login', this.userData)
           .then(() => {
-              this.$cookie.set('login', 'There will be user data', 1)
-              this.userData.password = ''
+              this.$cookie.set('login', this.userData.username, 1)
               this.$store.dispatch('setUsername', this.userData.username)
               this.hide()
               this.$router.go({name: 'home'})
