@@ -11,6 +11,7 @@ import pl.iledasz.entities.AppUser;
 import pl.iledasz.service.AdvertPhotoService;
 import pl.iledasz.service.AppUserService;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.Collections;
@@ -62,7 +63,13 @@ public class HomeController {
 
     @RequestMapping(value = "/aboutMe", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Map aboutMe(Principal principal) {
+    public Map aboutMe( HttpServletResponse httpServletResponse , Principal principal) {
+        if(principal == null)
+        {
+            httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return Collections.singletonMap("username", "unauthorized");
+        }
+        httpServletResponse.setStatus(HttpServletResponse.SC_OK);
         return Collections.singletonMap("username", principal.getName());
 
     }
