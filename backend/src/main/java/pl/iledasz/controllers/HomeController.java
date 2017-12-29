@@ -11,6 +11,7 @@ import pl.iledasz.entities.AppUser;
 import pl.iledasz.service.AdvertPhotoService;
 import pl.iledasz.service.AppUserService;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.Collections;
@@ -60,25 +61,10 @@ public class HomeController {
         return appUserService.getUsers();
     }
 
-    @RequestMapping(value = "/aboutMe", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Map aboutMe(Principal principal) {
-        return Collections.singletonMap("username", principal.getName());
-
-    }
-
     @GetMapping(value = "/logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/hello";
     }
-
-    //Temporary request for getting password hash
-    @RequestMapping(value = "api/passwd/{passwd}")
-    public String passhash(@PathVariable("passwd") String pass) {
-        return bcrypt.encode(pass);
-    }
-
-
 }

@@ -21,7 +21,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import pl.iledasz.service.UserDetailsServiceImpl;
 
-import java.util.Arrays;
 
 
 @EnableGlobalMethodSecurity
