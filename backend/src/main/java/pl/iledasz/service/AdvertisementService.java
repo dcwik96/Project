@@ -38,6 +38,12 @@ public class AdvertisementService {
                 advertisementRepository.findOneById(id), AdvertisementDTO.class);
     }
 
+    public AdvertisementDTO randomAdvert()
+    {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(advertisementRepository.randomOne(), AdvertisementDTO.class);
+    }
+
     public List<AdvertisementDTO> getLatestAdverts() {
         ModelMapper modelMapper = new ModelMapper();
 
