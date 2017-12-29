@@ -61,31 +61,10 @@ public class HomeController {
         return appUserService.getUsers();
     }
 
-    @RequestMapping(value = "/aboutMe", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Map aboutMe( HttpServletResponse httpServletResponse , Principal principal) {
-        if(principal == null)
-        {
-            httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return Collections.singletonMap("username", "unauthorized");
-        }
-        httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-        return Collections.singletonMap("username", principal.getName());
-
-    }
-
     @GetMapping(value = "/logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/hello";
     }
-
-    //Temporary request for getting password hash
-    @RequestMapping(value = "api/passwd/{passwd}")
-    public String passhash(@PathVariable("passwd") String pass) {
-        return bcrypt.encode(pass);
-    }
-
-
 }
