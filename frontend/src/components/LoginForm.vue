@@ -35,7 +35,9 @@
     },
     methods: {
       login() {
-        this.$http.post('http://localhost:8080/login', this.userData)
+        this.$http.post('http://localhost:8080/login', this.userData, {
+          emulateJSON : true
+        })
           .then(() => {
               this.$cookie.set('login', this.userData.username, 1)
               this.$store.dispatch('setUsername', this.userData.username)

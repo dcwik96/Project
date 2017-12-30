@@ -9,7 +9,7 @@
     <div class="thumbnail">
       <div class="caption">
         <h5>{{advert.title | truncate(20)}}</h5>
-        <img class=" text-center" v-bind:src="'http://localhost:8080/api/photos/' + advert.id" style="width: 100%; height: 150px;">
+        <img class=" text-center" :src="'http://localhost:8080/api/photos/' + advert.id" style="width: 100%; height: 150px;">
         <p></p>
         <p><a href="#" class="btn btn-success" role="button">Ile dasz?</a> <a href="#" class="btn btn-default" role="button">Zobacz ofertę</a></p>
       </div>
