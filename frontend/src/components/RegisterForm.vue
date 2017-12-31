@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <form @submit.prevent="register" style="padding: 50px;">
       <div class="form-group">
         <label for="name">Imię:</label>
