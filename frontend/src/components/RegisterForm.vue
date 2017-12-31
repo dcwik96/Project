@@ -62,7 +62,7 @@
             this.message = 'Twoje konto zostało założne możesz przejść do logwania.'
           }, response => {
             this.dataError = true
-            this.message = "Podałeś nieprawidłowe dane."
+            this.message = response.bodyText
           })
       }
     }
