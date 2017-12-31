@@ -152,7 +152,6 @@ export default {
   },
   data () {
     return {
-      imageAsFile: '',
       imageSelected: false,
       previewHeight: 0,
       previewWidth: 0,
@@ -163,13 +162,13 @@ export default {
         upload: '<p>Your device does not support file uploading.</p>',
         drag: 'Drag an image or <br>click here to select a file',
         tap: 'Tap here to select a photo <br>from your gallery',
-        change: 'Change Photo',
+        change: 'Zmień',
         aspect: 'Landscape/Portrait',
-        remove: 'Remove Photo',
-        select: 'Select a Photo',
-        selected: '<p>Photo successfully selected!</p>',
-        fileSize: 'The file size exceeds the limit',
-        fileType: 'This file type is not supported.'
+        remove: 'Usuń zdjęcie',
+        select: 'Wyberz zdjęcie',
+        selected: '<p>Zdjęcie poprawnie wybrane</p>',
+        fileSize: 'Za duży rozmiar pliku',
+        fileType: 'Pliki o tym rozszerzeniu nie są obsługiwane'
       }
     }
   },
@@ -320,7 +319,6 @@ export default {
           }
           this.imageObject.src = this.image
         }
-        this.imageAsFile = file
         reader.readAsDataURL(file)
       })
     },

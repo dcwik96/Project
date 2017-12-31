@@ -1,5 +1,7 @@
 <template>
   <div>
+    <div class="alert alert-danger" v-if="badData"> {{ message }}</div>
+    <div class="alert alert-success" v-if="added">{{ message }}</div>
     <form enctype="multipart/form-data">
       <div class="form-group">
         <label for="title">Tytuł</label>
@@ -55,8 +57,7 @@
   }
 </style>
 <script>
-  import PictureInput from './PictureInput.vue'
-
+  import PictureInput from 'vue-picture-input'
   export default {
     data() {
       return {
@@ -66,7 +67,10 @@
           duration: 1,
           images: [],
           imagesDescriptions: []
-        }
+        },
+        added: false,
+        badData: false,
+        message: ''
       }
     },
     components: {
@@ -74,24 +78,38 @@
     },
     methods: {
       onChange() {
-        console.log('New picture selected!')
-        console.log('Picture loaded.')
-        this.advertData.images.push(this.$refs.pictureInput1.imageAsFile)
-      },
-      onRemoved() {
+        if(this.$refs.pictureInput1.image)
+          this.advertData.images.push(this.$refs.pictureInput1.file)
+        if(this.$refs.pictureInput2.image)
+          this.advertData.images.push(this.$refs.pictureInput2.file)
+        if(this.$refs.pictureInput3.image)
+          this.advertData.images.push(this.$refs.pictureInput3.file)
+        if(this.$refs.pictureInput4.image)
+          this.advertData.images.push(this.$refs.pictureInput4.file)
+        if(this.$refs.pictureInput5.image)
+          this.advertData.images.push(this.$refs.pictureInput5.file)
       },
       uploadAdvert() {
-        var form = new FormData();
-        form.append("title", "asds");
-        form.append("description", "sklfldasfjdsl");
-        form.append("duration", "1");
-        for (i = 0; i < 5; ++i) {
-          form.append("images", this.$refs.pictureInput1.imageAsFile);
-          form.append("imagesDescriptions", "fsadasddafkdslf");
-        }
+        var formData = new FormData();
+        formData.append('title', this.advertData.title)
+        formData.append('description', this.advertData.description)
+        formData.append('duration', this.advertData.duration)
 
+        this.advertData.images.forEach((image) => {
+          console.log(image)
+          formData.append('images', image)
+          formData.append('imagesDescriptions', 'Tego nie będzie.')
+        })
 
-        this.$http.post('http://localhost:8080/api/newadvert', form)
+        this.$http.post('http://localhost:8080/api/newadvert', formData).then(
+          (response) => {
+            this.added = true
+            this.message = response.bodyText
+          },
+          (response) => {
+            this.badData = true
+            this.message = response.bodyText
+          })
       },
     }
   }
