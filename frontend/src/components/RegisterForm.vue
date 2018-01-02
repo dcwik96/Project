@@ -55,7 +55,7 @@
     methods: {
       register() {
         this.$http.post('http://localhost:8080/registration', this.userDetails, {
-          emulateJSON : true
+          emulateJSON: true
         })
           .then(() => {
             this.message = 'Twoje konto zostało założne możesz przejść do logwania.'

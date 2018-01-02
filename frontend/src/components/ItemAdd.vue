@@ -23,21 +23,8 @@
       </div>
       <div class="container">
         <div class="row">
-          <div class="col-md-2" v-for="i in 5">
-            <picture-input
-              :ref="'pictureInput' + i"
-              @change="onChange"
-              width="150"
-              height="150"
-              margin="10"
-              accept="image/jpeg,image/png"
-              size="10"
-              buttonClass="btn btn-primary"
-              :customStrings="{
-        upload: '<h1>Wyśli</h1>',
-        drag: 'Przeciagnij i upuść zdjecię'
-      }">
-            </picture-input>
+          <div class="col-md-2" >
+            <input type="file" multiple ref="imageInput">
           </div>
         </div>
   </div>
@@ -62,8 +49,8 @@
     data() {
       return {
         advertData: {
-          title: 'test',
-          description: 'test test test test',
+          title: '',
+          description: '',
           duration: 1,
           images: [],
           imagesDescriptions: []
@@ -77,30 +64,17 @@
       PictureInput
     },
     methods: {
-      onChange() {
-        if(this.$refs.pictureInput1.image)
-          this.advertData.images.push(this.$refs.pictureInput1.file)
-        if(this.$refs.pictureInput2.image)
-          this.advertData.images.push(this.$refs.pictureInput2.file)
-        if(this.$refs.pictureInput3.image)
-          this.advertData.images.push(this.$refs.pictureInput3.file)
-        if(this.$refs.pictureInput4.image)
-          this.advertData.images.push(this.$refs.pictureInput4.file)
-        if(this.$refs.pictureInput5.image)
-          this.advertData.images.push(this.$refs.pictureInput5.file)
+      onChange(event) {
       },
       uploadAdvert() {
         var formData = new FormData();
         formData.append('title', this.advertData.title)
         formData.append('description', this.advertData.description)
         formData.append('duration', this.advertData.duration)
-
-        this.advertData.images.forEach((image) => {
-          console.log(image)
-          formData.append('images', image)
+        for(var i = 0;i < this.$refs.imageInput.files.length; ++i) {
+          formData.append('images', this.$refs.imageInput.files[0])
           formData.append('imagesDescriptions', 'Tego nie będzie.')
-        })
-
+        }
         this.$http.post('http://localhost:8080/api/newadvert', formData).then(
           (response) => {
             this.added = true
