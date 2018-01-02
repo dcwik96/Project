@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,7 +19,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import pl.iledasz.Application;
 import pl.iledasz.DTO.AppUserDTO;
@@ -68,8 +66,7 @@ public class AppUserTests {
     static String password = "ILoveMacDonald";
 
     @Before
-    public void setup()
-    {
+    public void setup() {
         mockMvc = webAppContextSetup(webApplicationContext)
                 .addFilter(springSecurityFilterChain)
                 .build();
@@ -77,7 +74,7 @@ public class AppUserTests {
         Mockito.when(appUserRepository.save(Mockito.any(AppUser.class))).thenReturn(null);
 
         //Don't use role from database
-        Mockito.when(roleRepository.findOne(Mockito.anyLong())).thenReturn(new Role( (long) 1 , "appuser"));
+        Mockito.when(roleRepository.findOne(Mockito.anyLong())).thenReturn(new Role((long) 1, "appuser"));
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(roleRepository.findOne((long) 0).getRole()));
@@ -90,22 +87,22 @@ public class AppUserTests {
 
         RequestBuilder requestBuilder =
                 post("/registration")
-                .accept(MediaType.ALL)
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .sessionAttr("userForm", new AppUser())
-                .param("name",name)
-                .param("surname",surname)
-                .param("phone_number",phone)
-                .param("login",login)
-                .param("password",password)
-                .param("email", email);
+                        .accept(MediaType.ALL)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .sessionAttr("userForm", new AppUser())
+                        .param("name", name)
+                        .param("surname", surname)
+                        .param("phone_number", phone)
+                        .param("login", login)
+                        .param("password", password)
+                        .param("email", email);
 
         //Assume as this login doesn't exist in database.
         Mockito.when(appUserRepository.findByLogin(Mockito.any(String.class))).thenReturn(null);
 
         ArgumentCaptor<AppUser> argumentCaptor = ArgumentCaptor.forClass(AppUser.class);
 
-        MvcResult mvcResult =  this.mockMvc.perform(requestBuilder).andReturn();
+        MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
 
         Mockito.verify(appUserRepository).save(argumentCaptor.capture());
 
@@ -119,9 +116,9 @@ public class AppUserTests {
         assertEquals(createdUser.getLogin(), login);
         assertEquals(createdUser.getName(), name);
         assertEquals(createdUser.getSurname(), surname);
-        assertEquals(createdUser.getEmail(),email);
+        assertEquals(createdUser.getEmail(), email);
         assertEquals(createdUser.getPhone_number(), phone);
-        assertTrue(bCryptPasswordEncoder.matches(password,createdUser.getPassword()));
+        assertTrue(bCryptPasswordEncoder.matches(password, createdUser.getPassword()));
         assertEquals(createdUser.isEnable(), true);
     }
 
@@ -129,10 +126,10 @@ public class AppUserTests {
     public void testLogin() throws Exception {
         RequestBuilder requestBuilder =
                 post("/login")
-                .accept(MediaType.ALL)
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("username",login)
-                .param("password",password);
+                        .accept(MediaType.ALL)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("username", login)
+                        .param("password", password);
 
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -144,7 +141,7 @@ public class AppUserTests {
         appUser.setSurname(surname);
         appUser.setPhone_number(phone);
         appUser.setEnable(true);
-        appUser.setRole(roleRepository.findOne( (long) 0));
+        appUser.setRole(roleRepository.findOne((long) 0));
 
         //Return user for login test
         Mockito.when(appUserRepository.findByLogin(login)).thenReturn(appUser);
@@ -160,9 +157,30 @@ public class AppUserTests {
         assertEquals(receivedAppUser.getLogin(), login);
         assertEquals(receivedAppUser.getSurname(), surname);
         assertEquals(receivedAppUser.getPhone_number(), phone);
-        assertEquals(receivedAppUser.getEmail(),email);
-        assertEquals(receivedAppUser.getName(),name);
+        assertEquals(receivedAppUser.getEmail(), email);
+        assertEquals(receivedAppUser.getName(), name);
 
     }
+
+    @Test
+    public void testBadLogin() throws Exception {
+        RequestBuilder requestBuilder =
+                post("/login")
+                        .accept(MediaType.ALL)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("username", login)
+                        .param("password", password);
+
+//        ObjectMapper objectMapper = new ObjectMapper();
+        Mockito.when(appUserRepository.findByLogin(login)).thenReturn(null);
+
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.UNAUTHORIZED.value(), response.getStatus());
+
+    }
+
 
 }
