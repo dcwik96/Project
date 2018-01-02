@@ -1,24 +1,3 @@
-<!-- <template>
-  <div class="mt-3">
-    <div v-if="adverts && adverts.length" >
-      <div class="row" v-for="i in Math.ceil(adverts.length / 3)">
-        <div v-for="advert in adverts.slice((i - 1) * 3, i * 3)" class="col-sm-4" >
-          <div class="card text-center align-middle" style="height: 350px; margin-bottom: 20px;">
-            <img v-bind:src="'http://localhost:8080/api/photos/' + advert.id" class="mx-auto d-block" style="width: 200px; height: 150px;">
-            <div class="card-block">
-              <h6 class="card-title">{{advert.title}}</h6>
-              <div class="card-body">
-                <a href="/" class="btn btn-primary">Więcej</a>
-                <a href="/" class="btn btn-success">Ile dasz?</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template> -->
-
 <template>
   <div>
     <div class="page-header">
@@ -31,9 +10,9 @@
 
       <div class="caption">
         <h5>{{advert.title | truncate(20)}}</h5>
-        <img class=" text-center" v-bind:src="'http://localhost:8080/api/photos/' + advert.id" style="width: 100%; height: 150px;">
+        <img class=" text-center" :src="'http://localhost:8080/api/photos/' + advert.photos[0].id" style="width: 100%; height: 150px;">
         <p></p>
-        <p><a href="#" class="btn btn-success" role="button">Ile dasz?</a> <a href="#" class="btn btn-default" role="button">Zobacz ofertę</a></p>
+        <p><a href="/" class="btn btn-success" role="button">Ile dasz?</a> <a href="/" class="btn btn-default" role="button">Zobacz ofertę</a></p>
       </div>
     </div>
   </div>
