@@ -1,19 +1,20 @@
 package pl.iledasz.service;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,14 +23,19 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import pl.iledasz.Application;
-import pl.iledasz.controllers.RegistrationController;
+import pl.iledasz.DTO.AppUserDTO;
 import pl.iledasz.entities.AppUser;
 import pl.iledasz.entities.Role;
 import pl.iledasz.repository.AppUserRepository;
 import pl.iledasz.repository.RoleRepository;
 
+import javax.servlet.Filter;
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 
@@ -49,6 +55,8 @@ public class AppUserTests {
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private Filter springSecurityFilterChain;
 
     private MockMvc mockMvc;
 
@@ -59,16 +67,29 @@ public class AppUserTests {
     static String phone = "345234234";
     static String password = "ILoveMacDonald";
 
+    @Before
+    public void setup()
+    {
+        mockMvc = webAppContextSetup(webApplicationContext)
+                .addFilter(springSecurityFilterChain)
+                .build();
+        //Don't add new user to database
+        Mockito.when(appUserRepository.save(Mockito.any(AppUser.class))).thenReturn(null);
+
+        //Don't use role from database
+        Mockito.when(roleRepository.findOne(Mockito.anyLong())).thenReturn(new Role( (long) 1 , "appuser"));
+
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        grantedAuthorities.add(new SimpleGrantedAuthority(roleRepository.findOne((long) 0).getRole()));
+        //Give user for login
+    }
+
 
     @Test
     public void testRegistrationProcess() throws Exception {
 
-        mockMvc = webAppContextSetup(webApplicationContext).build();
-
-        AppUser appUser = new AppUser();
-
-        RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/registration")
+        RequestBuilder requestBuilder =
+                post("/registration")
                 .accept(MediaType.ALL)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .sessionAttr("userForm", new AppUser())
@@ -78,12 +99,6 @@ public class AppUserTests {
                 .param("login",login)
                 .param("password",password)
                 .param("email", email);
-
-        //Don't add new user to database
-        Mockito.when(appUserRepository.save(Mockito.any(AppUser.class))).thenReturn(null);
-
-        //Don't use role from database
-        Mockito.when(roleRepository.findOne(Mockito.anyLong())).thenReturn(new Role( (long) 1 , "appuser"));
 
         //Assume as this login doesn't exist in database.
         Mockito.when(appUserRepository.findByLogin(Mockito.any(String.class))).thenReturn(null);
@@ -97,11 +112,10 @@ public class AppUserTests {
         AppUser createdUser = argumentCaptor.getValue();
 
         MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(response.getContentAsString(),"Nowy użytkownik został poprawnie dodany, możesz się teraz zalogować");
+//        assertEquals(response.getContentAsString(),"Nowy użytkownik został poprawnie dodany, możesz się teraz zalogować");
         assertEquals(response.getStatus(), HttpStatus.OK.value());
 
         //verify received user detail
-
         assertEquals(createdUser.getLogin(), login);
         assertEquals(createdUser.getName(), name);
         assertEquals(createdUser.getSurname(), surname);
@@ -109,6 +123,46 @@ public class AppUserTests {
         assertEquals(createdUser.getPhone_number(), phone);
         assertTrue(bCryptPasswordEncoder.matches(password,createdUser.getPassword()));
         assertEquals(createdUser.isEnable(), true);
+    }
+
+    @Test
+    public void testLogin() throws Exception {
+        RequestBuilder requestBuilder =
+                post("/login")
+                .accept(MediaType.ALL)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("username",login)
+                .param("password",password);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        AppUser appUser = new AppUser();
+        appUser.setLogin(login);
+        appUser.setPassword(bCryptPasswordEncoder.encode(password));
+        appUser.setName(name);
+        appUser.setEmail(email);
+        appUser.setSurname(surname);
+        appUser.setPhone_number(phone);
+        appUser.setEnable(true);
+        appUser.setRole(roleRepository.findOne( (long) 0));
+
+        //Return user for login test
+        Mockito.when(appUserRepository.findByLogin(login)).thenReturn(appUser);
+
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+
+        AppUserDTO receivedAppUser = objectMapper.readValue(response.getContentAsString(), AppUserDTO.class);
+
+
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        assertEquals(receivedAppUser.getLogin(), login);
+        assertEquals(receivedAppUser.getSurname(), surname);
+        assertEquals(receivedAppUser.getPhone_number(), phone);
+        assertEquals(receivedAppUser.getEmail(),email);
+        assertEquals(receivedAppUser.getName(),name);
 
     }
+
 }
