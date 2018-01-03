@@ -34,4 +34,7 @@ public class PhotoService {
     public Photo findPhotoById(Long id) {
         return photoRepository.findOneById(id);
     }
+    public Photo findPhotoByAdverPhotoID(long id) {
+        return photoRepository.findOneByAdvertphoto_Id(id);
+    }
 }
