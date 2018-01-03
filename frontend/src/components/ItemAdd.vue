@@ -23,10 +23,19 @@
       </div>
       <div class="container">
         <div class="row">
-          <div class="col-md-2" >
-            <input type="file" multiple ref="imageInput">
+              <div v-if="!images[0]">
+                <h2>Wybierz zdjęcie</h2>
+              </div>
+              <div v-else>
+                <div class="col-md-2" v-for="image in images" >
+                <img  :src="image" class="img-preview"/>
+                <!--<button @click="removeImage">Remove-->
+                  <!--image</button>-->
+                </div>
+              </div>
           </div>
-        </div>
+        <br>
+        <input id="imageInput" type="file" @change="onFileChange" multiple>
   </div>
   <div class="text-center">
     <button class="btn btn-success" type="submit" @click.prevent="uploadAdvert">Dodaj</button>
@@ -37,10 +46,15 @@
 </template>
 
 <style>
-  .picture-container {
-    position: relative;
-    cursor: pointer;
-    text-align: center;
+  .img-preview {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    border: 5px #7f7f7f solid;
+    display: inline-block;
+  }
+  button {
+
   }
 </style>
 <script>
@@ -48,11 +62,11 @@
   export default {
     data() {
       return {
+        images: [],
         advertData: {
           title: '',
           description: '',
           duration: 1,
-          images: [],
           imagesDescriptions: []
         },
         added: false,
@@ -64,7 +78,22 @@
       PictureInput
     },
     methods: {
-      onChange(event) {
+      onFileChange(e) {
+        this.images = [];
+        var files = e.target.files || e.dataTransfer.files;
+        if (!files.length)
+          return;
+        for(var i = 0; i < files.length; ++i)
+          this.createImage(files[i]);
+      },
+      createImage(file) {
+        var reader = new FileReader();
+        var vm = this;
+
+        reader.onload = (e) => {
+          vm.images.push(e.target.result);
+        };
+        reader.readAsDataURL(file);
       },
       uploadAdvert() {
         var formData = new FormData();
@@ -72,7 +101,7 @@
         formData.append('description', this.advertData.description)
         formData.append('duration', this.advertData.duration)
         for(var i = 0;i < this.$refs.imageInput.files.length; ++i) {
-          formData.append('images', this.$refs.imageInput.files[0])
+          formData.append('images', this.$refs.imageInput.files[i])
           formData.append('imagesDescriptions', 'Tego nie będzie.')
         }
         this.$http.post('http://localhost:8080/api/newadvert', formData).then(
