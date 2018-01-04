@@ -100,8 +100,9 @@
         formData.append('title', this.advertData.title)
         formData.append('description', this.advertData.description)
         formData.append('duration', this.advertData.duration)
-        for(var i = 0;i < this.$refs.imageInput.files.length; ++i) {
-          formData.append('images', this.$refs.imageInput.files[i])
+        // console.log(imageInput.files);
+        for(var i = 0;i < imageInput.files.length; ++i) {
+          formData.append('images', imageInput.files[i])
           formData.append('imagesDescriptions', 'Tego nie będzie.')
         }
         this.$http.post('http://localhost:8080/api/newadvert', formData).then(
