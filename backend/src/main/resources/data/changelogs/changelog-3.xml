@@ -29,6 +29,26 @@
             </column>
         </addColumn>
 
+        <addForeignKeyConstraint baseColumnNames="app_user_id"
+                                 baseTableName="offer"
+                                 constraintName="fk_offer_user"
+                                 deferrable="true"
+                                 initiallyDeferred="true"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="app_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="advert_id"
+                                 baseTableName="offer"
+                                 constraintName="fk_offer_advert"
+                                 deferrable="true"
+                                 initiallyDeferred="true"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="advert"/>
+
 
     </changeSet>
 </databaseChangeLog>
