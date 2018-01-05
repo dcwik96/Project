@@ -28,7 +28,7 @@ public class PhotoController {
     @RequestMapping(value = "api/photos/{id}")
     public ResponseEntity<byte[]> getPhotoById(@PathVariable("id") Long id) {
 
-        Photo photo = photoService.findPhotoByAdverPhotoID(id);
+        Photo photo = photoService.findPhotoById(id);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
