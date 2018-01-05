@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <form @submit.prevent="register" style="padding: 50px;">
       <div class="form-group">
         <label for="name">Imię:</label>
@@ -54,14 +55,12 @@
     },
     methods: {
       register() {
-        this.$http.post('http://localhost:8080/registration', this.userDetails, {
-          emulateJSON: true
-        })
+        this.$http.post('http://localhost:8080/registration', this.userDetails)
           .then(() => {
             this.message = 'Twoje konto zostało założne możesz przejść do logwania.'
           }, response => {
             this.dataError = true
-            this.message = response.bodyText
+            this.message = "Podałeś nieprawidłowe dane."
           })
       }
     }

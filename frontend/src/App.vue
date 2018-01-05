@@ -26,7 +26,6 @@
     color: #2c3e50;
     margin-top: 60px;
   }
-
   .page-heading {
     position: relative;
     padding: 30px 15px;
@@ -40,6 +39,7 @@
     position: relative;
   }
 
+
   #functionPanel div {
     margin-bottom: 5px;
   }
@@ -47,12 +47,12 @@
   #functionPanel div:last-child {
     margin-bottom: 0px;
   }
-
   .mr-test {
     margin-right: 5px;
   }
 
-  .blocks {
+  .blocks
+  {
     padding: 24px 12px;
     margin: 0 5px;
     border-radius: 0;
