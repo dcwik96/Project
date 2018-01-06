@@ -1,19 +1,22 @@
 import Vue from 'vue'
 const state =
   {
-    adverts: [],
+    adverts: []
   }
 
 const getters = {
   getArrayOfAdverts: state =>  {
     return state.adverts
-  },
+  }
 }
 
 const actions = {
   getAdverts: ({commit}) => {
     commit('setAdvertsArray')
   },
+  getAdvert: ({commit}) => {
+    commit('setAdvertObject')
+  }
 }
 
 const mutations = {
