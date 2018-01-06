@@ -19,7 +19,7 @@
       </div>
       <div class="form-group">
         <label for="description">Opis</label>
-        <textarea class="form-control" rows="5" id="description" v-model="advertData.description"></textarea>
+        <textarea class="form-control" rows="5" id="description" v-model="advertData.description" contenteditable></textarea>
       </div>
       <div class="container">
         <div class="row">
