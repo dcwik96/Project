@@ -1,5 +1,6 @@
 package pl.iledasz.service;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,5 +50,11 @@ public class OfferService {
         newOffer.setAppUser(appUserRepository.findByLogin(principal.getName()));
         newOffer.setOffer(offerDTO.getOffer());
         offerRepository.save(newOffer);
+    }
+
+    public OfferDTO getUserOffer( Long advertId, String login)
+    {
+        ModelMapper model = new ModelMapper();
+        return model.map(offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(advertId, login),OfferDTO.class);
     }
 }

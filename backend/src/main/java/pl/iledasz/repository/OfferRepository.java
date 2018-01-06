@@ -12,4 +12,6 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
     List<Offer> findAllByAdvertisement_Id(Long id);
 
     Offer findOneById(Long id);
+
+    Offer findOfferByAdvertisement_IdAndAppUser_Login(Long id, String login);
 }
