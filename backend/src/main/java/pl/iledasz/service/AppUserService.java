@@ -46,8 +46,14 @@ public class AppUserService {
 
     public void modify(AppUser userForm, Principal principal) {
         AppUser loggedUser = appUserRepository.findByLogin(principal.getName());
-        userForm.setId(loggedUser.getId());
 
-        appUserRepository.save(userForm);
+        loggedUser.setName(userForm.getName());
+        loggedUser.setSurname(userForm.getSurname());
+        loggedUser.setEmail(userForm.getEmail());
+        loggedUser.setPhone_number(userForm.getPhone_number());
+        loggedUser.setPassword(bCryptPasswordEncoder.encode(userForm.getPassword()));
+        loggedUser.setEnable(true);
+
+        appUserRepository.save(loggedUser);
     }
 }
