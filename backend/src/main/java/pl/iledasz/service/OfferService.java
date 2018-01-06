@@ -1,11 +1,9 @@
 package pl.iledasz.service;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.iledasz.DTO.OfferDTO;
-import pl.iledasz.entities.Advertisement;
 import pl.iledasz.entities.Offer;
 import pl.iledasz.repository.AdvertisementRepository;
 import pl.iledasz.repository.AppUserRepository;

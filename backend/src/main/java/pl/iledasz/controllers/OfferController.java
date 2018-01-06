@@ -88,4 +88,19 @@ public class OfferController {
         return new ResponseEntity<>("Accepted", HttpStatus.OK);
     }
 
+
+    @RequestMapping(value = "api/offer/{id}/editOffer")
+    @PostMapping
+    public void editOffer (@PathVariable("id") Long id,@ModelAttribute("offerForm")OfferDTO offerDTO, Principal principal, HttpServletResponse httpServletResponse)
+    {
+        Offer offer = offerRepository.getOne(id);
+        if(offerDTO.getOffer() != null && offer.getAppUser().getLogin().equals(principal.getName()))
+        {
+            offer.setOffer(offerDTO.getOffer());
+            offerRepository.save(offer);
+            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+        }else
+            httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+    }
+
 }
