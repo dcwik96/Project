@@ -12,6 +12,8 @@ Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(VueCookie)
 
+
+
 export const eventBus = new Vue();
 
 const Plugin = {

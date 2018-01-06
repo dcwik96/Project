@@ -8,7 +8,7 @@
         <input type="text" class="form-control" id="title" v-model="advertData.title">
       </div>
       <div class="form-group">
-        <label for="exampleFormControlSelect1">Wybierz kategorię</label>
+        <label for="exampleFormControlSelect1">Wybierz czas trwania</label>
         <select class="form-control" id="exampleFormControlSelect1">
           <option>1</option>
           <option>2</option>
