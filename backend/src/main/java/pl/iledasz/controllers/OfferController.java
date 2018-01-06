@@ -75,8 +75,12 @@ public class OfferController {
     public ResponseEntity<String> putNewOffer(@PathVariable("id") Long id, @ModelAttribute("offerForm")OfferDTO offerDTO, Principal principal)
     {
         Advertisement advertisement = advertisementRepository.findOneById(id);
-        if(advertisement == null || advertisement.getAppUser().getLogin().equals(principal.getName()) ||
-                offerDTO.getOffer() == null || offerDTO.getOffer().compareTo(BigDecimal.valueOf(0.00)) <= 0 )
+
+        if(advertisement == null ||
+                advertisement.getAppUser().getLogin().equals(principal.getName()) ||
+                offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(id, principal.getName()) != null ||
+                offerDTO.getOffer() == null ||
+                offerDTO.getOffer().compareTo(BigDecimal.valueOf(0.00)) <= 0 )
         {
             return new ResponseEntity<>("Something goes wrong!", HttpStatus.FORBIDDEN);
         }

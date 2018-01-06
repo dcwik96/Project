@@ -55,6 +55,9 @@ public class OfferService {
     public OfferDTO getUserOffer( Long advertId, String login)
     {
         ModelMapper model = new ModelMapper();
-        return model.map(offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(advertId, login),OfferDTO.class);
+        Offer offer = offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(advertId, login);
+        if( offer == null)
+            return null;
+        return model.map(offer,OfferDTO.class);
     }
 }
