@@ -16,14 +16,17 @@ import pl.iledasz.repository.AdvertisementRepository;
 import pl.iledasz.repository.PhotoRepository;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
 import java.time.OffsetDateTime;
 import java.util.*;
+import java.util.List;
 
 @Service
 public class AdvertisementService {
@@ -86,10 +89,13 @@ public class AdvertisementService {
             BufferedImage scaledImg = Thumbnails.of(image)
                     .size(800, 600)
                     .asBufferedImage();
-            byte[] imageBytes = ((DataBufferByte) scaledImg.getData().getDataBuffer()).getData();
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(scaledImg, "jpg", baos);
+
             AdvertPhoto advertPhoto = new AdvertPhoto(newAdvertisement, imageWithDescription.getKey());
             advertPhotoRepository.save(advertPhoto);
-            Photo photo = new Photo(imageBytes, advertPhoto);
+            Photo photo = new Photo(baos.toByteArray(), advertPhoto);
             photoRepository.save(photo);
         }
 
