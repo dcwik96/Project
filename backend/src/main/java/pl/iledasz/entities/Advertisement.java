@@ -44,6 +44,9 @@ public class Advertisement {
     @Type(type = "org.hibernate.type.OffsetDateTimeType")
     private OffsetDateTime endDate;
 
+    @Column(name = "available")
+    private boolean available;
+
 
     @OneToMany(mappedBy = "advertisement")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)

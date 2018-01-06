@@ -63,6 +63,7 @@ public class AdvertisementService {
         newAdvertisement.setStartDate(OffsetDateTime.now());
         newAdvertisement.setEndDate(newAdvertisement.getStartDate().plusDays(newAdvertForm.getDuration()));
         newAdvertisement.setDuration(newAdvertForm.getDuration());
+        newAdvertisement.setAvailable(true);
 
         AppUser appUser = appUserService.findByLogin(principal.getName());
 
