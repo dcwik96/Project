@@ -1,11 +1,7 @@
 <template>
   <div>Testdupa ID: {{$route.params.id}}
-    {{adverts}}
-
+    {{advert}}
   </div>
-
-
-
 </template>
 
 <script>
@@ -13,18 +9,26 @@
   export default {
     data () {
       return {
-        params: {
-        id:
-          this.$route.params.id
-        }
-
+        id: '',
+        advert: {}
       }
 
     },
     computed: {
-      ...mapGetters({adverts: 'getArrayOfAdverts'})
+      ...mapGetters({adverts: 'getArrayOfAdverts'}),
+    },
+    created() {
+      this.getAdvertById(this.$route.params.id)
+    },
+    methods: {
+      getAdvertById(id) {
+        for(var i = 0; i < this.adverts.length; ++i) {
+          if(this.adverts[i].id == id ) {
+            this.advert = this.adverts[i]
+            return
+          }
+        }
+      }
     }
-
-
   }
 </script>

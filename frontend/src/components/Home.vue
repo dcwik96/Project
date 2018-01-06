@@ -12,7 +12,6 @@
               <img class=" text-center" :src="'http://localhost:8080/api/photos/' + advert.photos[0].id"
                    style="width: 100%; height: 150px;">
               <p></p>
-
               <p><a href="/" class="btn btn-success" role="button">Ile dasz?</a> <router-link :to= "{name: 'advert', params: {id: advert.id}}" tag="button" class="btn btn-default" exact>Zobacz ofertę</router-link> </p>
             </div>
           </div>
