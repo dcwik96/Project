@@ -40,9 +40,9 @@ public class AdvertisementService {
 
     public List<AdvertisementDTO> getLatestAdverts() {
         ModelMapper modelMapper = new ModelMapper();
+        OffsetDateTime now = OffsetDateTime.now();
+        List<Advertisement> adverts = advertisementRepository.findAllByEndDateAfterAndAndAvailableTrueOrderByEndDateAsc(now);
 
-        List<Advertisement> adverts = advertisementRepository.findAll();
-        adverts.sort(Comparator.comparing(Advertisement::getEndDate));
         List<AdvertisementDTO> advertisementDTOS = new ArrayList<>();
 
         for (Advertisement advertisement : adverts) {

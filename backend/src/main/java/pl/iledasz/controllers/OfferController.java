@@ -90,7 +90,7 @@ public class OfferController {
 
 
     @RequestMapping(value = "api/offer/{id}/editOffer")
-    @PostMapping
+    @PutMapping
     public void editOffer (@PathVariable("id") Long id,@ModelAttribute("offerForm")OfferDTO offerDTO, Principal principal, HttpServletResponse httpServletResponse)
     {
         Offer offer = offerRepository.getOne(id);

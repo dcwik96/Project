@@ -24,7 +24,7 @@ public class Photo {
     @Column(name = "image", nullable = false)
     private byte[] image;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "advertphoto_id")
     private AdvertPhoto advertphoto;
 
