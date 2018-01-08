@@ -17,4 +17,5 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     Advertisement randomOne();
     List<Advertisement> findAllByEndDateAfterAndAndAvailableTrueOrderByEndDateAsc(OffsetDateTime endDate);
     List<Advertisement> findAllByAppUser(AppUser appUser);
+    Advertisement findAdvertisementsByAppUserAndId(AppUser appUser, Long id);
 }
