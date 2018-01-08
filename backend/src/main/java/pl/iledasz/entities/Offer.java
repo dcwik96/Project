@@ -26,7 +26,7 @@ public class Offer {
     @JoinColumn(name = "app_user_id")
     private AppUser appUser;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "advert_id")
     private Advertisement advertisement;
 
