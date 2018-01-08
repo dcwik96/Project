@@ -15,10 +15,10 @@ const actions = {
     commit('setAdvertsArray')
   },
   enableInput: ({commit},payload) => {
-    commit('toggleShowInputTrue', payload)
+    commit('toggleShowInput', payload)
   },
   disableInput: ({commit},payload) => {
-    commit('toggleShowInputFalse', payload)
+    commit('toggleShowInput', payload)
   }
 }
 
@@ -35,11 +35,8 @@ const mutations = {
       })
 
   },
-  toggleShowInputFalse(state, payload) {
-    state.adverts[payload].showInput = false;
-  },
-  toggleShowInputTrue(state, payload) {
-    state.adverts[payload].showInput = true;
+  toggleShowInput(state, payload) {
+    state.adverts[payload].showInput = !state.adverts[payload].showInput;
   }
 }
 
