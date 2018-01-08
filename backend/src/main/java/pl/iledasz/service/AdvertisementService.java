@@ -67,16 +67,7 @@ public class AdvertisementService {
         OffsetDateTime now = OffsetDateTime.now();
         List<Advertisement> adverts = advertisementRepository.findAllByEndDateAfterAndAndAvailableTrueOrderByEndDateAsc(now);
 
-        List<LightAdvertisementDTO> advertisementDTOS = new ArrayList<>();
-
-        for (Advertisement advertisement : adverts) {
-
-            LightAdvertisementDTO advertisementDTO = modelMapper.map(advertisement, LightAdvertisementDTO.class);
-            advertisementDTO.setPhoto(modelMapper.map(advertisement.getPhotos().get(0), AdvertPhotoDTO.class));
-            advertisementDTOS.add(advertisementDTO);
-        }
-
-        return advertisementDTOS;
+        return mapToLightAdvertisement(adverts);
     }
 
 
@@ -108,5 +99,19 @@ public class AdvertisementService {
             photoRepository.save(photo);
         }
 
+    }
+
+    private List<LightAdvertisementDTO> mapToLightAdvertisement(List<Advertisement> adverts)
+    {
+        List<LightAdvertisementDTO> advertisementDTOS = new ArrayList<>();
+        ModelMapper modelMapper = new ModelMapper();
+        for (Advertisement advertisement : adverts) {
+
+            LightAdvertisementDTO advertisementDTO = modelMapper.map(advertisement, LightAdvertisementDTO.class);
+            advertisementDTO.setPhoto(modelMapper.map(advertisement.getPhotos().get(0), AdvertPhotoDTO.class));
+            advertisementDTOS.add(advertisementDTO);
+        }
+
+        return advertisementDTOS;
     }
 }
