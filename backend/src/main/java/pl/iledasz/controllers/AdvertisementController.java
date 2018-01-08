@@ -65,4 +65,10 @@ public class AdvertisementController {
         return new ResponseEntity<>("Nowe ogłoszenie zostało dodane", HttpStatus.OK);
     }
 
+    @RequestMapping(value = "api/randomAdvert")
+            public AdvertisementDTO randomAdvert()
+    {
+        return advertisementService.randomAdvert();
+    }
+
 }
