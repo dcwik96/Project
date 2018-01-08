@@ -12,7 +12,29 @@
     <img class=" text-center" :src="'http://localhost:8080/api/photos/' + advert.photos[0].id"
          style="width: 100%; height: 150px;">
          <p></p>
-         <p><a href="/" class="btn btn-success" role="button">Ile dasz?</a> <router-link :to= "{name: 'advert', params: {id: advert.id}}" tag="button" class="btn btn-default" exact>Zobacz ofertę</router-link> </p>
+
+         <p v-if="showFirst">
+           <button class="btn btn-success" role="button" v-on:click="toggle">Ile dasz?</button> <router-link :to= "{name: 'advert', params: {id: advert.id}}" tag="button" class="btn btn-default" exact>Zobacz ofertę</router-link>
+         </p>
+
+           <!-- <div class="input-group">
+             <input type="text" class="form-control" placeholder="Wprowadź kwotę" aria-describedby="basic-addon2">
+             <span class="input-group-addon">zł</span>
+             <button class="btn btn-success" role="button" v-on:click="toggle">Ok</button> <router-link :to= "{name: 'advert', params: {id: advert.id}}" tag="button" class="btn btn-default" exact>Anuluj</router-link>
+           </div> -->
+           <div :key="advert.id" v-if="!showFirst" class="row">
+  <div class="col-lg-12">
+    <div class="input-group">
+
+      <input type="text" class="form-control" placeholder="Ile dasz? (zł)">
+      <span class="input-group-btn">
+        <button class="btn btn-success" v-on:click="toggle" type="button">Ok</button>
+        <button class="btn btn-default" type="button" v-on:click="toggle">Anuluj</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+
   </div>
 </div>
         </div>
@@ -27,8 +49,15 @@
   export default {
     name: 'app',
     data() {
-      return {}
+      return {
+        showFirst: true
+      }
     },
+    methods: {
+      toggle: function() {
+      this.showFirst = !this.showFirst;
+    }
+  },
     computed: {
       ...mapGetters({adverts: 'getArrayOfAdverts'}),
     },
