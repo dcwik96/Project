@@ -62,15 +62,18 @@ public class AdvertisementService {
 
     public List<LightAdvertisementDTO> getLatestLightAdverts() {
 
-        ModelMapper modelMapper = new ModelMapper();
-
         OffsetDateTime now = OffsetDateTime.now();
         List<Advertisement> adverts = advertisementRepository.findAllByEndDateAfterAndAndAvailableTrueOrderByEndDateAsc(now);
 
         return mapToLightAdvertisement(adverts);
     }
 
+    public List<LightAdvertisementDTO> getUserLightAdverts(Principal principal) {
 
+        AppUser appUser = appUserService.findByLogin(principal.getName());
+        List<Advertisement> adverts = advertisementRepository.findAllByAppUser(appUser);
+        return mapToLightAdvertisement(adverts);
+    }
 
 
     public void createNewAdvertisement(NewAdvertDTO newAdvertForm, Principal principal) throws IOException {
