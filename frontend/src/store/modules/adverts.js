@@ -27,12 +27,13 @@ const mutations = {
     Vue.http.get('http://localhost:8080/api/adverts')
       .then(response => {
         state.adverts = response.data
+        state.adverts.forEach(advert => {
+          advert.showInput = true
+        })
       }, e => {
         console.log(e)
       })
-    state.adverts.forEach(advert => {
-      advert.showInput = true
-    })
+
   },
   toggleShowInputFalse(state, payload) {
     state.adverts[payload].showInput = false;

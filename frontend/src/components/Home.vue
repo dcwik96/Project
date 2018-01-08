@@ -18,7 +18,7 @@
                   Zobacz ofertę
                 </router-link>
               </p>
-              <div v-if="" class="row">
+              <div v-if="!advert.showInput" class="row">
                 <div class="col-lg-12">
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Ile dasz? (zł)">
@@ -39,7 +39,6 @@
 
 <script>
   import {mapGetters} from 'vuex'
-  import adverts from "../store/modules/adverts";
 
   export default {
     name: 'app',
@@ -57,10 +56,7 @@
       ...mapGetters({adverts: 'getArrayOfAdverts'}),
     },
     created() {
-      console.log(this.$store.dispatch('getAdverts'))
-      for(var i = 0; i < this.adverts.length; ++i ) {
-        this.$store.dispatch('disableInput', i)
-      }
+      this.$store.dispatch('getAdverts')
     },
     filters: {
       truncate: function (string, value) {
