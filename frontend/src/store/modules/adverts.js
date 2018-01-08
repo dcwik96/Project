@@ -14,8 +14,11 @@ const actions = {
   getAdverts: ({commit}) => {
     commit('setAdvertsArray')
   },
-  getAdvert: ({commit}) => {
-    commit('setAdvertObject')
+  enableInput: ({commit},payload) => {
+    commit('toggleShowInputTrue', payload)
+  },
+  disableInput: ({commit},payload) => {
+    commit('toggleShowInputFalse', payload)
   }
 }
 
@@ -27,6 +30,15 @@ const mutations = {
       }, e => {
         console.log(e)
       })
+    state.adverts.forEach(advert => {
+      advert.showInput = true
+    })
+  },
+  toggleShowInputFalse(state, payload) {
+    state.adverts[payload].showInput = false;
+  },
+  toggleShowInputTrue(state, payload) {
+    state.adverts[payload].showInput = true;
   }
 }
 
