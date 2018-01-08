@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.iledasz.DTO.AdvertisementDTO;
+import pl.iledasz.DTO.LightAdvertisementDTO;
 import pl.iledasz.DTO.NewAdvertDTO;
 import pl.iledasz.service.AdvertisementService;
 import pl.iledasz.validator.NewAdvertValidator;
@@ -30,6 +31,13 @@ public class AdvertisementController {
     @RequestMapping(value = "api/adverts")
     public List<AdvertisementDTO> getAdverts() {
         return advertisementService.getLatestAdverts();
+    }
+
+    @CrossOrigin(origins = "http://localhost:8081")
+    @RequestMapping(value = "api/lightAdverts")
+    public List<LightAdvertisementDTO> getLightAdverts() {
+
+        return advertisementService.getLatestLightAdverts();
     }
 
     @RequestMapping(value = "api/advert/{id}")

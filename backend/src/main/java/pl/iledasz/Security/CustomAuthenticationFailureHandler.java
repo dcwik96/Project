@@ -14,10 +14,9 @@ import java.io.IOException;
 @Component
 public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse,"/aboutMe" );
+        httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }
 }

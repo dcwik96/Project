@@ -4,7 +4,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import pl.iledasz.DTO.AdvertPhotoDTO;
 import pl.iledasz.DTO.AdvertisementDTO;
+import pl.iledasz.DTO.LightAdvertisementDTO;
 import pl.iledasz.DTO.NewAdvertDTO;
 import pl.iledasz.entities.AdvertPhoto;
 import pl.iledasz.entities.Advertisement;
@@ -13,7 +15,6 @@ import pl.iledasz.entities.Photo;
 import pl.iledasz.repository.AdvertPhotoRepository;
 import pl.iledasz.repository.AdvertisementRepository;
 import pl.iledasz.repository.PhotoRepository;
-
 import java.io.IOException;
 import java.security.Principal;
 import java.time.OffsetDateTime;
@@ -46,9 +47,9 @@ public class AdvertisementService {
 
     public List<AdvertisementDTO> getLatestAdverts() {
         ModelMapper modelMapper = new ModelMapper();
+        OffsetDateTime now = OffsetDateTime.now();
+        List<Advertisement> adverts = advertisementRepository.findAllByEndDateAfterAndAndAvailableTrueOrderByEndDateAsc(now);
 
-        List<Advertisement> adverts = advertisementRepository.findAll();
-        adverts.sort(Comparator.comparing(Advertisement::getEndDate));
         List<AdvertisementDTO> advertisementDTOS = new ArrayList<>();
 
         for (Advertisement advertisement : adverts) {
@@ -58,6 +59,27 @@ public class AdvertisementService {
 
         return advertisementDTOS;
     }
+
+    public List<LightAdvertisementDTO> getLatestLightAdverts() {
+
+        ModelMapper modelMapper = new ModelMapper();
+
+        OffsetDateTime now = OffsetDateTime.now();
+        List<Advertisement> adverts = advertisementRepository.findAllByEndDateAfterAndAndAvailableTrueOrderByEndDateAsc(now);
+
+        List<LightAdvertisementDTO> advertisementDTOS = new ArrayList<>();
+
+        for (Advertisement advertisement : adverts) {
+
+            LightAdvertisementDTO advertisementDTO = modelMapper.map(advertisement, LightAdvertisementDTO.class);
+            advertisementDTO.setPhoto(modelMapper.map(advertisement.getPhotos().get(0), AdvertPhotoDTO.class));
+            advertisementDTOS.add(advertisementDTO);
+        }
+
+        return advertisementDTOS;
+    }
+
+
 
 
     public void createNewAdvertisement(NewAdvertDTO newAdvertForm, Principal principal) throws IOException {
@@ -69,6 +91,7 @@ public class AdvertisementService {
         newAdvertisement.setStartDate(OffsetDateTime.now());
         newAdvertisement.setEndDate(newAdvertisement.getStartDate().plusDays(newAdvertForm.getDuration()));
         newAdvertisement.setDuration(newAdvertForm.getDuration());
+        newAdvertisement.setAvailable(true);
 
         AppUser appUser = appUserService.findByLogin(principal.getName());
 
