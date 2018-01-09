@@ -5,7 +5,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import pl.iledasz.DTO.AdvertPhotoDTO;
 import pl.iledasz.DTO.AdvertisementDTO;
+import pl.iledasz.DTO.LightAdvertisementDTO;
 import pl.iledasz.DTO.NewAdvertDTO;
 import pl.iledasz.entities.AdvertPhoto;
 import pl.iledasz.entities.Advertisement;
@@ -21,6 +23,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
@@ -47,11 +50,17 @@ public class AdvertisementService {
                 advertisementRepository.findOneById(id), AdvertisementDTO.class);
     }
 
+    public AdvertisementDTO randomAdvert()
+    {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(advertisementRepository.randomOne(), AdvertisementDTO.class);
+    }
+
     public List<AdvertisementDTO> getLatestAdverts() {
         ModelMapper modelMapper = new ModelMapper();
+        OffsetDateTime now = OffsetDateTime.now();
+        List<Advertisement> adverts = advertisementRepository.findAllByEndDateAfterAndAndAvailableTrueOrderByEndDateAsc(now);
 
-        List<Advertisement> adverts = advertisementRepository.findAll();
-        adverts.sort(Comparator.comparing(Advertisement::getEndDate));
         List<AdvertisementDTO> advertisementDTOS = new ArrayList<>();
 
         for (Advertisement advertisement : adverts) {
@@ -60,6 +69,21 @@ public class AdvertisementService {
         }
 
         return advertisementDTOS;
+    }
+
+    public List<LightAdvertisementDTO> getLatestLightAdverts() {
+
+        OffsetDateTime now = OffsetDateTime.now();
+        List<Advertisement> adverts = advertisementRepository.findAllByEndDateAfterAndAndAvailableTrueOrderByEndDateAsc(now);
+
+        return mapToLightAdvertisement(adverts);
+    }
+
+    public List<LightAdvertisementDTO> getUserLightAdverts(Principal principal) {
+
+        AppUser appUser = appUserService.findByLogin(principal.getName());
+        List<Advertisement> adverts = advertisementRepository.findAllByAppUser(appUser);
+        return mapToLightAdvertisement(adverts);
     }
 
 
@@ -99,5 +123,27 @@ public class AdvertisementService {
             photoRepository.save(photo);
         }
 
+    }
+
+    public boolean checkAdvertOwnerIsLoggedUser(Principal principal, Long id)
+    {
+        AppUser appUser = appUserService.findByLogin(principal.getName());
+        if(advertisementRepository.findAdvertisementsByAppUserAndId(appUser, id) == null)
+            return false;
+        return true;
+    }
+
+    private List<LightAdvertisementDTO> mapToLightAdvertisement(List<Advertisement> adverts)
+    {
+        List<LightAdvertisementDTO> advertisementDTOS = new ArrayList<>();
+        ModelMapper modelMapper = new ModelMapper();
+        for (Advertisement advertisement : adverts) {
+
+            LightAdvertisementDTO advertisementDTO = modelMapper.map(advertisement, LightAdvertisementDTO.class);
+            advertisementDTO.setPhoto(modelMapper.map(advertisement.getPhotos().get(0), AdvertPhotoDTO.class));
+            advertisementDTOS.add(advertisementDTO);
+        }
+
+        return advertisementDTOS;
     }
 }
