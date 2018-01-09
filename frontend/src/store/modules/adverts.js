@@ -42,14 +42,15 @@ const actions = {
     }
     const url = 'http://localhost:8080/api/advert/'+data.id+'/newOffer'
     var offerData = {
-      offer: data.price
+      offerForm: data.price
     }
 
     console.log(payload)
     Vue.use(toasted)
 
     Vue.http.post(url, offerData, {
-      emulateJSON: true
+      emulateJSON: true,
+      emulateHTTP: true
     })
       .then(() => {
         Vue.toasted.success('Twoja oferta została złożona', config)
