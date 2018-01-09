@@ -13,7 +13,7 @@
                    style="width: 100%; height: 150px;">
               <p></p>
               <p v-if="advert.showInput">
-                <button class="btn btn-success" role="button" @click="$store.dispatch('enableInput', index)">Ile dasz?</button>
+                <button class="btn btn-success" role="button" @click="enableInput(index)">Ile dasz?</button>
                 <router-link :to="{name: 'advert', params: {id: advert.id}}" tag="button" class="btn btn-default" exact>
                   Zobacz ofertę
                 </router-link>
@@ -24,7 +24,7 @@
                     <input type="text" class="form-control" placeholder="Ile dasz? (zł)">
                     <span class="input-group-btn">
                       <button class="btn btn-success" @click="makeOffer(advert.id)" type="button">Ok</button>
-                      <button class="btn btn-default" type="button" @click="$store.dispatch('disableInput', index)">Anuluj</button>
+                      <button class="btn btn-default" type="button" @click="disableInput(index)">Anuluj</button>
                     </span>
                   </div>
                 </div>
@@ -39,7 +39,7 @@
 
 <script>
   import {mapGetters} from 'vuex'
-
+  import {mapActions} from 'vuex'
   export default {
     name: 'app',
     data() {
@@ -50,13 +50,16 @@
     methods: {
       makeOffer(id) {
 
-      }
+      },
+      ...mapActions(['getAdverts',
+                      'enableInput',
+                      'disableInput'])
     },
     computed: {
       ...mapGetters({adverts: 'getArrayOfAdverts'}),
     },
     created() {
-      this.$store.dispatch('getAdverts')
+     this.getAdverts()
     },
     filters: {
       truncate: function (string, value) {
