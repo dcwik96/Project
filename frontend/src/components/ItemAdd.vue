@@ -8,23 +8,31 @@
         <input type="text" class="form-control" id="title" v-model="advertData.title">
       </div>
       <div class="form-group">
-        <label for="exampleFormControlSelect1">Wybierz czas trwania</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
+        <label for="timeChoose">Wybierz czas trwania</label>
+        <div id="timeChoose">
+        <div class="radio">
+          <label><input type="radio" >Bezterminowy</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio">1 dzień</label>
+        </div>
+        <div class="radio disabled">
+          <label><input type="radio">3 dni</label>
+        </div>
+        <div class="radio disabled">
+          <label><input type="radio">7 dni</label>
+        </div>
+      </div>
+      
       </div>
       <div class="form-group">
         <label for="description">Opis</label>
-        <textarea class="form-control" rows="5" id="description" v-model="advertData.description" contenteditable></textarea>
+        <textarea class="form-control" rows="5" id="description" v-model="advertData.description" ></textarea>
       </div>
       <div class="container">
         <div class="row">
               <div v-if="!images[0]">
-                <h2>Wybierz zdjęcie</h2>
+                <h2>Dodaj zdjęcia do przedmiotu</h2>
               </div>
               <div v-else>
                 <div class="col-md-2" v-for="image in images" >
