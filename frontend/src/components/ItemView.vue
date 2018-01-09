@@ -22,7 +22,7 @@
                     <input type="text" class="form-control" placeholder="Ile dasz? (zł)" v-model="price" >
                     <span class="input-group-btn">
                       <button class="btn btn-success" type="submit">Ok</button>
-                      <button class="btn btn-default" type="button" @click="disableInput(index)">Anuluj</button>
+                      <button class="btn btn-default" type="button" @click="showInput = false">Anuluj</button>
                     </span>
                   </div>
                 </form>
