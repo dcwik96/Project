@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.iledasz.entities.AppUser;
 import pl.iledasz.service.AppUserService;
 import pl.iledasz.validator.AppUserValidator;
+import pl.iledasz.validator.EditAppUserValidator;
+
+import java.security.Principal;
 
 @RestController
 public class RegistrationController {
 
     @Autowired
     private AppUserValidator appUserValidator;
+    @Autowired
+    private EditAppUserValidator editAppUserValidator;
     @Autowired
     private AppUserService appUserService;
 
@@ -30,5 +35,18 @@ public class RegistrationController {
         appUserService.save(userForm);
 
         return new ResponseEntity<>("Nowy użytkownik został poprawnie dodany, możesz się teraz zalogować", HttpStatus.OK);
+    }
+
+    @PostMapping(value = "api/user/edit")
+    public ResponseEntity<String> editUser(@ModelAttribute("userForm") AppUser userForm, BindingResult bindingResult, Principal principal) {
+        editAppUserValidator.validate(userForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError().getDefaultMessage(), HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        appUserService.modify(userForm, principal);
+
+        return new ResponseEntity<>("Edytowano", HttpStatus.OK);
     }
 }
