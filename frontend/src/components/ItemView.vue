@@ -4,7 +4,7 @@
 
       <div class="panel-heading"><h3>{{advert.title}}</h3></div>
       <br><br>
-      
+
       <img v-img:test :src="'http://localhost:8080/api/photos/' + advert.photos[0].id" style="width: 300px;">
 
       <div class="panel-body"><h6>{{advert.description}}</h6>
@@ -29,6 +29,7 @@
             </div>
         </p>
       </div>
+    </div>
     </div>
   </div>
 </template>
