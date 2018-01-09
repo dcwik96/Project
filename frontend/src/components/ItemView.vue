@@ -17,12 +17,15 @@
           </div>
             <div class="text-center vcenter">
               <div class="input-group" v-show="showInput" style="width: 250px;">
-                <input type="text" class="form-control" placeholder="Ile dasz? (zł)" v-model="offer">
-                <span class="input-group-btn">
-               <button class="btn btn-success" @click="makeOffer(advert.id)">Ok</button>
-               <button class="btn btn-default" type="button" @click="toggleShowInput()">Anuluj</button>
-             </span>
-              </div>
+                <form @submit.prevent="makeOffer({ id: advert.id, price: price})">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Ile dasz? (zł)" v-model="price" >
+                    <span class="input-group-btn">
+                      <button class="btn btn-success" type="submit">Ok</button>
+                      <button class="btn btn-default" type="button" @click="disableInput(index)">Anuluj</button>
+                    </span>
+                  </div>
+                </form>
             </div>
         </p>
       </div>
@@ -43,6 +46,7 @@
         id: '',
         advert: {},
         showInput: false,
+        price: 0
       }
     },
     computed: {
