@@ -7,10 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.iledasz.DTO.AdvertisementDTO;
+import pl.iledasz.DTO.LightAdvertisementDTO;
 import pl.iledasz.DTO.NewAdvertDTO;
 import pl.iledasz.service.AdvertisementService;
 import pl.iledasz.validator.NewAdvertValidator;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.security.Principal;
@@ -30,6 +32,25 @@ public class AdvertisementController {
     @RequestMapping(value = "api/adverts")
     public List<AdvertisementDTO> getAdverts() {
         return advertisementService.getLatestAdverts();
+    }
+
+    @CrossOrigin(origins = "http://localhost:8081")
+    @RequestMapping(value = "api/lightAdverts")
+    public List<LightAdvertisementDTO> getLightAdverts() {
+
+        return advertisementService.getLatestLightAdverts();
+    }
+
+    @CrossOrigin(origins = "http://localhost:8081")
+    @RequestMapping(value = "api/userAdverts")
+    public List<LightAdvertisementDTO> getUserLightAdverts(Principal principal, HttpServletResponse httpServletResponse) {
+
+        if (principal == null)
+        {
+            httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return null;
+        }
+        return advertisementService.getUserLightAdverts(principal);
     }
 
     @RequestMapping(value = "api/advert/{id}")
@@ -55,6 +76,20 @@ public class AdvertisementController {
         advertisementService.createNewAdvertisement(newAdvertForm, principal);
 
         return new ResponseEntity<>("Nowe ogłoszenie zostało dodane", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "api/randomAdvert")
+            public AdvertisementDTO randomAdvert()
+    {
+        return advertisementService.randomAdvert();
+    }
+
+    @RequestMapping(value = "api/advert/{id}/verify")
+    public void checkAdvertOwnerIsLoggedUser(@PathVariable("id") Long id, Principal principal, HttpServletResponse httpServletResponse) {
+        if(advertisementService.checkAdvertOwnerIsLoggedUser(principal, id))
+            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+        else
+            httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
 
 }
