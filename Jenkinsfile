@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
 
             steps {
-                 	sh 'mvn clean && mvn -DskipTest install && mvn -DskipTest --projects backend spring-boot:start'
+                 	sh 'echo "test"'
             }
         }
     }
