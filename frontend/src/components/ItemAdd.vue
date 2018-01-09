@@ -11,19 +11,19 @@
         <label for="timeChoose">Wybierz czas trwania</label>
         <div id="timeChoose">
         <div class="radio">
-          <label><input type="radio" >Bezterminowy</label>
+          <label><input type="radio" name="optionsRadios" value="option1">Bezterminowy</label>
         </div>
         <div class="radio">
-          <label><input type="radio">1 dzień</label>
+          <label><input type="radio" name="optionsRadios" value="option2">1 dzień</label>
         </div>
-        <div class="radio disabled">
-          <label><input type="radio">3 dni</label>
+        <div class="radio">
+          <label><input type="radio" name="optionsRadios" value="option3">3 dni</label>
         </div>
-        <div class="radio disabled">
-          <label><input type="radio">7 dni</label>
+        <div class="radio">
+          <label><input type="radio" name="optionsRadios" value="option4">7 dni</label>
         </div>
       </div>
-      
+
       </div>
       <div class="form-group">
         <label for="description">Opis</label>
