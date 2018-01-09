@@ -62,24 +62,18 @@ public class AdvertisementService {
 
     public List<LightAdvertisementDTO> getLatestLightAdverts() {
 
-        ModelMapper modelMapper = new ModelMapper();
-
         OffsetDateTime now = OffsetDateTime.now();
         List<Advertisement> adverts = advertisementRepository.findAllByEndDateAfterAndAndAvailableTrueOrderByEndDateAsc(now);
 
-        List<LightAdvertisementDTO> advertisementDTOS = new ArrayList<>();
-
-        for (Advertisement advertisement : adverts) {
-
-            LightAdvertisementDTO advertisementDTO = modelMapper.map(advertisement, LightAdvertisementDTO.class);
-            advertisementDTO.setPhoto(modelMapper.map(advertisement.getPhotos().get(0), AdvertPhotoDTO.class));
-            advertisementDTOS.add(advertisementDTO);
-        }
-
-        return advertisementDTOS;
+        return mapToLightAdvertisement(adverts);
     }
 
+    public List<LightAdvertisementDTO> getUserLightAdverts(Principal principal) {
 
+        AppUser appUser = appUserService.findByLogin(principal.getName());
+        List<Advertisement> adverts = advertisementRepository.findAllByAppUser(appUser);
+        return mapToLightAdvertisement(adverts);
+    }
 
 
     public void createNewAdvertisement(NewAdvertDTO newAdvertForm, Principal principal) throws IOException {
@@ -108,5 +102,27 @@ public class AdvertisementService {
             photoRepository.save(photo);
         }
 
+    }
+
+    public boolean checkAdvertOwnerIsLoggedUser(Principal principal, Long id)
+    {
+        AppUser appUser = appUserService.findByLogin(principal.getName());
+        if(advertisementRepository.findAdvertisementsByAppUserAndId(appUser, id) == null)
+            return false;
+        return true;
+    }
+
+    private List<LightAdvertisementDTO> mapToLightAdvertisement(List<Advertisement> adverts)
+    {
+        List<LightAdvertisementDTO> advertisementDTOS = new ArrayList<>();
+        ModelMapper modelMapper = new ModelMapper();
+        for (Advertisement advertisement : adverts) {
+
+            LightAdvertisementDTO advertisementDTO = modelMapper.map(advertisement, LightAdvertisementDTO.class);
+            advertisementDTO.setPhoto(modelMapper.map(advertisement.getPhotos().get(0), AdvertPhotoDTO.class));
+            advertisementDTOS.add(advertisementDTO);
+        }
+
+        return advertisementDTOS;
     }
 }

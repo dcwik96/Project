@@ -12,6 +12,7 @@ import pl.iledasz.DTO.NewAdvertDTO;
 import pl.iledasz.service.AdvertisementService;
 import pl.iledasz.validator.NewAdvertValidator;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.security.Principal;
@@ -38,6 +39,18 @@ public class AdvertisementController {
     public List<LightAdvertisementDTO> getLightAdverts() {
 
         return advertisementService.getLatestLightAdverts();
+    }
+
+    @CrossOrigin(origins = "http://localhost:8081")
+    @RequestMapping(value = "api/userAdverts")
+    public List<LightAdvertisementDTO> getUserLightAdverts(Principal principal, HttpServletResponse httpServletResponse) {
+
+        if (principal == null)
+        {
+            httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return null;
+        }
+        return advertisementService.getUserLightAdverts(principal);
     }
 
     @RequestMapping(value = "api/advert/{id}")
@@ -69,6 +82,14 @@ public class AdvertisementController {
             public AdvertisementDTO randomAdvert()
     {
         return advertisementService.randomAdvert();
+    }
+
+    @RequestMapping(value = "api/advert/{id}/verify")
+    public void checkAdvertOwnerIsLoggedUser(@PathVariable("id") Long id, Principal principal, HttpServletResponse httpServletResponse) {
+        if(advertisementService.checkAdvertOwnerIsLoggedUser(principal, id))
+            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+        else
+            httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
 
 }
