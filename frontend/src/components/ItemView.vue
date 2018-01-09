@@ -4,12 +4,10 @@
 
       <div class="panel-heading"><h3>{{advert.title}}</h3></div>
       <br><br>
-
-
+      div.class
       <img v-img:test :src="'http://localhost:8080/api/photos/' + advert.photos[0].id" style="width: 300px;">
 
       <div class="panel-body"><h6>{{advert.description}}</h6>
-
         <br>
 
         <p>
@@ -35,9 +33,9 @@
 <script>
   import Vue from 'vue';
   import VueImg from 'v-img';
-
-  Vue.use(VueImg);
   import {mapGetters} from 'vuex'
+  import {mapActions} from 'vuex'
+  Vue.use(VueImg);
 
   export default {
     data() {
@@ -45,9 +43,7 @@
         id: '',
         advert: {},
         showInput: false,
-        offer
       }
-
     },
     computed: {
       ...mapGetters({adverts: 'getArrayOfAdverts'}),
@@ -56,6 +52,7 @@
       this.getAdvertById(this.$route.params.id)
     },
     methods: {
+      ...mapActions(['makeOffer']),
       getAdvertById(id) {
         for (var i = 0; i < this.adverts.length; ++i) {
           if (this.adverts[i].id == id) {
@@ -66,23 +63,7 @@
       },
       toggleShowInput() {
         this.showInput = !this.showInput;
-      },
-      makeOffer(id) {
-        const url = 'http://localhost:8080/api/advert/'+id+'newOffer';
-        var formData = new FormData();
-        formData.append('offer',this.offer)
-
-        this.$http.post(url, formData, {
-          emulateJSON: true
-        })
-          .then(() => {
-            this.message = 'Twoja oferta została złożona'
-          }, response => {
-            this.dataError = true
-            this.message = response.bodyText
-          })
       }
-
     }
   }
 </script>

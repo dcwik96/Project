@@ -25,11 +25,7 @@
                     <input type="text" class="form-control" placeholder="Ile dasz? (zł)" >
                     <span class="input-group-btn">
                       <button class="btn btn-success" @click="makeOffer(advert.id)" type="button">Ok</button>
-<<<<<<< HEAD
-                      <button class="btn btn-default" @click="$store.dispatch('disableInput', index)">Anuluj</button>
-=======
                       <button class="btn btn-default" type="button" @click="disableInput(index)">Anuluj</button>
->>>>>>> cea863260f1ddd48b66a4baa92018378e0abcf57
                     </span>
                   </div>
                 </form>
@@ -54,18 +50,16 @@
       }
     },
     methods: {
-      makeOffer(id) {
-
-      },
-      ...mapActions(['getAdverts',
+      ...mapActions(['fetchData',
                       'enableInput',
-                      'disableInput'])
+                      'disableInput',
+                      'makeOffer'])
     },
     computed: {
       ...mapGetters({adverts: 'getArrayOfAdverts'}),
     },
     created() {
-     this.getAdverts()
+     this.fetchData()
     },
     filters: {
       truncate: function (string, value) {
