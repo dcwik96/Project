@@ -20,13 +20,15 @@
               </p>
               <div v-if="!advert.showInput" class="row">
                 <div class="col-lg-12">
+                  <form>
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Ile dasz? (zł)">
+                    <input type="text" class="form-control" placeholder="Ile dasz? (zł)" >
                     <span class="input-group-btn">
                       <button class="btn btn-success" @click="makeOffer(advert.id)" type="button">Ok</button>
-                      <button class="btn btn-default" type="button" @click="$store.dispatch('disableInput', index)">Anuluj</button>
+                      <button class="btn btn-default" @click="$store.dispatch('disableInput', index)">Anuluj</button>
                     </span>
                   </div>
+                </form>
                 </div>
               </div>
             </div>
