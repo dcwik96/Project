@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.iledasz.DTO.AppUserDTO;
 import pl.iledasz.DTO.OfferDTO;
 import pl.iledasz.entities.Advertisement;
 import pl.iledasz.entities.AppUser;
 import pl.iledasz.entities.Offer;
 import pl.iledasz.repository.AdvertisementRepository;
 import pl.iledasz.repository.OfferRepository;
+import pl.iledasz.service.AdvertisementService;
 import pl.iledasz.service.AppUserService;
 import pl.iledasz.service.OfferService;
 
@@ -29,6 +31,8 @@ public class OfferController {
     AdvertisementRepository advertisementRepository;
     @Autowired
     OfferRepository offerRepository;
+    @Autowired
+    AdvertisementService advertisementService;
 
 
     //We need to remember about secure this endpoint, only advert owner has to get response.
@@ -102,5 +106,17 @@ public class OfferController {
         }else
             httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
+
+
+    @RequestMapping(value = "api/advert/{advertID}/offer/{offerID}")
+    public AppUserDTO chooseOffer(@PathVariable("advertID") Long advertID, @PathVariable("offerID") Long offerID, Principal principal){
+
+        if (advertisementRepository.findOneById(advertID).getAppUser().getLogin().equals(principal.getName())){
+            AppUserDTO appUserDTO = advertisementService.chooseOneOfferAndCloseAdvertisement(offerID);
+            return appUserDTO;
+        } else
+            return null;
+    }
+
 
 }
