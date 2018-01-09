@@ -20,11 +20,11 @@
               </p>
               <div v-if="!advert.showInput" class="row">
                 <div class="col-lg-12">
-                  <form>
+                  <form @submit.prevent="makeOffer({ id: advert.id, price: price})">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Ile dasz? (zł)" >
+                    <input type="text" class="form-control" placeholder="Ile dasz? (zł)" v-model="price" >
                     <span class="input-group-btn">
-                      <button class="btn btn-success" @click="makeOffer(advert.id)" type="button">Ok</button>
+                      <button class="btn btn-success" type="submit">Ok</button>
                       <button class="btn btn-default" type="button" @click="disableInput(index)">Anuluj</button>
                     </span>
                   </div>
@@ -46,7 +46,7 @@
     name: 'app',
     data() {
       return {
-
+        price: 0
       }
     },
     methods: {

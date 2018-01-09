@@ -34,23 +34,27 @@ const actions = {
       }
     )
   },
-  makeOffer: (id) => {
+  makeOffer: (payload, data) => {
     var config = {
       position : 'bottom-center',
       singleton: true,
       duration: 1000
     }
-    const url = 'http://localhost:8080/api/advert/'+id+'newOffer';
-    var formData = new FormData();
-    Vue.use(toasted)
-    formData.append('offer',this.offer)
+    const url = 'http://localhost:8080/api/advert/'+data.id+'/newOffer'
+    var offerData = {
+      offer: data.price
+    }
 
-    Vue.http.post(url, formData, {
+    console.log(payload)
+    Vue.use(toasted)
+
+    Vue.http.post(url, offerData, {
       emulateJSON: true
     })
       .then(() => {
-        Vue.toasted.success('Twoja oferta została złożona', config).goAway(100)
+        Vue.toasted.success('Twoja oferta została złożona', config)
       }, response => {
+        console.log(response)
         Vue.toasted.error('Wystąpił problem', config)
       })
   }
