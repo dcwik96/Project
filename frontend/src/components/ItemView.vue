@@ -1,5 +1,3 @@
-
-
 <template>
   <div>
     <div class="panel panel-primary text-center">
@@ -8,51 +6,46 @@
       <br><br>
 
 
-    <img v-img:test :src="'http://localhost:8080/api/photos/' + advert.photos[0].id" style="width: 300px;">
+      <img v-img:test :src="'http://localhost:8080/api/photos/' + advert.photos[0].id" style="width: 300px;">
 
       <div class="panel-body"><h6>{{advert.description}}</h6>
 
-    <br>
+        <br>
 
-     <p><div v-show="!showInput"><button class="btn btn-success" @click="toggleShowInput()" role="button">Ile dasz?</button> <router-link to= "/" tag="button" class="btn btn-default" exact>Powrót</router-link></div>
-       <form>
-
-           <div class="text-center vcenter">
-         <div class="input-group" v-show="showInput" style="width: 250px;">
-           <input type="text" class="form-control" placeholder="Ile dasz? (zł)">
-           <span class="input-group-btn">
-             <button class="btn btn-success" @click="makeOffer(advert.id)" >Ok</button>
-             <button class="btn btn-default" type="button" @click="toggleShowInput()" >Anuluj</button>
-           </span>
-         </div>
-
-       </div>
-
-     </form>
-   </p>
-
-
-
-  </div>
-  </div>
-
-
-
+        <p>
+          <div v-show="!showInput">
+            <button class="btn btn-success" @click="toggleShowInput()" role="button">Ile dasz?</button>
+            <router-link to="/" tag="button" class="btn btn-default" exact>Powrót</router-link>
+          </div>
+            <div class="text-center vcenter">
+              <div class="input-group" v-show="showInput" style="width: 250px;">
+                <input type="text" class="form-control" placeholder="Ile dasz? (zł)" v-model="offer">
+                <span class="input-group-btn">
+               <button class="btn btn-success" @click="makeOffer(advert.id)">Ok</button>
+               <button class="btn btn-default" type="button" @click="toggleShowInput()">Anuluj</button>
+             </span>
+              </div>
+            </div>
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Vue from 'vue';
-import VueImg from 'v-img';
+  import Vue from 'vue';
+  import VueImg from 'v-img';
 
-Vue.use(VueImg);
+  Vue.use(VueImg);
   import {mapGetters} from 'vuex'
+
   export default {
-    data () {
+    data() {
       return {
         id: '',
         advert: {},
-        showInput: false
+        showInput: false,
+        offer
       }
 
     },
@@ -64,8 +57,8 @@ Vue.use(VueImg);
     },
     methods: {
       getAdvertById(id) {
-        for(var i = 0; i < this.adverts.length; ++i) {
-          if(this.adverts[i].id == id ) {
+        for (var i = 0; i < this.adverts.length; ++i) {
+          if (this.adverts[i].id == id) {
             this.advert = this.adverts[i]
             return
           }
@@ -73,6 +66,21 @@ Vue.use(VueImg);
       },
       toggleShowInput() {
         this.showInput = !this.showInput;
+      },
+      makeOffer(id) {
+        const url = 'http://localhost:8080/api/advert/'+id+'newOffer';
+        var formData = new FormData();
+        formData.append('offer',this.offer)
+
+        this.$http.post(url, formData, {
+          emulateJSON: true
+        })
+          .then(() => {
+            this.message = 'Twoja oferta została złożona'
+          }, response => {
+            this.dataError = true
+            this.message = response.bodyText
+          })
       }
 
     }
