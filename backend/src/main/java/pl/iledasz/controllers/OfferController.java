@@ -70,9 +70,8 @@ public class OfferController {
         return null;
     }
 
-    @RequestMapping(value = "api/advert/{id}/newOffer")
-    @PostMapping
-    public ResponseEntity<String> putNewOffer(@PathVariable("id") Long id, @ModelAttribute("offerForm")OfferDTO offerDTO, Principal principal)
+    @PostMapping(value = "api/advert/{id}/newOffer")
+    public ResponseEntity<String> putNewOffer(@PathVariable("id") Long id, @ModelAttribute OfferDTO offerDTO, Principal principal)
     {
         Advertisement advertisement = advertisementRepository.findOneById(id);
 
@@ -89,9 +88,8 @@ public class OfferController {
     }
 
 
-    @RequestMapping(value = "api/offer/{id}/editOffer")
-    @PutMapping
-    public void editOffer (@PathVariable("id") Long id,@ModelAttribute("offerForm")OfferDTO offerDTO, Principal principal, HttpServletResponse httpServletResponse)
+    @PutMapping(value = "api/offer/{id}/editOffer")
+    public void editOffer (@PathVariable("id") Long id,@ModelAttribute OfferDTO offerDTO, Principal principal, HttpServletResponse httpServletResponse)
     {
         Offer offer = offerRepository.getOne(id);
         if(offerDTO.getOffer() != null && offer.getAppUser().getLogin().equals(principal.getName()))
