@@ -5,16 +5,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import pl.iledasz.DTO.AdvertPhotoDTO;
-import pl.iledasz.DTO.AdvertisementDTO;
-import pl.iledasz.DTO.LightAdvertisementDTO;
-import pl.iledasz.DTO.NewAdvertDTO;
-import pl.iledasz.entities.AdvertPhoto;
-import pl.iledasz.entities.Advertisement;
-import pl.iledasz.entities.AppUser;
-import pl.iledasz.entities.Photo;
+import pl.iledasz.DTO.*;
+import pl.iledasz.entities.*;
 import pl.iledasz.repository.AdvertPhotoRepository;
 import pl.iledasz.repository.AdvertisementRepository;
+import pl.iledasz.repository.OfferRepository;
 import pl.iledasz.repository.PhotoRepository;
 
 import javax.imageio.ImageIO;
@@ -34,6 +29,8 @@ import java.util.List;
 @Service
 public class AdvertisementService {
 
+    @Autowired
+    OfferRepository offerRepository;
     @Autowired
     private AdvertisementRepository advertisementRepository;
     @Autowired
@@ -145,5 +142,11 @@ public class AdvertisementService {
         }
 
         return advertisementDTOS;
+    }
+
+    public AppUserDTO chooseOneOfferAndCloseAdvertisement(Long offerID) {
+        Offer offer = offerRepository.getOne(offerID);
+        offer.getAdvertisement().setAvailable(false);
+        return appUserService.getUser(offer.getAppUser().getId());
     }
 }
