@@ -60,10 +60,10 @@ const actions = {
     )
   },
   fetchAdvert: ({commit}, id) => {
-    const url = 'http://localhost:8080/api/advert/' + id;
-    var tempAdverts = {};
-    Vue.http.get(url).then(
+    const url = 'http://localhost:8080/api/oneadvert/' + id;
+    Vue.http.get(url, {credentials: true}).then(
       response => {
+        console.log(response.data)
         commit('setAdvert', response.data)
       },
       response => {
@@ -103,7 +103,7 @@ const mutations = {
     state.lightAdverts = payload
   },
   toggleShowInput(state, payload) {
-    state.adverts[payload].showInput = !state.adverts[payload].showInput
+    state.lightAdverts[payload].showInput = !state.lightAdverts[payload].showInput
   },
   setAdvert(state, payload) {
     state.advert = payload

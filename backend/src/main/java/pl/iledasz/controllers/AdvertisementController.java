@@ -53,7 +53,8 @@ public class AdvertisementController {
         return advertisementService.getUserLightAdverts(principal);
     }
 
-    @RequestMapping(value = "api/advert/{id}")
+    @CrossOrigin(origins = "http://localhost:8081")
+    @RequestMapping(value = "api/oneadvert/{id}")
     public AdvertisementDTO getAdvertById(@PathVariable("id") Long id) {
 
         return advertisementService.findOneById(id);
