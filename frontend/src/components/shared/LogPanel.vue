@@ -21,6 +21,7 @@
       <div class="input-group">
       <div class="btn btn-default mb-1">Twoje przedmioty <span class="badge badge-default badge-pill pull-right">1</span></div>
       </div>
+      <div class="btn btn-default mb-1">Twoje oferty <span class="badge badge-default badge-pill pull-right">1</span></div>
     </div>
   </div>
   </div>

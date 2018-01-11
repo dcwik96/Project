@@ -5,16 +5,34 @@
     </div>
     <div v-if="adverts && adverts.length">
       <div class="row text-center">
-        <div v-for="advert in adverts" class="col-sm-6 col-md-3">
+        <div v-for="(advert,index) in adverts" class="col-sm-6 col-md-3">
           <div class="panel panel-primary">
             <div class="panel-heading"><h5>{{advert.title | truncate(20)}}</h5></div>
-  <div class="panel-body">
-    <img class=" text-center" :src="'http://localhost:8080/api/photos/' + advert.photos[0].id"
-         style="width: 100%; height: 150px;">
-         <p></p>
-         <p><a href="/" class="btn btn-success" role="button">Ile dasz?</a> <router-link :to= "{name: 'advert', params: {id: advert.id}}" tag="button" class="btn btn-default" exact>Zobacz ofertę</router-link> </p>
-  </div>
-</div>
+            <div class="panel-body">
+              <img class=" text-center" :src="'http://localhost:8080/api/photos/' + advert.photos[0].id"
+                   style="width: 100%; height: 150px;">
+              <p></p>
+              <p v-if="advert.showInput">
+                <button class="btn btn-success" role="button" @click="enableInput(index)">Ile dasz?</button>
+                <router-link :to="{name: 'advert', params: {id: advert.id}}" tag="button" class="btn btn-default" exact>
+                  Zobacz ofertę
+                </router-link>
+              </p>
+              <div v-if="!advert.showInput" class="row">
+                <div class="col-lg-12">
+                  <form @submit.prevent="makeOffer({ id: advert.id, price: price})">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Ile dasz? (zł)" v-model="price" >
+                    <span class="input-group-btn">
+                      <button class="btn btn-success" type="submit">Ok</button>
+                      <button class="btn btn-default" type="button" @click="disableInput(index)">Anuluj</button>
+                    </span>
+                  </div>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -23,17 +41,25 @@
 
 <script>
   import {mapGetters} from 'vuex'
-
+  import {mapActions} from 'vuex'
   export default {
     name: 'app',
     data() {
-      return {}
+      return {
+        price: 0
+      }
+    },
+    methods: {
+      ...mapActions(['fetchData',
+                      'enableInput',
+                      'disableInput',
+                      'makeOffer'])
     },
     computed: {
       ...mapGetters({adverts: 'getArrayOfAdverts'}),
     },
     created() {
-      this.$store.dispatch('getAdverts')
+     this.fetchData()
     },
     filters: {
       truncate: function (string, value) {
