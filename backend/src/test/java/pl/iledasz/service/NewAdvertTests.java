@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -54,8 +55,8 @@ public class NewAdvertTests {
     static String title = "Tytul";
     static String description = "Description";
     static Long duration = 1l;
-    static List<String> imagesDescriptions = new ArrayList<>();
-    static List<MultipartFile> images = new ArrayList<>();
+    static String imagesDescriptions = null;
+    static String images = null;
 
     @Before
     public void setup() {
@@ -68,6 +69,7 @@ public class NewAdvertTests {
     }
 
     @Test
+    @WithMockUser
     public void testCheckIfRegisteredUserAddingAdvert() throws Exception {
         RequestBuilder requestBuilder = post("/api/newadvert")
                 .accept(MediaType.ALL)
