@@ -83,7 +83,7 @@ public class OfferController {
         {
             return new ResponseEntity<>("Something goes wrong!", HttpStatus.FORBIDDEN);
         }
-        offerService.saveNewOffer(principal,offerDTO, id);
+        offerService.saveNewOffer(principal, offerDTO, id);
         return new ResponseEntity<>("Accepted", HttpStatus.OK);
     }
 
