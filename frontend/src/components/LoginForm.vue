@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="login" style="padding: 50px;">
+    <form @submit.prevent="$store.dispatch('login',userData)" style="padding: 50px;">
       <div class="form-group">
         <label for="username">Nazwa użytkownika</label>
         <input id="username" type="text" class="form-control" placeholder="Wprowadź nazwę użytkownika"
@@ -15,13 +15,11 @@
       <button type="reset" variant="secondary" class="btn btn-default">Wyczyść</button>
       <br/><br/>
       <a class="link" @click="goToRegister">Nie masz jeszcze konta</a>
-      <div class="alert alert-danger" variant="danger" v-show="badCredentials" role="alert">Niepoprawne dane
-        logowania!
-      </div>
     </form>
   </div>
 </template>
 <script>
+  import {mapActions} from 'vuex'
   export default {
     data() {
       return {
@@ -29,24 +27,11 @@
           username: '',
           password: ''
         },
-        badCredentials: false,
         registerPath: {path: 'register'}
       }
     },
     methods: {
-      login() {
-        this.$http.post('http://localhost:8080/login', this.userData, {
-          emulateJSON: true
-        })
-          .then(() => {
-            this.$cookie.set('login', this.userData.username, 1)
-            this.$store.dispatch('setUsername', this.userData.username)
-            this.hide()
-            this.$router.go({name: 'home'})
-          }, () => {
-            this.badCredentials = true
-          })
-      },
+      ...mapActions['login'],
       hide() {
         this.$modal.hide('login')
       },

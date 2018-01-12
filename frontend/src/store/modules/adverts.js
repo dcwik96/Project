@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import toasted from 'vue-toasted'
+
 Vue.use(toasted)
 const state =
   {
@@ -9,10 +10,10 @@ const state =
   };
 
 const getters = {
-  getArrayOfAdverts: state =>  {
+  getArrayOfAdverts: state => {
     return state.adverts
   },
-  getArrayOfLightAdverts: state =>  {
+  getArrayOfLightAdverts: state => {
     return state.lightAdverts
   },
   getAdvert: state => {
@@ -21,10 +22,10 @@ const getters = {
 };
 
 const actions = {
-  enableInput: ({commit},payload) => {
+  enableInput: ({commit}, payload) => {
     commit('toggleShowInput', payload)
   },
-  disableInput: ({commit},payload) => {
+  disableInput: ({commit}, payload) => {
     commit('toggleShowInput', payload)
   },
   fetchData: ({commit}) => {
@@ -73,17 +74,18 @@ const actions = {
   },
   makeOffer: (payload, data) => {
     var config = {
-      position : 'bottom-center',
+      position: 'bottom-center',
       singleton: true,
       duration: 1000
     };
-    const url = 'http://localhost:8080/api/advert/'+data.id+'/newOffer';
+    const url = 'http://localhost:8080/api/advert/' + data.id + '/newOffer';
     var offerData = {
       offer: data.price
     };
 
     Vue.http.post(url, offerData, {
       emulateJSON: true,
+      emulateHTTP: true,
       credentials: true
     })
       .then(() => {
@@ -97,7 +99,7 @@ const actions = {
 
 const mutations = {
   setAdvertsArray(state, payload) {
-   state.adverts = payload
+    state.adverts = payload
   },
   setLightAdvertsArray(state, payload) {
     state.lightAdverts = payload
