@@ -76,9 +76,6 @@ public class AppUserTests {
         //Don't use role from database
         Mockito.when(roleRepository.findOne(Mockito.anyLong())).thenReturn(new Role((long) 1, "appuser"));
 
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(roleRepository.findOne((long) 0).getRole()));
-        //Give user for login
     }
 
 
@@ -89,7 +86,6 @@ public class AppUserTests {
                 post("/registration")
                         .accept(MediaType.ALL)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .sessionAttr("userForm", new AppUser())
                         .param("name", name)
                         .param("surname", surname)
                         .param("phone_number", phone)
@@ -110,7 +106,7 @@ public class AppUserTests {
 
         MockHttpServletResponse response = mvcResult.getResponse();
 //        assertEquals(response.getContentAsString(),"Nowy użytkownik został poprawnie dodany, możesz się teraz zalogować");
-        assertEquals(response.getStatus(), HttpStatus.OK.value());
+        assertEquals(HttpStatus.OK.value(),response.getStatus());
 
         //verify received user detail
         assertEquals(createdUser.getLogin(), login);
@@ -120,6 +116,120 @@ public class AppUserTests {
         assertEquals(createdUser.getPhone_number(), phone);
         assertTrue(bCryptPasswordEncoder.matches(password, createdUser.getPassword()));
         assertEquals(createdUser.isEnable(), true);
+    }
+
+    @Test
+    public void testRegistrationWithoutName() throws Exception {
+
+        RequestBuilder requestBuilder =
+                post("/registration")
+                        .accept(MediaType.ALL)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", name)
+                        .param("phone_number", phone)
+                        .param("login", login)
+                        .param("password", password)
+                        .param("email", email);
+
+        MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+    }
+
+    @Test
+    public void testRegistrationWithoutSurname() throws Exception {
+
+        RequestBuilder requestBuilder =
+                post("/registration")
+                        .accept(MediaType.ALL)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", name)
+                        .param("surname", surname)
+                        .param("login", login)
+                        .param("password", password)
+                        .param("email", email);
+
+        MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+    }
+
+    @Test
+    public void testRegistrationWithoutPhone() throws Exception {
+
+        RequestBuilder requestBuilder =
+                post("/registration")
+                        .accept(MediaType.ALL)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", name)
+                        .param("surname", surname)
+                        .param("login", login)
+                        .param("password", password)
+                        .param("email", email);
+
+        MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+    }
+
+    @Test
+    public void testRegistrationWithoutLogin() throws Exception {
+
+        RequestBuilder requestBuilder =
+                post("/registration")
+                        .accept(MediaType.ALL)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", name)
+                        .param("surname", surname)
+                        .param("login", login)
+                        .param("phone_number", phone)
+                        .param("email", email);
+
+        MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+    }
+
+    @Test
+    public void testRegistrationWithoutEmail() throws Exception {
+
+        RequestBuilder requestBuilder =
+                post("/registration")
+                        .accept(MediaType.ALL)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", name)
+                        .param("surname", surname)
+                        .param("login", login)
+                        .param("phone_number", phone)
+                        .param("password", password);
+
+        MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+    }
+
+    @Test
+    public void testRegistrationWithoutPassword() throws Exception {
+
+        RequestBuilder requestBuilder =
+                post("/registration")
+                        .accept(MediaType.ALL)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", name)
+                        .param("surname", surname)
+                        .param("phone_number", phone)
+                        .param("password", password)
+                        .param("email", email);
+
+        MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
     }
 
     @Test
