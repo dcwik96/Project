@@ -72,7 +72,7 @@ const actions = {
       }
     )
   },
-  makeOffer: (payload, data) => {
+  makeOffer: (context, data) => {
     var config = {
       position: 'bottom-center',
       singleton: true,
@@ -82,8 +82,8 @@ const actions = {
     var offerData = {
       offer: data.price
     };
-
-    Vue.http.post(url, offerData, {
+    console.log(data.price)
+    Vue.http.post(url, {offer: data.price}, {
       emulateJSON: true,
       emulateHTTP: true,
       credentials: true
