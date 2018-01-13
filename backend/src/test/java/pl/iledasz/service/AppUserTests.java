@@ -64,6 +64,7 @@ public class AppUserTests {
     static String email = "wkorol@ssh.com";
     static String phone = "345234234";
     static String password = "ILoveMacDonald";
+    static String weakPassword = "KfcKing";
 
     @Before
     public void setup() {
@@ -125,7 +126,7 @@ public class AppUserTests {
                 post("/registration")
                         .accept(MediaType.ALL)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("name", name)
+                        .param("surname", surname)
                         .param("phone_number", phone)
                         .param("login", login)
                         .param("password", password)
@@ -145,7 +146,7 @@ public class AppUserTests {
                         .accept(MediaType.ALL)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
-                        .param("surname", surname)
+                        .param("phone_number", phone)
                         .param("login", login)
                         .param("password", password)
                         .param("email", email);
@@ -184,8 +185,8 @@ public class AppUserTests {
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
                         .param("surname", surname)
-                        .param("login", login)
                         .param("phone_number", phone)
+                        .param("password", password)
                         .param("email", email);
 
         MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
@@ -203,10 +204,9 @@ public class AppUserTests {
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
                         .param("surname", surname)
-                        .param("login", login)
                         .param("phone_number", phone)
+                        .param("login", login)
                         .param("password", password);
-
         MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = mvcResult.getResponse();
@@ -223,7 +223,7 @@ public class AppUserTests {
                         .param("name", name)
                         .param("surname", surname)
                         .param("phone_number", phone)
-                        .param("password", password)
+                        .param("login", login)
                         .param("email", email);
 
         MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
