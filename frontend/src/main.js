@@ -14,8 +14,6 @@ Vue.use(VueResource)
 Vue.use(VueCookie)
 Vue.use(Toasted)
 
-
-
 export const eventBus = new Vue();
 
 const Plugin = {
@@ -43,7 +41,7 @@ const Plugin = {
   }
 }
 
-const router = new VueRouter({
+global.router = new VueRouter({
   routes,
   mode: 'history'
 })

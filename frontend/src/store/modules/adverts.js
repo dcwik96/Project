@@ -64,7 +64,6 @@ const actions = {
     const url = 'http://localhost:8080/api/oneadvert/' + id;
     Vue.http.get(url, {credentials: true}).then(
       response => {
-        console.log(response.data)
         commit('setAdvert', response.data)
       },
       response => {
@@ -72,30 +71,29 @@ const actions = {
       }
     )
   },
-  makeOffer: (context, data) => {
+  makeOffer: (payload, data) => {
     var config = {
-      position: 'bottom-center',
+      position : 'bottom-center',
       singleton: true,
       duration: 1000
     };
-    const url = 'http://localhost:8080/api/advert/' + data.id + '/newOffer';
+    const url = 'http://localhost:8080/api/advert/'+data.id+'/newOffer';
     var offerData = {
       offer: data.price
     };
-    console.log(data.price)
-    Vue.http.post(url, {offer: data.price}, {
+
+    Vue.http.post(url, offerData, {
       emulateJSON: true,
       emulateHTTP: true,
       credentials: true
     })
       .then(() => {
         Vue.toasted.success('Twoja oferta została złożona', config)
-      }, response => {
-        console.log(response);
+      }, () => {
         Vue.toasted.error('Wystąpił problem', config)
       })
-  }
-}
+    }
+};
 
 const mutations = {
   setAdvertsArray(state, payload) {

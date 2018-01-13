@@ -50,9 +50,10 @@ const actions = {
     })
       .then(() => {
         Vue.cookie.set('login', userData.username, 1);
-        commit('mutateUsername', userData.username);
+        router.go({name: 'home'});
+        commit('mutateUsername', userData.username)
       }, () => {
-        Vue.toasted.error("Nieprawidłowy login lub hasło", config);
+        Vue.toasted.error("Nieprawidłowy login lub hasło", config)
       })
   }
 }
