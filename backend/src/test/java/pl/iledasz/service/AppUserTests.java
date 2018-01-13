@@ -61,10 +61,12 @@ public class AppUserTests {
     static String name = "Wiktor";
     static String surname = "Korol";
     static String login = "appleIsBullshit";
+    static String weakLogin ="sd";
     static String email = "wkorol@ssh.com";
     static String phone = "345234234";
     static String password = "ILoveMacDonald";
     static String weakPassword = "KfcKing";
+    static String incorrectEmail = "asad.321#ypu.pl";
 
     @Before
     public void setup() {
@@ -81,11 +83,11 @@ public class AppUserTests {
 
 
     @Test
-    public void testRegistrationProcess() throws Exception {
+    public void testCorrectRegistrationProcess() throws Exception {
 
         RequestBuilder requestBuilder =
                 post("/registration")
-                        .accept(MediaType.ALL)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
                         .param("surname", surname)
@@ -106,7 +108,6 @@ public class AppUserTests {
         AppUser createdUser = argumentCaptor.getValue();
 
         MockHttpServletResponse response = mvcResult.getResponse();
-//        assertEquals(response.getContentAsString(),"Nowy użytkownik został poprawnie dodany, możesz się teraz zalogować");
         assertEquals(HttpStatus.OK.value(),response.getStatus());
 
         //verify received user detail
@@ -124,7 +125,7 @@ public class AppUserTests {
 
         RequestBuilder requestBuilder =
                 post("/registration")
-                        .accept(MediaType.ALL)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("surname", surname)
                         .param("phone_number", phone)
@@ -143,7 +144,7 @@ public class AppUserTests {
 
         RequestBuilder requestBuilder =
                 post("/registration")
-                        .accept(MediaType.ALL)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
                         .param("phone_number", phone)
@@ -162,7 +163,7 @@ public class AppUserTests {
 
         RequestBuilder requestBuilder =
                 post("/registration")
-                        .accept(MediaType.ALL)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
                         .param("surname", surname)
@@ -181,7 +182,7 @@ public class AppUserTests {
 
         RequestBuilder requestBuilder =
                 post("/registration")
-                        .accept(MediaType.ALL)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
                         .param("surname", surname)
@@ -200,7 +201,7 @@ public class AppUserTests {
 
         RequestBuilder requestBuilder =
                 post("/registration")
-                        .accept(MediaType.ALL)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
                         .param("surname", surname)
@@ -218,7 +219,7 @@ public class AppUserTests {
 
         RequestBuilder requestBuilder =
                 post("/registration")
-                        .accept(MediaType.ALL)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
                         .param("surname", surname)
@@ -233,10 +234,93 @@ public class AppUserTests {
     }
 
     @Test
+    public void testRegistrationWithWeakPassword() throws Exception {
+
+        RequestBuilder requestBuilder =
+                post("/registration")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", name)
+                        .param("surname", surname)
+                        .param("phone_number", phone)
+                        .param("login", login)
+                        .param("password", weakPassword)
+                        .param("email", email);
+
+        MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+    }
+
+    @Test
+    public void testRegistrationWithIncorrectEmail() throws Exception {
+
+        RequestBuilder requestBuilder =
+                post("/registration")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", name)
+                        .param("surname", surname)
+                        .param("phone_number", phone)
+                        .param("login", login)
+                        .param("password", password)
+                        .param("email", incorrectEmail);
+
+        MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+    }
+
+    @Test
+    public void testRegistrationWithWeakLogin() throws Exception {
+
+        RequestBuilder requestBuilder =
+                post("/registration")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", name)
+                        .param("surname", surname)
+                        .param("phone_number", phone)
+                        .param("login", weakLogin)
+                        .param("password", password)
+                        .param("email", email);
+
+        MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+    }
+
+    @Test
+    public void testRegistrationWhenLoginIsEngaged() throws Exception {
+
+        RequestBuilder requestBuilder =
+                post("/registration")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", name)
+                        .param("surname", surname)
+                        .param("phone_number", phone)
+                        .param("login", login)
+                        .param("password", password)
+                        .param("email", email);
+
+        //Simulate that login is engaged
+        Mockito.when(appUserRepository.findByLogin(login)).thenReturn(new AppUser());
+
+        MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+    }
+
+    @Test
     public void testLogin() throws Exception {
         RequestBuilder requestBuilder =
                 post("/login")
-                        .accept(MediaType.ALL)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("username", login)
                         .param("password", password);
@@ -276,13 +360,36 @@ public class AppUserTests {
     public void testBadLogin() throws Exception {
         RequestBuilder requestBuilder =
                 post("/login")
-                        .accept(MediaType.ALL)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("username", login)
                         .param("password", password);
 
-//        ObjectMapper objectMapper = new ObjectMapper();
         Mockito.when(appUserRepository.findByLogin(login)).thenReturn(null);
+
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.UNAUTHORIZED.value(), response.getStatus());
+
+    }
+
+    @Test
+    public void testLoginWithWrongPassword() throws Exception {
+        RequestBuilder requestBuilder =
+                post("/login")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("username", login)
+                        .param("password", password);
+
+        AppUser appUser = new AppUser();
+        appUser.setLogin(login);
+        appUser.setPassword(bCryptPasswordEncoder.encode(password + weakPassword));
+
+        Mockito.when(appUserRepository.findByLogin(login)).thenReturn(appUser);
 
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
 
