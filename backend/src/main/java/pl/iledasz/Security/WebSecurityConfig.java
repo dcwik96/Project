@@ -22,6 +22,7 @@ import org.springframework.web.filter.CorsFilter;
 import pl.iledasz.service.UserDetailsServiceImpl;
 
 
+
 @EnableGlobalMethodSecurity
 @Configuration
 @EnableWebSecurity
@@ -62,9 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/hello").permitAll()
                 .antMatchers("/hellosecure", "/api/newadvert").authenticated()
                 .antMatchers("/helloadmin").hasAuthority("ADMINISTRATOR")
-                .antMatchers("/api/lightAdverts").permitAll()
-                .antMatchers("/api/oneadvert/*").permitAll()
-                .antMatchers("/api/advert/**/newoffer").authenticated()
+                .antMatchers("/api/advert/**/*").authenticated()
                 .antMatchers("/api/offer/*").authenticated()
                 .antMatchers("/api/user/edit").authenticated()
                 .antMatchers("/api/userAdverts").authenticated()
