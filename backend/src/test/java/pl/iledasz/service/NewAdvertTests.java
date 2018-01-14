@@ -15,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -34,7 +35,9 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -64,17 +67,11 @@ public class NewAdvertTests {
     public void setup() {
         mockMvc = webAppContextSetup(webApplicationContext)
                 .addFilter(springSecurityFilterChain)
+                .apply(springSecurity())
                 .build();
 
         //Dont save new advert to database
         Mockito.when(advertisementRepository.save(Mockito.any(Advertisement.class))).thenReturn(null);
-
-        AppUser user = Mockito.mock(AppUser.class);
-        Authentication authentication = Mockito.mock(Authentication.class);
-        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
-        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
-        SecurityContextHolder.setContext(securityContext);
-        Mockito.when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(user);
     }
 
     @Test
@@ -83,6 +80,7 @@ public class NewAdvertTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "SpringBootKing", roles = "USER")
     public void testCheckIfRegisteredUserAddingAdvert() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "orig", null, "bar".getBytes());
 
@@ -93,19 +91,13 @@ public class NewAdvertTests {
                 .param("title", title)
                 .param("description", description)
                 .param("duration", String.valueOf(duration))
-                .param("imagesDescriptions", String.valueOf(imagesDescriptions))
+//                .param("imagesDescriptions", String.valueOf(imagesDescriptions))
                 .param("images", String.valueOf(file));
-
-
-
 
         Mockito.when(principal.getName()).thenReturn(null);
 
-        MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
+        this.mockMvc.perform(requestBuilder).andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
 
-        MockHttpServletResponse response = mvcResult.getResponse();
-
-        assertEquals(HttpStatus.METHOD_NOT_ALLOWED.value(), response.getStatus());
     }
 
 }

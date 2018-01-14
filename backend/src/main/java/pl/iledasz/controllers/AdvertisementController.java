@@ -63,9 +63,6 @@ public class AdvertisementController {
     @ResponseBody
     @Transactional
     public ResponseEntity<String> addNewAdvert(@ModelAttribute("advertForm") NewAdvertDTO newAdvertForm, BindingResult bindingResult, Principal principal) throws IOException {
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ asdf");
-        if (principal.getName().isEmpty())
-            return new ResponseEntity<>("Wystąpił błąd przy próbie pobrania danych użytkownika.", HttpStatus.METHOD_NOT_ALLOWED);
 
         newAdvertValidator.validate(newAdvertForm, bindingResult);
 
