@@ -8,40 +8,48 @@
         <input type="text" class="form-control" id="title" v-model="advertData.title">
       </div>
       <div class="form-group">
-        <label for="exampleFormControlSelect1">Wybierz czas trwania</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
+        <label for="timeChoose">Wybierz czas trwania</label>
+        <div id="timeChoose">
+          <div class="radio">
+            <label><input type="radio" name="timeChoose" value="30">Bezterminowy</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="timeChoose" value="1">1 dzień</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="timeChoose" value="3">3 dni</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="timeChoose" value="7">7 dni</label>
+          </div>
+        </div>
+
       </div>
       <div class="form-group">
         <label for="description">Opis</label>
-        <textarea class="form-control" rows="5" id="description" v-model="advertData.description" contenteditable></textarea>
+        <textarea class="form-control" rows="5" id="description" v-model="advertData.description"></textarea>
       </div>
       <div class="container">
         <div class="row">
-              <div v-if="!images[0]">
-                <h2>Wybierz zdjęcie</h2>
-              </div>
-              <div v-else>
-                <div class="col-md-2" v-for="image in images" >
-                <img  :src="image" class="img-preview"/>
-                <!--<button @click="removeImage">Remove-->
-                  <!--image</button>-->
-                </div>
-              </div>
+          <div v-if="!images[0]">
+            <h2>Dodaj zdjęcia do przedmiotu</h2>
           </div>
+          <div v-else>
+            <div class="col-md-2" v-for="image in images">
+              <img :src="image" class="img-preview"/>
+              <!--<button @click="removeImage">Remove-->
+              <!--image</button>-->
+            </div>
+          </div>
+        </div>
         <br>
         <input id="imageInput" type="file" @change="onFileChange" multiple>
-  </div>
-  <div class="text-center">
-    <button class="btn btn-success" type="submit" @click.prevent="uploadAdvert">Dodaj</button>
-    <button class="btn btn-danger">Anuluj</button>
-  </div>
-  </form>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-success" type="submit" @click.prevent="uploadAdvert">Dodaj</button>
+        <button class="btn btn-danger">Anuluj</button>
+      </div>
+    </form>
   </div>
 </template>
 
@@ -53,12 +61,13 @@
     border: 5px #7f7f7f solid;
     display: inline-block;
   }
-  button {
 
+  button {
   }
 </style>
 <script>
   import PictureInput from 'vue-picture-input'
+
   export default {
     data() {
       return {
@@ -83,7 +92,7 @@
         var files = e.target.files || e.dataTransfer.files;
         if (!files.length)
           return;
-        for(var i = 0; i < files.length; ++i)
+        for (var i = 0; i < files.length; ++i)
           this.createImage(files[i]);
       },
       createImage(file) {
@@ -101,7 +110,7 @@
         formData.append('description', this.advertData.description)
         formData.append('duration', this.advertData.duration)
         // console.log(imageInput.files);
-        for(var i = 0;i < imageInput.files.length; ++i) {
+        for (var i = 0; i < imageInput.files.length; ++i) {
           formData.append('images', imageInput.files[i])
           formData.append('imagesDescriptions', 'Tego nie będzie.')
         }

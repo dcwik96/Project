@@ -6,13 +6,13 @@ import VueResource from 'vue-resource'
 import {routes} from './router/index'
 import VModal from 'vue-js-modal'
 import store from './store'
+import Toasted from 'vue-toasted'
 
 Vue.use(VModal)
 Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(VueCookie)
-
-
+Vue.use(Toasted)
 
 export const eventBus = new Vue();
 
@@ -41,7 +41,7 @@ const Plugin = {
   }
 }
 
-const router = new VueRouter({
+global.router = new VueRouter({
   routes,
   mode: 'history'
 })

@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OfferDTO {
-
-    private Long id;
+    
     private BigDecimal offer;
 }

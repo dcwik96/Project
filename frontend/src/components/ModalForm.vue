@@ -12,6 +12,7 @@
   import LoginForm from './LoginForm.vue'
   import RegisterForm from './RegisterForm.vue'
   import {eventBus} from "../main"
+
   const MODAL_WIDTH = 400
 
   export default {
@@ -20,7 +21,7 @@
     data() {
       return {
         modalWidth: MODAL_WIDTH,
-        modalHeight: 600
+        modalHeight: 650
       }
     },
     created() {

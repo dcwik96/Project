@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="register" style="padding: 50px;">
+    <form @submit.prevent="register(userDetails)" style="padding: 50px;">
       <div class="form-group">
         <label for="name">Imię:</label>
         <input id="name" v-model="userDetails.name" type="text" class="form-control" placeholder="Wprowadź imię">
@@ -30,13 +30,18 @@
         <input id="password" v-model="userDetails.password" type="password" class="form-control"
                placeholder="Wprowadź hasło">
       </div>
+      <div class="form-group">
+        <label for="password2">Powtórz hasło:</label>
+        <input id="password2" v-model="password" type="password" class="form-control"
+               placeholder="Wprowadź hasło">
+      </div>
       <button type="submit" variant="primary" class="btn btn-success">Zarejestruj</button>
       <button type="reset" variant="secondary" class="btn btn-primary">Wyczyść</button>
-      <div class="alert alert-danger" v-if="dataError">{{ message }}</div>
     </form>
   </div>
 </template>
 <script>
+  import {mapActions} from 'vuex'
   export default {
     data() {
       return {
@@ -48,22 +53,11 @@
           phone_number: '',
           password: '',
         },
-        dataError: false,
-        message: ''
+        password: ''
       }
     },
     methods: {
-      register() {
-        this.$http.post('http://localhost:8080/registration', this.userDetails, {
-          emulateJSON: true
-        })
-          .then(() => {
-            this.message = 'Twoje konto zostało założne możesz przejść do logwania.'
-          }, response => {
-            this.dataError = true
-            this.message = response.bodyText
-          })
-      }
+      ...mapActions(['register'])
     }
   }
 </script>

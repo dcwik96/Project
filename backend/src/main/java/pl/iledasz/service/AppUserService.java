@@ -9,6 +9,7 @@ import pl.iledasz.entities.AppUser;
 import pl.iledasz.repository.AppUserRepository;
 import pl.iledasz.repository.RoleRepository;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -40,5 +41,19 @@ public class AppUserService {
 
     public AppUser findByLogin(String login) {
         return appUserRepository.findByLogin(login);
+    }
+
+
+    public void modify(AppUser userForm, Principal principal) {
+        AppUser loggedUser = appUserRepository.findByLogin(principal.getName());
+
+        loggedUser.setName(userForm.getName());
+        loggedUser.setSurname(userForm.getSurname());
+        loggedUser.setEmail(userForm.getEmail());
+        loggedUser.setPhone_number(userForm.getPhone_number());
+        loggedUser.setPassword(bCryptPasswordEncoder.encode(userForm.getPassword()));
+        loggedUser.setEnable(true);
+
+        appUserRepository.save(loggedUser);
     }
 }
