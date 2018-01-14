@@ -81,7 +81,7 @@ public class NewAdvertTests {
 
     @Test
     @WithMockUser(username = "user", password = "SpringBootKing", roles = "USER")
-    public void testCheckIfRegisteredUserAddingAdvert() throws Exception {
+    public void checkAddingAdvertByAuthorizedUserWithoutImageDescriptions() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "orig", null, "bar".getBytes());
 
         RequestBuilder requestBuilder = post("/api/newadvert")
