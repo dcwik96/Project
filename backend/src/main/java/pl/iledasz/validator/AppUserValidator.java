@@ -28,6 +28,7 @@ public class AppUserValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone_number", "NotEmpty", "Telefon nie moze byc pusty!");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "NotEmpty", "Login nie moze byc pusty!");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty", "Haslo nie moze byc puste!");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
 
 
         if (!errors.hasErrors()) {
