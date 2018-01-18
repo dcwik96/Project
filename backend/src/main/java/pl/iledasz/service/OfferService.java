@@ -1,6 +1,7 @@
 package pl.iledasz.service;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.iledasz.DTO.OfferDTO;
@@ -10,7 +11,6 @@ import pl.iledasz.repository.AppUserRepository;
 import pl.iledasz.repository.OfferRepository;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,20 +25,16 @@ public class OfferService {
     @Autowired
     AdvertisementRepository advertisementRepository;
 
-    public List<OfferDTO> getOffersFor(Long id)
+    private ModelMapper modelMapper = new ModelMapper();
+
+    public List<OfferDTO> mapOfferListToOfferDTOList(List<Offer> offerList)
     {
-        ModelMapper mapper = new ModelMapper();
-        List<Offer> offersList = offerRepository.findAllByAdvertisement_Id(id);
-        List<OfferDTO> offersDTOList = new ArrayList<>();
-        for(Offer x : offersList)
-            offersDTOList.add(mapper.map(x,OfferDTO.class));
-        return offersDTOList;
+        return modelMapper.map(offerList, new TypeToken<List<OfferDTO>>() {}.getType());
     }
 
     public OfferDTO getOfferDetails(Long id)
     {
-        ModelMapper mapper = new ModelMapper();
-         return mapper.map( offerRepository.findOneById(id),OfferDTO.class);
+         return modelMapper.map( offerRepository.findOneById(id),OfferDTO.class);
     }
 
     public void saveNewOffer(Principal principal, OfferDTO offerDTO, Long AdvertId)
