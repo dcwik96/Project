@@ -116,7 +116,7 @@ public class OfferTests {
         advertisement.setAppUser(owner);
 
 
-        Mockito.when(advertisementRepository.findOneById(idOne)).thenReturn(advertisement);
+        Mockito.when(advertisementRepository.findAdvertisementsByAppUser_LoginAndId(idOne, user)).thenReturn(advertisement);
 
         RequestBuilder requestBuilder =
                get("/api/advert/"+idOne+"/offers")
@@ -153,6 +153,8 @@ public class OfferTests {
         advertisement.setId(idOne);
         advertisement.setAppUser(owner);
 
+        Mockito.when(advertisementRepository.findAdvertisementsByAppUser_LoginAndId(idOne, userTwo)).thenReturn(null);
+
         RequestBuilder requestBuilder =
                 get("/api/advert/"+idOne+"/offers")
                         .accept(MediaType.APPLICATION_JSON);
@@ -173,9 +175,9 @@ public class OfferTests {
         Advertisement advertisement = new Advertisement();
         advertisement.setId(idOne);
         advertisement.setAppUser(owner);
-       advertisement.setOffers(new ArrayList<>());
+        advertisement.setOffers(new ArrayList<>());
 
-        Mockito.when(advertisementRepository.findOneById(idOne)).thenReturn(advertisement);
+        Mockito.when(advertisementRepository.findAdvertisementsByAppUser_LoginAndId(idOne, user)).thenReturn(advertisement);
 
         RequestBuilder requestBuilder =
                 get("/api/advert/"+idOne+"/offers")
@@ -187,7 +189,4 @@ public class OfferTests {
         System.out.println(response.getContentAsString());
         assertEquals(objectMapper.writeValueAsString(new ArrayList<>()),response.getContentAsString());
     }
-
-
-
 }

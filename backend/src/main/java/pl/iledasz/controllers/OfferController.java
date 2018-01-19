@@ -39,9 +39,9 @@ public class OfferController {
     @RequestMapping(value = "api/advert/{id}/offers")
     public List<OfferDTO> getOffersForAdvert(@PathVariable("id") Long id, Principal principal, HttpServletResponse httpServletResponse)
     {
-        Advertisement advertisement = advertisementRepository.findOneById(id);
+        Advertisement advertisement = advertisementRepository.findAdvertisementsByAppUser_LoginAndId(id, principal.getName());
 
-        if(advertisement != null && advertisement.getAppUser().getLogin().equals(principal.getName()))
+        if(advertisement != null)
             return offerService.mapOfferListToOfferDTOList(advertisement.getOffers());
         httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
         return null;
