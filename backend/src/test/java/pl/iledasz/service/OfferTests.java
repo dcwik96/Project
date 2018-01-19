@@ -163,6 +163,31 @@ public class OfferTests {
         assertTrue(response.getContentAsString().isEmpty());
     }
 
+    @Test
+    @WithMockUser(username = user, password = password, roles = role_user)
+    public void getEmptyOffersForAdvertWhenLoggedUserIsAdvertOwner() throws Exception {
+
+        AppUser owner = new AppUser();
+        owner.setLogin(user);
+
+        Advertisement advertisement = new Advertisement();
+        advertisement.setId(idOne);
+        advertisement.setAppUser(owner);
+       advertisement.setOffers(new ArrayList<>());
+
+        Mockito.when(advertisementRepository.findOneById(idOne)).thenReturn(advertisement);
+
+        RequestBuilder requestBuilder =
+                get("/api/advert/"+idOne+"/offers")
+                        .accept(MediaType.APPLICATION_JSON);
+
+        MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
+
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        System.out.println(response.getContentAsString());
+        assertEquals(objectMapper.writeValueAsString(new ArrayList<>()),response.getContentAsString());
+    }
+
 
 
 }
