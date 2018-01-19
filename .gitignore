@@ -34,3 +34,6 @@ nbdist/
 
 ### Auto-generated files by Webpack ###
 backend/src/main/resources/public/static/*
+
+## Other files ##
+.patch
