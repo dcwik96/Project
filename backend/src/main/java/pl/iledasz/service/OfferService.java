@@ -4,13 +4,17 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import pl.iledasz.DTO.OfferDTO;
+import pl.iledasz.entities.Advertisement;
 import pl.iledasz.entities.Offer;
 import pl.iledasz.repository.AdvertisementRepository;
 import pl.iledasz.repository.AppUserRepository;
 import pl.iledasz.repository.OfferRepository;
 
+import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,7 +31,16 @@ public class OfferService {
 
     private ModelMapper modelMapper = new ModelMapper();
 
-    public List<OfferDTO> mapOfferListToOfferDTOList(List<Offer> offerList)
+    public List<OfferDTO> getOffersForAdvert(long id, Principal principal )
+    {
+        Advertisement advertisement = advertisementRepository.findAdvertisementsByAppUser_LoginAndId(id, principal.getName());
+
+        if(advertisement != null)
+            return mapOfferListToOfferDTOList(advertisement.getOffers());
+        return null;
+    }
+
+    private List<OfferDTO> mapOfferListToOfferDTOList(List<Offer> offerList)
     {
         return modelMapper.map(offerList, new TypeToken<List<OfferDTO>>() {}.getType());
     }
