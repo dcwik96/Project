@@ -32,6 +32,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -59,6 +60,7 @@ public class OfferTests {
     private MockMvc mockMvc;
 
     private static final String user = "user";
+    private static final String userTwo = "userex";
     private static final String password = "SpringBootKing";
     private static final String role_user = "USER";
 
@@ -138,6 +140,27 @@ public class OfferTests {
                 }
         }
         assertEquals(0 , receivedOffers.size());
+    }
+
+    @Test
+    @WithMockUser(username = user, password = password, roles = role_user)
+    public void getOffersForAdvertWhenLoggedUserIsNotAdvertOwner() throws Exception {
+
+        AppUser owner = new AppUser();
+        owner.setLogin(userTwo);
+
+        Advertisement advertisement = new Advertisement();
+        advertisement.setId(idOne);
+        advertisement.setAppUser(owner);
+
+        RequestBuilder requestBuilder =
+                get("/api/advert/"+idOne+"/offers")
+                        .accept(MediaType.APPLICATION_JSON);
+
+        MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
+
+        assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
+        assertTrue(response.getContentAsString().isEmpty());
     }
 
 
