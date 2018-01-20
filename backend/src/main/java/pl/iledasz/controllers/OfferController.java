@@ -6,9 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.iledasz.DTO.AppUserDTO;
 import pl.iledasz.DTO.OfferDTO;
-import pl.iledasz.entities.Advertisement;
-import pl.iledasz.entities.AppUser;
-import pl.iledasz.entities.Offer;
 import pl.iledasz.repository.AdvertisementRepository;
 import pl.iledasz.repository.OfferRepository;
 import pl.iledasz.service.AdvertisementService;
@@ -39,72 +36,29 @@ public class OfferController {
     @RequestMapping(value = "api/advert/{id}/offers")
     public List<OfferDTO> getOffersForAdvert(@PathVariable("id") Long id, Principal principal, HttpServletResponse httpServletResponse)
     {
-        AppUser loggedUser = appUserService.findByLogin(principal.getName());
-        Advertisement advertisement = advertisementRepository.findOneById(id);
-
-        if(advertisement != null && advertisement.getAppUser().getId() == loggedUser.getId())
-            return offerService.getOffersFor(id);
-        httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        return null;
+        List<OfferDTO> offerDTOList = offerService.getOffersForAdvert(id, principal);
+        if(offerDTOList == null) {
+            httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
+        return offerDTOList;
     }
 
     @RequestMapping(value = "api/advert/{id}/UserOffer")
     public OfferDTO getUserOfferForAdvert(@PathVariable("id") Long id, Principal principal, HttpServletResponse httpServletResponse)
     {
-        Advertisement advertisement = advertisementRepository.findOneById(id);
-        if(advertisement != null)
-            return offerService.getUserOffer(id, principal.getName());
-        httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        return null;
-    }
-
-
-    @RequestMapping(value = "api/offer/{id}")
-    public OfferDTO getOfferDetails(@PathVariable("id") Long id, Principal principal, HttpServletResponse httpServletResponse)
-    {
-        Offer offer = offerRepository.findOneById(id);
-        if ( offer != null)
-        {
-            AppUser owner = offer.getAdvertisement().getAppUser();
-            AppUser loggedUser = appUserService.findByLogin(principal.getName());
-            if(owner.getId() == loggedUser.getId())
-                return offerService.getOfferDetails(id);
-        }
-        httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        return null;
+            return offerService.getUserOfferForAdvert(id, principal);
     }
 
     @PostMapping(value = "api/advert/{id}/newOffer")
     public ResponseEntity<String> putNewOffer(@PathVariable("id") Long id, @ModelAttribute OfferDTO offerDTO, Principal principal)
     {
-        Advertisement advertisement = advertisementRepository.findOneById(id);
 
-        if(advertisement == null ||
-                advertisement.getAppUser().getLogin().equals(principal.getName()) ||
-                offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(id, principal.getName()) != null ||
-                offerDTO.getOffer() == null ||
-                offerDTO.getOffer().compareTo(BigDecimal.valueOf(0.00)) <= 0 )
-        {
-            return new ResponseEntity<>("Something goes wrong!", HttpStatus.FORBIDDEN);
-        }
-        offerService.saveNewOffer(principal, offerDTO, id);
-        return new ResponseEntity<>("Accepted", HttpStatus.OK);
+        if( offerDTO.getOffer() != null &&
+                offerDTO.getOffer().compareTo(BigDecimal.valueOf(0.00)) >= 0 &&
+                        offerService.saveNewOfferOrUpdate(principal, offerDTO, id))
+            return new ResponseEntity<>("Accepted", HttpStatus.OK);
+        return new ResponseEntity<>("Error", HttpStatus.FORBIDDEN);
     }
-
-
-    @PutMapping(value = "api/offer/{id}/editOffer")
-    public void editOffer (@PathVariable("id") Long id,@ModelAttribute OfferDTO offerDTO, Principal principal, HttpServletResponse httpServletResponse)
-    {
-        Offer offer = offerRepository.getOne(id);
-        if(offerDTO.getOffer() != null && offer.getAppUser().getLogin().equals(principal.getName()))
-        {
-            offer.setOffer(offerDTO.getOffer());
-            offerRepository.save(offer);
-            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-        }else
-            httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-    }
-
 
     @RequestMapping(value = "api/advert/{advertID}/offer/{offerID}")
     public AppUserDTO chooseOffer(@PathVariable("advertID") Long advertID, @PathVariable("offerID") Long offerID, Principal principal){
