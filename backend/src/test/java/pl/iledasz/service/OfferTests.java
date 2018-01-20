@@ -76,6 +76,7 @@ public class OfferTests {
  //   private static final boolean available = true;
     private static final BigDecimal offerOnePrice = BigDecimal.valueOf(123.44);
     private static final BigDecimal offerTwoPrice = BigDecimal.valueOf(453.44);
+    private static final BigDecimal badOfferPrice = BigDecimal.valueOf(-123.55);
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -336,6 +337,35 @@ public class OfferTests {
 
         Mockito.verify(advertisementRepository, Mockito.only()).findAdvertisementByAppUser_LoginNotLikeAndId(user,idOne);
 
+        assertEquals(HttpStatus.FORBIDDEN.value(),response.getStatus());
+    }
+
+    @Test
+    @WithMockUser(username = user, password = password, roles = role_user)
+    public void putNewOfferWithBadOfferPrice () throws Exception {
+
+        RequestBuilder requestBuilder =
+                post("/api/advert/"+idOne+"/newOffer")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("offer", badOfferPrice.toString());
+
+
+        MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
+        assertEquals(HttpStatus.FORBIDDEN.value(),response.getStatus());
+    }
+
+    @Test
+    @WithMockUser(username = user, password = password, roles = role_user)
+    public void putNewOfferWithoutOfferPrice () throws Exception {
+
+        RequestBuilder requestBuilder =
+                post("/api/advert/"+idOne+"/newOffer")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+
+        MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
         assertEquals(HttpStatus.FORBIDDEN.value(),response.getStatus());
     }
 
