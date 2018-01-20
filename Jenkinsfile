@@ -8,8 +8,11 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                 	sh 'echo "test"'
+                 	sh mvn --projects backend spring-boot:start
             }
+        }
+        stage('Test') {
+            sh mvn test
         }
     }
 
