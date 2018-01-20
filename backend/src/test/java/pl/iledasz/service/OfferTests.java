@@ -87,7 +87,6 @@ public class OfferTests {
                 .addFilter(springSecurityFilterChain)
                 .apply(springSecurity())
                 .build();
-        Mockito.when(offerRepository.save(Mockito.any(Offer.class))).thenReturn(null);
     }
 
     @Test
@@ -244,13 +243,16 @@ public class OfferTests {
         Advertisement advertisement = new Advertisement();
         advertisement.setId(idOne);
 
-        AppUser appUser = new AppUser();
-        appUser.setLogin(user);
-        advertisement.setAppUser(appUser);
+        AppUser loggedUser = new AppUser();
+        loggedUser.setLogin(user);
+
+        AppUser advertOwner = new AppUser();
+        advertOwner.setLogin(userTwo);
+        advertisement.setAppUser(advertOwner);
 
         Mockito.when(advertisementRepository.findAdvertisementByAppUser_LoginNotLikeAndId(user,idOne)).thenReturn(advertisement);
         Mockito.when(offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(idOne,user)).thenReturn(null);
-        Mockito.when(appUserRepository.findByLogin(user)).thenReturn(appUser);
+        Mockito.when(appUserRepository.findByLogin(user)).thenReturn(loggedUser);
         Mockito.when(offerRepository.save(Mockito.any(Offer.class))).thenReturn(null);
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
@@ -259,9 +261,14 @@ public class OfferTests {
         Mockito.verify(offerRepository).save(argumentCaptor.capture());
         Offer createdOffer = argumentCaptor.getValue();
 
+        Mockito.verify(advertisementRepository, Mockito.only()).findAdvertisementByAppUser_LoginNotLikeAndId(user,idOne);
+        Mockito.verify(offerRepository, Mockito.times(1)).findOfferByAdvertisement_IdAndAppUser_Login(idOne,user);
+        Mockito.verify(appUserRepository, Mockito.times(1)).findByLogin(user);
+
         assertEquals(HttpStatus.OK.value(),response.getStatus());
-        assertEquals(createdOffer.getAdvertisement().getId(),(Long) idOne);
-        assertEquals(createdOffer.getAppUser().getLogin(), user);
-        assertEquals(createdOffer.getOffer(), offerOnePrice);
+        assertEquals((Long) idOne, createdOffer.getAdvertisement().getId());
+        assertEquals(user, createdOffer.getAppUser().getLogin());
+        assertEquals(offerOnePrice, createdOffer.getOffer());
     }
+
 }
