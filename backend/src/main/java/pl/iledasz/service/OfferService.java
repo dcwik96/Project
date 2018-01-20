@@ -3,9 +3,7 @@ package pl.iledasz.service;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import pl.iledasz.DTO.OfferDTO;
 import pl.iledasz.entities.Advertisement;
 import pl.iledasz.entities.Offer;
@@ -13,9 +11,7 @@ import pl.iledasz.repository.AdvertisementRepository;
 import pl.iledasz.repository.AppUserRepository;
 import pl.iledasz.repository.OfferRepository;
 
-import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,18 +42,22 @@ public class OfferService {
         return modelMapper.map(offerList, new TypeToken<List<OfferDTO>>() {}.getType());
     }
 
-    public OfferDTO getOfferDetails(Long id)
+    public boolean saveNewOfferOrUpdate(Principal principal, OfferDTO offerDTO, Long advertId)
     {
-         return modelMapper.map( offerRepository.findOneById(id),OfferDTO.class);
-    }
+        Advertisement advertisement = advertisementRepository.findAdvertisementByAppUser_LoginNotLikeAndId(principal.getName(),advertId);
+        if(advertisement == null)
+            return false;
 
-    public void saveNewOffer(Principal principal, OfferDTO offerDTO, Long AdvertId)
-    {
-        Offer newOffer = new Offer();
-        newOffer.setAdvertisement(advertisementRepository.findOneById(AdvertId));
-        newOffer.setAppUser(appUserRepository.findByLogin(principal.getName()));
+        Offer newOffer = offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(advertId, principal.getName());
+        if(newOffer == null)
+        {
+            newOffer = new Offer();
+            newOffer.setAdvertisement(advertisement);
+            newOffer.setAppUser(appUserRepository.findByLogin(principal.getName()));
+        }
         newOffer.setOffer(offerDTO.getOffer());
         offerRepository.save(newOffer);
+        return true;
     }
 
     public OfferDTO getUserOfferForAdvert(Long advertId, Principal principal)
