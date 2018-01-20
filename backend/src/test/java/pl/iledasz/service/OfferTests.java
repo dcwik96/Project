@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,6 +37,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -227,5 +229,39 @@ public class OfferTests {
         assertEquals(HttpStatus.OK.value(), response.getStatus());
         assertTrue(response.getContentAsString().isEmpty());
 
+    }
+
+    @Test
+    @WithMockUser(username = user, password = password, roles = role_user)
+    public void putNewOfferWhenUserDidNotHaveOfferForAdvert () throws Exception {
+
+        RequestBuilder requestBuilder =
+                post("/api/advert/"+idOne+"/newOffer")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("offer", offerOnePrice.toString());
+
+        Advertisement advertisement = new Advertisement();
+        advertisement.setId(idOne);
+
+        AppUser appUser = new AppUser();
+        appUser.setLogin(user);
+        advertisement.setAppUser(appUser);
+
+        Mockito.when(advertisementRepository.findAdvertisementByAppUser_LoginNotLikeAndId(user,idOne)).thenReturn(advertisement);
+        Mockito.when(offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(idOne,user)).thenReturn(null);
+        Mockito.when(appUserRepository.findByLogin(user)).thenReturn(appUser);
+        Mockito.when(offerRepository.save(Mockito.any(Offer.class))).thenReturn(null);
+
+        MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
+
+        ArgumentCaptor<Offer> argumentCaptor = ArgumentCaptor.forClass(Offer.class);
+        Mockito.verify(offerRepository).save(argumentCaptor.capture());
+        Offer createdOffer = argumentCaptor.getValue();
+
+        assertEquals(HttpStatus.OK.value(),response.getStatus());
+        assertEquals(createdOffer.getAdvertisement().getId(),(Long) idOne);
+        assertEquals(createdOffer.getAppUser().getLogin(), user);
+        assertEquals(createdOffer.getOffer(), offerOnePrice);
     }
 }
