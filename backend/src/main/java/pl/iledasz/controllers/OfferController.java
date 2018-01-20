@@ -49,11 +49,7 @@ public class OfferController {
     @RequestMapping(value = "api/advert/{id}/UserOffer")
     public OfferDTO getUserOfferForAdvert(@PathVariable("id") Long id, Principal principal, HttpServletResponse httpServletResponse)
     {
-        Advertisement advertisement = advertisementRepository.findOneById(id);
-        if(advertisement != null)
-            return offerService.getUserOffer(id, principal.getName());
-        httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        return null;
+            return offerService.getUserOfferForAdvert(id, principal);
     }
 
 

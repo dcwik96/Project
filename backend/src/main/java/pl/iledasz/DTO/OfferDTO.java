@@ -13,6 +13,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class OfferDTO {
 
-    private long id;
+    private Long id;
     private BigDecimal offer;
 }

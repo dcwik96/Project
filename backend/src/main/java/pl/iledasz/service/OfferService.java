@@ -3,6 +3,7 @@ package pl.iledasz.service;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import pl.iledasz.DTO.OfferDTO;
@@ -59,9 +60,9 @@ public class OfferService {
         offerRepository.save(newOffer);
     }
 
-    public OfferDTO getUserOffer( Long advertId, String login)
+    public OfferDTO getUserOfferForAdvert(Long advertId, Principal principal)
     {
-        Offer offer = offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(advertId, login);
+        Offer offer = offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(advertId, principal.getName());
         if( offer == null)
             return null;
         return modelMapper.map(offer,OfferDTO.class);
