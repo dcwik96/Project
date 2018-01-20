@@ -53,7 +53,7 @@ public class AdvertisementController {
         return advertisementService.getUserLightAdverts(principal);
     }
 
-    @RequestMapping(value = "api/advert/{id}")
+    @RequestMapping(value = "api/oneadvert/{id}")
     public AdvertisementDTO getAdvertById(@PathVariable("id") Long id) {
 
         return advertisementService.findOneById(id);
