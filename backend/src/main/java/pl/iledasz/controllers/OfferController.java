@@ -52,22 +52,6 @@ public class OfferController {
             return offerService.getUserOfferForAdvert(id, principal);
     }
 
-
-    @RequestMapping(value = "api/offer/{id}")
-    public OfferDTO getOfferDetails(@PathVariable("id") Long id, Principal principal, HttpServletResponse httpServletResponse)
-    {
-        Offer offer = offerRepository.findOneById(id);
-        if ( offer != null)
-        {
-            AppUser owner = offer.getAdvertisement().getAppUser();
-            AppUser loggedUser = appUserService.findByLogin(principal.getName());
-            if(owner.getId() == loggedUser.getId())
-                return offerService.getOfferDetails(id);
-        }
-        httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        return null;
-    }
-
     @PostMapping(value = "api/advert/{id}/newOffer")
     public ResponseEntity<String> putNewOffer(@PathVariable("id") Long id, @ModelAttribute OfferDTO offerDTO, Principal principal)
     {
