@@ -271,4 +271,72 @@ public class OfferTests {
         assertEquals(offerOnePrice, createdOffer.getOffer());
     }
 
+    @Test
+    @WithMockUser(username = user, password = password, roles = role_user)
+    public void putNewOfferWhenUserHadOfferForAdvert () throws Exception {
+
+        RequestBuilder requestBuilder =
+                post("/api/advert/"+idOne+"/newOffer")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("offer", offerTwoPrice.toString());
+
+        Advertisement advertisement = new Advertisement();
+        advertisement.setId(idOne);
+
+        AppUser loggedUser = new AppUser();
+        loggedUser.setLogin(user);
+
+        AppUser advertOwner = new AppUser();
+        advertOwner.setLogin(userTwo);
+        advertisement.setAppUser(advertOwner);
+
+        Offer offerBefore = new Offer();
+        offerBefore.setOffer(offerOnePrice);
+        offerBefore.setId(idOne);
+        offerBefore.setAppUser(loggedUser);
+        offerBefore.setAdvertisement(advertisement);
+
+
+        Mockito.when(advertisementRepository.findAdvertisementByAppUser_LoginNotLikeAndId(user,idOne)).thenReturn(advertisement);
+        Mockito.when(offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(idOne,user)).thenReturn(offerBefore);
+        Mockito.when(offerRepository.save(Mockito.any(Offer.class))).thenReturn(null);
+
+        MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
+
+        ArgumentCaptor<Offer> argumentCaptor = ArgumentCaptor.forClass(Offer.class);
+        Mockito.verify(offerRepository).save(argumentCaptor.capture());
+        Offer createdOffer = argumentCaptor.getValue();
+
+        Mockito.verify(advertisementRepository, Mockito.only()).findAdvertisementByAppUser_LoginNotLikeAndId(user,idOne);
+        Mockito.verify(offerRepository, Mockito.times(1)).findOfferByAdvertisement_IdAndAppUser_Login(idOne,user);
+
+        assertEquals(HttpStatus.OK.value(),response.getStatus());
+        assertEquals((Long) idOne, createdOffer.getAdvertisement().getId());
+        assertEquals((Long) idOne, createdOffer.getId());
+        assertEquals(user, createdOffer.getAppUser().getLogin());
+        assertEquals(offerTwoPrice, createdOffer.getOffer());
+    }
+
+    @Test
+    @WithMockUser(username = user, password = password, roles = role_user)
+    public void putNewOfferWhenUserIsAdvertOwner () throws Exception {
+
+        RequestBuilder requestBuilder =
+                post("/api/advert/"+idOne+"/newOffer")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("offer", offerOnePrice.toString());
+
+
+        Mockito.when(advertisementRepository.findAdvertisementByAppUser_LoginNotLikeAndId(user,idOne)).thenReturn(null);
+
+        MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
+
+
+        Mockito.verify(advertisementRepository, Mockito.only()).findAdvertisementByAppUser_LoginNotLikeAndId(user,idOne);
+
+        assertEquals(HttpStatus.FORBIDDEN.value(),response.getStatus());
+    }
+
 }
