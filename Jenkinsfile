@@ -8,11 +8,11 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                 	sh `mvn --projects backend spring-boot:start`
+                 	sh 'mvn --projects backend spring-boot:start'
             }
         }
         stage('Test') {
-            sh `mvn test`
+            sh 'mvn test'
         }
     }
 
