@@ -13,6 +13,7 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
 
     Offer findOneById(Long id);
 
-    Offer findOfferByAdvertisement_IdAndAppUser_Login(Long id, String login);
+    Offer findOfferByAdvertisement_IdAndAppUser_Login(long id, String login);
+    Offer findOfferByIdAndAdvertisement_AppUser_Login(long id, String login);
 
 }
