@@ -118,7 +118,7 @@ public class OfferTests {
         advertisement.setAppUser(owner);
 
 
-        Mockito.when(advertisementRepository.findAdvertisementsByAppUser_LoginAndId(idOne, user)).thenReturn(advertisement);
+        Mockito.when(advertisementRepository.findAdvertisementsByAppUser_LoginAndId(user, idOne)).thenReturn(advertisement);
 
         RequestBuilder requestBuilder =
                get("/api/advert/"+idOne+"/offers")
@@ -155,7 +155,7 @@ public class OfferTests {
         advertisement.setId(idOne);
         advertisement.setAppUser(owner);
 
-        Mockito.when(advertisementRepository.findAdvertisementsByAppUser_LoginAndId(idOne, userTwo)).thenReturn(null);
+        Mockito.when(advertisementRepository.findAdvertisementsByAppUser_LoginAndId(userTwo, idOne)).thenReturn(null);
 
         RequestBuilder requestBuilder =
                 get("/api/advert/"+idOne+"/offers")
@@ -179,7 +179,7 @@ public class OfferTests {
         advertisement.setAppUser(owner);
         advertisement.setOffers(new ArrayList<>());
 
-        Mockito.when(advertisementRepository.findAdvertisementsByAppUser_LoginAndId(idOne, user)).thenReturn(advertisement);
+        Mockito.when(advertisementRepository.findAdvertisementsByAppUser_LoginAndId(user, idOne)).thenReturn(advertisement);
 
         RequestBuilder requestBuilder =
                 get("/api/advert/"+idOne+"/offers")

@@ -13,7 +13,7 @@ import java.util.List;
 public interface AdvertisementRepository extends JpaRepository<Advertisement, Long> {
 
     Advertisement findOneById(Long id);
-    Advertisement findAdvertisementsByAppUser_LoginAndId(long id, String login);
+    Advertisement findAdvertisementsByAppUser_LoginAndId( String login, long id);
     Advertisement findAdvertisementByAppUser_LoginNotLikeAndId(String login, long id);
     @Query(value="SELECT * FROM Advert ORDER BY RANDOM() LIMIT 1", nativeQuery = true)
     Advertisement randomOne();

@@ -31,7 +31,7 @@ public class OfferService {
 
     public List<OfferDTO> getOffersForAdvert(long id, Principal principal )
     {
-        Advertisement advertisement = advertisementRepository.findAdvertisementsByAppUser_LoginAndId(id, principal.getName());
+        Advertisement advertisement = advertisementRepository.findAdvertisementsByAppUser_LoginAndId(principal.getName(), id);
 
         if(advertisement != null)
             return mapOfferListToOfferDTOList(advertisement.getOffers());

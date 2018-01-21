@@ -34,7 +34,7 @@ public class OfferController {
 
     //We need to remember about secure this endpoint, only advert owner has to get response.
     @RequestMapping(value = "api/advert/{id}/offers")
-    public List<OfferDTO> getOffersForAdvert(@PathVariable("id") Long id, Principal principal, HttpServletResponse httpServletResponse)
+    public List<OfferDTO> getOffersForAdvert(@PathVariable("id") long id, Principal principal, HttpServletResponse httpServletResponse)
     {
         List<OfferDTO> offerDTOList = offerService.getOffersForAdvert(id, principal);
         if(offerDTOList == null) {
