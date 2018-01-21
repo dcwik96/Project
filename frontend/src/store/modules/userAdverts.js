@@ -35,6 +35,14 @@ const actions = {
         (response) => {
           console.log(response.body)
         })
+  },
+  acceptOffer({commit}, payload) {
+    const url = 'http://localhost:8080/api/advert/'+payload.advertId+'/offer/'+offerId;
+    Vue.http.get(url, (response) => {
+      console.log(response.body)
+    }, (response) => {
+        console.log(response.body)
+    })
   }
 };
 

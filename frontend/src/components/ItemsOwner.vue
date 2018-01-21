@@ -15,7 +15,7 @@
               <li class="list-group-item clearfix" v-for="obj in offers">
                 Oferta: {{obj.offer}} zł
                 <div class="pull-right">
-                  <button class="btn btn-success">Zaakceptuj</button>
+                  <button class="btn btn-success" @click="acceptOffer({ advertId: advertItem.id, offerId:obj.id })">Zaakceptuj</button>
                   <button class="btn btn-danger">Odrzuć</button>
                 </div>
               </li>
@@ -45,7 +45,8 @@
     },
     methods: {
       ...mapActions(['fetchUserAdverts',
-                     'fetchOffers']),
+                     'fetchOffers',
+                     'acceptOffer']),
       toggleAccordion (index, id) {
         this.fetchOffers(id);
         if (this.showAccordion[index]) {
