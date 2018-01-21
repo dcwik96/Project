@@ -336,6 +336,7 @@ public class OfferTests {
 
 
         Mockito.verify(advertisementRepository, Mockito.only()).findAdvertisementByAppUser_LoginNotLikeAndId(user,idOne);
+        Mockito.verify(offerRepository, Mockito.times(0)).save(Mockito.any(Offer.class));
 
         assertEquals(HttpStatus.FORBIDDEN.value(),response.getStatus());
     }
