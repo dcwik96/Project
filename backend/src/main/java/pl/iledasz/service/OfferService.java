@@ -1,18 +1,16 @@
 package pl.iledasz.service;
 
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.iledasz.DTO.AppUserDTO;
 import pl.iledasz.DTO.OfferDTO;
-import pl.iledasz.entities.Advertisement;
 import pl.iledasz.entities.Offer;
 import pl.iledasz.repository.AdvertisementRepository;
 import pl.iledasz.repository.AppUserRepository;
 import pl.iledasz.repository.OfferRepository;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,57 +25,37 @@ public class OfferService {
     @Autowired
     AdvertisementRepository advertisementRepository;
 
-    private ModelMapper modelMapper = new ModelMapper();
-
-    public List<OfferDTO> getOffersForAdvert(long id, Principal principal )
+    public List<OfferDTO> getOffersFor(Long id)
     {
-        Advertisement advertisement = advertisementRepository.findAdvertisementsByAppUser_LoginAndId(id, principal.getName());
-
-        if(advertisement != null)
-            return mapOfferListToOfferDTOList(advertisement.getOffers());
-        return null;
+        ModelMapper mapper = new ModelMapper();
+        List<Offer> offersList = offerRepository.findAllByAdvertisement_Id(id);
+        List<OfferDTO> offersDTOList = new ArrayList<>();
+        for(Offer x : offersList)
+            offersDTOList.add(mapper.map(x,OfferDTO.class));
+        return offersDTOList;
     }
 
-    private List<OfferDTO> mapOfferListToOfferDTOList(List<Offer> offerList)
+    public OfferDTO getOfferDetails(Long id)
     {
-        return modelMapper.map(offerList, new TypeToken<List<OfferDTO>>() {}.getType());
+        ModelMapper mapper = new ModelMapper();
+         return mapper.map( offerRepository.findOneById(id),OfferDTO.class);
     }
 
-    public boolean saveNewOfferOrUpdate(Principal principal, OfferDTO offerDTO, Long advertId)
+    public void saveNewOffer(Principal principal, OfferDTO offerDTO, Long AdvertId)
     {
-        Advertisement advertisement = advertisementRepository.findAdvertisementByAppUser_LoginNotLikeAndId(principal.getName(),advertId);
-        if(advertisement == null)
-            return false;
-
-        Offer newOffer = offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(advertId, principal.getName());
-        if(newOffer == null)
-        {
-            newOffer = new Offer();
-            newOffer.setAdvertisement(advertisement);
-            newOffer.setAppUser(appUserRepository.findByLogin(principal.getName()));
-        }
+        Offer newOffer = new Offer();
+        newOffer.setAdvertisement(advertisementRepository.findOneById(AdvertId));
+        newOffer.setAppUser(appUserRepository.findByLogin(principal.getName()));
         newOffer.setOffer(offerDTO.getOffer());
         offerRepository.save(newOffer);
-        return true;
     }
 
-    public OfferDTO getUserOfferForAdvert(Long advertId, Principal principal)
+    public OfferDTO getUserOffer( Long advertId, String login)
     {
-        Offer offer = offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(advertId, principal.getName());
+        ModelMapper model = new ModelMapper();
+        Offer offer = offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(advertId, login);
         if( offer == null)
             return null;
-        return modelMapper.map(offer,OfferDTO.class);
-    }
-
-    public AppUserDTO chooseOneOfferAndCloseAdvertisement(Long offerID, Principal principal) {
-        Offer selectedOffer = offerRepository.findOfferByIdAndAdvertisement_AppUser_Login(offerID, principal.getName());
-        if(selectedOffer != null)
-        {
-            Advertisement advertisement = selectedOffer.getAdvertisement();
-            advertisement.setAvailable(false);
-            advertisementRepository.save(advertisement);
-            return modelMapper.map(selectedOffer.getAppUser(), AppUserDTO.class);
-        }
-        return null;
+        return model.map(offer,OfferDTO.class);
     }
 }

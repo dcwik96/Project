@@ -47,10 +47,6 @@ public class Advertisement {
     @Column(name = "available")
     private boolean available;
 
-    @OneToMany(mappedBy = "advertisement")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private List<Offer> offers;
-
 
     @OneToMany(mappedBy = "advertisement")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)

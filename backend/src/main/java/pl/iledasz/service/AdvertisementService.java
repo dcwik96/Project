@@ -144,4 +144,9 @@ public class AdvertisementService {
         return advertisementDTOS;
     }
 
+    public AppUserDTO chooseOneOfferAndCloseAdvertisement(Long offerID) {
+        Offer offer = offerRepository.getOne(offerID);
+        offer.getAdvertisement().setAvailable(false);
+        return appUserService.getUser(offer.getAppUser().getId());
+    }
 }
