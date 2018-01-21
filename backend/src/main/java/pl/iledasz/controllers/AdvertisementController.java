@@ -66,9 +66,9 @@ public class AdvertisementController {
 
         newAdvertValidator.validate(newAdvertForm, bindingResult);
 
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getFieldError().getDefaultMessage(), HttpStatus.NOT_ACCEPTABLE);
-        }
+//        if (bindingResult.hasErrors()) {
+//            return new ResponseEntity<>(bindingResult.getFieldError().getDefaultMessage(), HttpStatus.NOT_ACCEPTABLE);
+//        }
 
         advertisementService.createNewAdvertisement(newAdvertForm, principal);
 

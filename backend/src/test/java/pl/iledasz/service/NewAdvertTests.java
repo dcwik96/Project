@@ -11,10 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,19 +21,18 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.iledasz.Application;
 import pl.iledasz.DTO.NewAdvertDTO;
 import pl.iledasz.entities.Advertisement;
-import pl.iledasz.entities.AppUser;
 import pl.iledasz.repository.AdvertPhotoRepository;
 import pl.iledasz.repository.AdvertisementRepository;
 
 import javax.servlet.Filter;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -56,6 +51,10 @@ public class NewAdvertTests {
     private Filter springSecurityFilterChain;
 
     private MockMvc mockMvc;
+
+    private static final String user = "user";
+    private static final String password = "SpringBootKing";
+    private static final String role_user = "USER";
 
     static String title = "Tytul";
     static String description = "Description";
@@ -80,9 +79,14 @@ public class NewAdvertTests {
     }
 
     @Test
-    @WithMockUser(username = "user", password = "SpringBootKing", roles = "USER")
+    @WithMockUser(username = user, password = password, roles = role_user)
     public void checkAddingAdvertByAuthorizedUserWithoutImageDescriptions() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("file", "orig", null, "bar".getBytes());
+        MockMultipartFile file = new MockMultipartFile("file", "orig", "multipart/form-data", "bar" .getBytes());
+        List<String> desc = new ArrayList<>();
+        List<MultipartFile> desc2 = new ArrayList<>();
+        String asf = "asdf";
+        desc.add(asf);
+        desc2.add(file);
 
         RequestBuilder requestBuilder = post("/api/newadvert")
                 .accept(MediaType.ALL)
@@ -91,12 +95,15 @@ public class NewAdvertTests {
                 .param("title", title)
                 .param("description", description)
                 .param("duration", String.valueOf(duration))
-//                .param("imagesDescriptions", String.valueOf(imagesDescriptions))
-                .param("images", String.valueOf(file));
+                .param("imagesDescriptions", String.valueOf(desc))
+                .param("images", String.valueOf(desc2));
 
-        Mockito.when(principal.getName()).thenReturn(null);
+//        Mockito.when(principal.getName()).thenReturn(null);
 
-        this.mockMvc.perform(requestBuilder).andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
+        MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@" +response.getStatus());
 
     }
 
