@@ -7,12 +7,15 @@ import {routes} from './router/index'
 import VModal from 'vue-js-modal'
 import store from './store'
 import Toasted from 'vue-toasted'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import * as uiv from 'uiv'
 
-Vue.use(VModal)
-Vue.use(VueRouter)
-Vue.use(VueResource)
-Vue.use(VueCookie)
-Vue.use(Toasted)
+Vue.use(uiv);
+Vue.use(VModal);
+Vue.use(VueRouter);
+Vue.use(VueResource);
+Vue.use(VueCookie);
+Vue.use(Toasted);
 
 export const eventBus = new Vue();
 
@@ -23,8 +26,8 @@ const Plugin = {
       return
     }
 
-    this.installed = true
-    this.event = new Vue()
+    this.installed = true;
+    this.event = new Vue();
     type.$modal = {
       show(name, params) {
         Plugin.event.$emit('toggle', name, true, params)
@@ -47,7 +50,7 @@ global.router = new VueRouter({
 })
 
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
   el: '#app',

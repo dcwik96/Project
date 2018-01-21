@@ -5,6 +5,7 @@ import ModalForm from '../components/ModalForm.vue'
 import RegisterForm from '../components/RegisterForm.vue'
 import ItemAdd from '../components/ItemAdd.vue'
 import ItemView from '../components/ItemView.vue'
+import ItemOwner from '../components/ItemsOwner.vue'
 
 export const routes = [
   {
@@ -22,5 +23,6 @@ export const routes = [
   {path: '/register', name: 'register', component: RegisterForm},
   {path: '/additem', name: 'additem', component: ItemAdd},
   {path: '/advert/:id', name: 'advert', component: ItemView},
+  {path: '/youritems', name: 'youritems', component: ItemOwner},
   {path: '*', redirect: '/'}
 ];

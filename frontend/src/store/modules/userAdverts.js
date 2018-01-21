@@ -2,7 +2,8 @@ import Vue from 'vue'
 
 const state = {
   userAdverts: {},
-  offers: []
+  offers: [],
+  advertsCount: 0
 };
 
 const getters = {
@@ -11,6 +12,9 @@ const getters = {
   },
   getOffers: () => {
     return state.offers
+  },
+  getAdvertsCount: () => {
+    return state.advertsCount
   }
 };
 
@@ -23,10 +27,9 @@ const actions = {
         emulateJSON: true
       })
       .then((response) => {
-        // var tempArr = Array.from(response.body).forEach(userAdvert => {
-        //   userAdvert.showAccordion = true;
-        //   console.log(userAdvert)
-        // });
+        var count = Array.from(response.body).length;
+        console.log(count);
+        commit('mutateAdvertsCount', count);
         commit('mutateUserAdverts', response.body)
       },(response) => {
         console.log(response)
@@ -49,6 +52,9 @@ const mutations = {
   },
   mutateOffer(state, payload) {
     state.offers = payload
+  },
+  mutateAdvertsCount(state, payload) {
+    state.advertsCount = payload
   }
 };
 

@@ -19,7 +19,7 @@
     <div id="functionPanel" ref="functionPanel" class="btn-group-vertical">
       <router-link to="/additem" tag="div" class="btn btn-default mb-1" exact>Wystaw przedmiot</router-link>
       <div class="input-group">
-      <div class="btn btn-default mb-1">Twoje przedmioty <span class="badge badge-default badge-pill pull-right">1</span></div>
+        <router-link to="/youritems" tag="div" class="btn btn-default mb-1" exact>Twoje ogłoszenia</router-link>
       </div>
       <div class="btn btn-default mb-1">Twoje oferty <span class="badge badge-default badge-pill pull-right">1</span></div>
     </div>
