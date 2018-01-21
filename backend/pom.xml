@@ -18,13 +18,6 @@
     </properties>
 
     <dependencies>
-        <!--Enable to give authentication while testing-->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <version>5.0.0.RELEASE</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
