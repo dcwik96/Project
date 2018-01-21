@@ -388,6 +388,7 @@ public class AppUserTests {
         AppUser appUser = new AppUser();
         appUser.setLogin(login);
         appUser.setPassword(bCryptPasswordEncoder.encode(password + weakPassword));
+        appUser.setRole(roleRepository.findOne(2l));
 
         Mockito.when(appUserRepository.findByLogin(login)).thenReturn(appUser);
 
