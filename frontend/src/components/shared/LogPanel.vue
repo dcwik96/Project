@@ -14,14 +14,11 @@
     </button>
     <ul class="dropdown-menu">
       <li><a href="#" >Ustawienia konta</a></li>
-      <li><a @click="logOut">Wyloguj</a></li>
+      <li><a href @click="logOut">Wyloguj</a></li>
     </ul>
     <div id="functionPanel" ref="functionPanel" class="btn-group-vertical">
       <router-link to="/additem" tag="div" class="btn btn-default mb-1" exact>Wystaw przedmiot</router-link>
-      <div class="input-group">
-        <router-link to="/youritems" tag="div" class="btn btn-default mb-1" exact>Twoje ogłoszenia</router-link>
-      </div>
-      <div class="btn btn-default mb-1">Twoje oferty <span class="badge badge-default badge-pill pull-right">1</span></div>
+      <router-link to="/youritems" tag="div" class="btn btn-default mb-1" exact>Twoje przedmioty</router-link>
     </div>
   </div>
   </div>
@@ -57,9 +54,13 @@
       logOut() {
         this.$http.get('http://localhost:8080/logout')
           .then(() => {
-            this.loggedIn = false
-            this.$cookie.delete('login')
-          })
+            this.loggedIn = false;
+            this.$cookie.delete('login');
+            this.$router.go({name: 'home'})
+          },
+            (response) => {
+              console.log(response)
+            })
       },
       getAttributes() {
         if (this.$refs.functionPanel) {
