@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.iledasz.DTO.AppUserDTO;
 import pl.iledasz.DTO.OfferDTO;
 import pl.iledasz.entities.Advertisement;
 import pl.iledasz.entities.Offer;
@@ -66,5 +67,17 @@ public class OfferService {
         if( offer == null)
             return null;
         return modelMapper.map(offer,OfferDTO.class);
+    }
+
+    public AppUserDTO chooseOneOfferAndCloseAdvertisement(Long offerID, Principal principal) {
+        Offer selectedOffer = offerRepository.findOfferByIdAndAdvertisement_AppUser_Login(offerID, principal.getName());
+        if(selectedOffer != null)
+        {
+            Advertisement advertisement = selectedOffer.getAdvertisement();
+            advertisement.setAvailable(false);
+            advertisementRepository.save(advertisement);
+            return modelMapper.map(selectedOffer.getAppUser(), AppUserDTO.class);
+        }
+        return null;
     }
 }

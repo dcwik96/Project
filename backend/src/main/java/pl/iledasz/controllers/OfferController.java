@@ -60,14 +60,12 @@ public class OfferController {
         return new ResponseEntity<>("Error", HttpStatus.FORBIDDEN);
     }
 
-    @RequestMapping(value = "api/advert/{advertID}/offer/{offerID}")
-    public AppUserDTO chooseOffer(@PathVariable("advertID") Long advertID, @PathVariable("offerID") Long offerID, Principal principal){
-
-        if (advertisementRepository.findOneById(advertID).getAppUser().getLogin().equals(principal.getName())){
-            AppUserDTO appUserDTO = advertisementService.chooseOneOfferAndCloseAdvertisement(offerID);
-            return appUserDTO;
-        } else
-            return null;
+    @RequestMapping(value = "api/advert/select/{offerID}")
+    public AppUserDTO chooseOffer( @PathVariable("offerID") Long offerID, Principal principal, HttpServletResponse httpServletResponse){
+        AppUserDTO selectedUser = offerService.chooseOneOfferAndCloseAdvertisement(offerID, principal);
+        if (selectedUser == null)
+            httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        return selectedUser;
     }
 
 
