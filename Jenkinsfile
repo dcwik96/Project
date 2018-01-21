@@ -6,6 +6,9 @@ pipeline {
         nodejs 'Node'
     }
     stages {
+	stage('Build') {
+		sh 'mvn compile'
+	}
         stage('Test') {
             steps {
                 sh 'mvn test'
