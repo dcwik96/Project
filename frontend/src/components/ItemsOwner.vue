@@ -48,7 +48,7 @@
       ...mapActions(['fetchUserAdverts',
                      'fetchOffers']),
       toggleAccordion (index, id) {
-        this.fetchOffers(id)
+        this.fetchOffers(id);
         if (this.showAccordion[index]) {
           this.$set(this.showAccordion, index, false)
         } else {
@@ -63,10 +63,9 @@
       }
     },
     created() {
-      this.fetchUserAdverts()
-      for (var i = 0; i < 5; ++i) {
+      this.fetchUserAdverts();
+      for (var i = 0; i < this.advertsCount; ++i) {
         this.showAccordion.push(false);
-        console.log(this.showAccordion[i])
       }
     }
   }
