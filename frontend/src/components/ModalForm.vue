@@ -13,7 +13,7 @@
   import RegisterForm from './RegisterForm.vue'
   import {eventBus} from "../main"
 
-  const MODAL_WIDTH = 400
+  const MODAL_WIDTH = 400;
 
   export default {
     name: 'LoginModal',

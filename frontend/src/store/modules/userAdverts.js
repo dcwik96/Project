@@ -1,9 +1,8 @@
 import Vue from 'vue'
 
 const state = {
-  userAdverts: {},
-  offers: [],
-  advertsCount: 0
+  userAdverts: [],
+  offers: []
 };
 
 const getters = {
@@ -12,9 +11,6 @@ const getters = {
   },
   getOffers: () => {
     return state.offers
-  },
-  getAdvertsCount: () => {
-    return state.advertsCount
   }
 };
 
@@ -27,12 +23,8 @@ const actions = {
         emulateJSON: true
       })
       .then((response) => {
-        var count = Array.from(response.body).length;
-        console.log(count);
-        commit('mutateAdvertsCount', count);
         commit('mutateUserAdverts', response.body)
       },(response) => {
-        console.log(response)
       })
   },
   fetchOffers: ({commit}, id) => {
@@ -52,9 +44,6 @@ const mutations = {
   },
   mutateOffer(state, payload) {
     state.offers = payload
-  },
-  mutateAdvertsCount(state, payload) {
-    state.advertsCount = payload
   }
 };
 

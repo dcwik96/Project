@@ -7,7 +7,7 @@
     <div class="panel panel-default">
       <div class="panel-heading" role="button" @click="toggleAccordion(index, advertItem.id)" v-for="(advertItem, index) in userAdverts">
         <h4 class="panel-title clearfix">{{advertItem.title}}
-          <button class="btn btn-success pull-right">Zobacz ogłoszenie</button>
+          <button class="btn btn-success pull-right">Zobacz oferty</button>
         </h4>
         <collapse v-model="showAccordion[index]">
           <div class="panel-body">
@@ -40,8 +40,7 @@
     computed: {
     ...mapGetters({
                     userAdverts: 'getUserAdverts',
-                    offers: 'getOffers',
-                    advertsCount: 'getAdvertsCount'
+                    offers: 'getOffers'
                   })
     },
     methods: {
@@ -64,7 +63,8 @@
     },
     created() {
       this.fetchUserAdverts();
-      for (var i = 0; i < this.advertsCount; ++i) {
+      var advertsCount = this.userAdverts.length;
+      for (var i = 0; i < 10; ++i) {
         this.showAccordion.push(false);
       }
     }
