@@ -6,6 +6,7 @@ import RegisterForm from '../components/RegisterForm.vue'
 import ItemAdd from '../components/ItemAdd.vue'
 import ItemView from '../components/ItemView.vue'
 import ItemOwner from '../components/ItemsOwner.vue'
+import ItemRandom from '../components/ItemRandom.vue'
 
 export const routes = [
   {
@@ -24,5 +25,6 @@ export const routes = [
   {path: '/additem', name: 'additem', component: ItemAdd},
   {path: '/advert/:id', name: 'advert', component: ItemView},
   {path: '/youritems', name: 'youritems', component: ItemOwner},
+  {path: '/random', name: 'randomadvert', component: ItemRandom},
   {path: '*', redirect: '/'}
 ];

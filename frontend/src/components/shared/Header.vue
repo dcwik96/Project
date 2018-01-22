@@ -23,8 +23,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <router-link to="/" tag="li" active-class="active" exact><a>Strona główna</a></router-link>
-            <router-link to="/browse" tag="li" active-class="active"><a>Przeglądaj</a></router-link>
-            <li><a href="#">Losowy przedmiot</a></li>
+            <!--<router-link to="/browse" tag="li" active-class="active"><a>Przeglądaj</a></router-link>-->
+            <router-link to="/random" tag="li" active-class="active"><a>Losowy przedmiot</a></router-link>
           </ul>
         </div>
       </div>
