@@ -81,24 +81,18 @@ public class NewAdvertTests {
     @Test
     @WithMockUser(username = user, password = password, roles = role_user)
     public void checkAddingAdvertByAuthorizedUserWithoutImageDescriptions() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("file", "orig", "multipart/form-data", "bar" .getBytes());
-        List<String> desc = new ArrayList<>();
-        List<MultipartFile> desc2 = new ArrayList<>();
-        String asf = "asdf";
-        desc.add(asf);
-        desc2.add(file);
+        MultipartFile photo = new MockMultipartFile("file", "orig", "multipart/form-data", "bar" .getBytes());
+        String imageDesc = "asdf";
 
         RequestBuilder requestBuilder = post("/api/newadvert")
                 .accept(MediaType.ALL)
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .contentType(MediaType.ALL)
                 .sessionAttr("advertForm", new NewAdvertDTO())
                 .param("title", title)
                 .param("description", description)
                 .param("duration", String.valueOf(duration))
-                .param("imagesDescriptions", String.valueOf(desc))
-                .param("images", String.valueOf(desc2));
-
-//        Mockito.when(principal.getName()).thenReturn(null);
+                .param("imagesDescriptions", imageDesc)
+                .param("images", photo.toString());
 
         MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
 
