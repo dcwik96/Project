@@ -9,7 +9,7 @@ import store from './store'
 import Toasted from 'vue-toasted'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import * as uiv from 'uiv'
-
+import {mapActions} from 'vuex'
 Vue.use(uiv);
 Vue.use(VModal);
 Vue.use(VueRouter);
@@ -56,5 +56,5 @@ new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
-})
+  render: h => h(App),
+});

@@ -42,12 +42,11 @@ const actions = {
   },
   acceptOffer({commit}, id) {
     const url = 'http://localhost:8080/api/advert/select/'+id;
-    console.log("Pobieram dane");
+
     Vue.http.get(url)
       .then( (response) => {
         commit('mutateBuyerData', response.body)
     }, (response) => {
-        console.log(response)
     })
   }
 };

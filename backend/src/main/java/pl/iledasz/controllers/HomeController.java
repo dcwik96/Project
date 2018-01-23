@@ -63,8 +63,7 @@ public class HomeController {
 
     @GetMapping(value = "/logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public String logout(HttpSession session) {
+    public void logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/hello";
     }
 }

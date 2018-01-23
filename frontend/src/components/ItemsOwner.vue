@@ -64,7 +64,6 @@
       },
       acceptOfferAndShowModal(id) {
         this.acceptOffer(id);
-        alert(this.buyer.name + this.buyer.surname);
         this.$modal.show('buyer')
       }
     },

@@ -18,12 +18,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">iledasz.pl</a>
+          <a class="navbar-brand" href="/">iledasz.pl</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <router-link to="/" tag="li" active-class="active" exact><a>Strona główna</a></router-link>
-            <router-link to="/browse" tag="li" active-class="active"><a>Przeglądaj</a></router-link>
+            <!--<router-link to="/browse" tag="li" active-class="active"><a>Przeglądaj</a></router-link>-->
             <li><a href="#">Losowy przedmiot</a></li>
           </ul>
         </div>
@@ -49,7 +49,6 @@
   }
 </script>
 <style>
-
   .nav-pills a {
     color: white;
   }
@@ -57,6 +56,4 @@
   .nav-pills a:hover {
     color: black;
   }
-
-
 </style>

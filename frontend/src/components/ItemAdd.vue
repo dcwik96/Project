@@ -66,8 +66,6 @@
   }
 </style>
 <script>
-  import PictureInput from 'vue-picture-input'
-
   export default {
     data() {
       return {
@@ -82,9 +80,6 @@
         badData: false,
         message: ''
       }
-    },
-    components: {
-      PictureInput
     },
     methods: {
       onFileChange(e) {
@@ -109,18 +104,17 @@
         formData.append('title', this.advertData.title)
         formData.append('description', this.advertData.description)
         formData.append('duration', this.advertData.duration)
-        // console.log(imageInput.files);
         for (var i = 0; i < imageInput.files.length; ++i) {
           formData.append('images', imageInput.files[i])
           formData.append('imagesDescriptions', 'Tego nie będzie.')
         }
         this.$http.post('http://localhost:8080/api/newadvert', formData).then(
           (response) => {
-            this.added = true
+            this.added = true;
             this.message = response.bodyText
           },
           (response) => {
-            this.badData = true
+            this.badData = true;
             this.message = response.bodyText
           })
       },

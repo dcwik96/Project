@@ -13,7 +13,7 @@
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-      <li><a href="#" >Ustawienia konta</a></li>
+      <!--<li><a href="#" >Ustawienia konta</a></li>-->
       <li><a href @click="logOut">Wyloguj</a></li>
     </ul>
     <div id="functionPanel" ref="functionPanel" class="btn-group-vertical">
