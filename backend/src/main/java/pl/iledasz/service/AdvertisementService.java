@@ -1,5 +1,6 @@
 package pl.iledasz.service;
 
+import com.sun.imageio.plugins.jpeg.JPEGImageReader;
 import net.coobird.thumbnailator.Thumbnails;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import pl.iledasz.repository.OfferRepository;
 import pl.iledasz.repository.PhotoRepository;
 
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.spi.ImageReaderSpi;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
@@ -104,10 +107,9 @@ public class AdvertisementService {
         TreeMap<String, MultipartFile> imagesWithDescriptions = newAdvertForm.getPhotosWithDescriptions();
 
         for (Map.Entry<String, MultipartFile> imageWithDescription : imagesWithDescriptions.entrySet()) {
-            InputStream in = new ByteArrayInputStream(imageWithDescription.getValue().getBytes());
-            BufferedImage image = ImageIO.read(in);
+            InputStream in =imageWithDescription.getValue().getInputStream();
 
-            BufferedImage scaledImg = Thumbnails.of(image)
+            BufferedImage scaledImg = Thumbnails.of(in)
                     .size(800, 600)
                     .asBufferedImage();
 
