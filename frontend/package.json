@@ -19,6 +19,7 @@
     "file-base64": "^1.0.0",
     "fs": "0.0.1-security",
     "uiv": "^0.16.1",
+    "v-clipboard": "^1.0.4",
     "v-img": "^0.1.9",
     "vue": "^2.5.2",
     "vue-axios": "^2.0.2",
