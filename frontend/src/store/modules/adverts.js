@@ -6,7 +6,8 @@ const state =
   {
     adverts: [],
     lightAdverts: [],
-    advert: {}
+    advert: {},
+    randomAdvert: {}
   };
 
 const getters = {
@@ -18,6 +19,9 @@ const getters = {
   },
   getAdvert: state => {
     return state.advert
+  },
+  getRandomAdvert: state => {
+    return state.randomAdvert
   }
 };
 
@@ -71,11 +75,11 @@ const actions = {
   },
   makeOffer: (payload, data) => {
     var config = {
-      position : 'bottom-center',
+      position: 'bottom-center',
       singleton: true,
       duration: 1000
     };
-    const url = 'http://localhost:8080/api/advert/'+data.id+'/newOffer';
+    const url = 'http://localhost:8080/api/advert/' + data.id + '/newOffer';
     var offerData = {
       offer: data.price
     };
@@ -90,7 +94,18 @@ const actions = {
       }, () => {
         Vue.toasted.error('Wystąpił problem', config)
       })
-    }
+  },
+  fetchRandomAdvert: ({commit}) => {
+    const url = 'http://localhost:8080/api/randomAdvert';
+    Vue.http.get(url, {credentials: false}).then(
+      response => {
+        commit('setRandomAdvert', response.data)
+      },
+      response => {
+        console.log(response)
+      }
+    )
+  }
 };
 
 const mutations = {
@@ -106,6 +121,9 @@ const mutations = {
   setAdvert(state, payload) {
     state.advert = payload
   },
+  setRandomAdvert(state, payload) {
+    state.randomAdvert = payload
+  }
 };
 
 export default {

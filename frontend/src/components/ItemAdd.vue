@@ -1,7 +1,5 @@
 <template>
   <div>
-    <div class="alert alert-danger" v-if="badData"> {{ message }}</div>
-    <div class="alert alert-success" v-if="added">{{ message }}</div>
     <form enctype="multipart/form-data">
       <div class="form-group">
         <label for="title">Tytuł</label>
@@ -11,16 +9,16 @@
         <label for="timeChoose">Wybierz czas trwania</label>
         <div id="timeChoose">
           <div class="radio">
-            <label><input type="radio" name="timeChoose" value="30">Bezterminowy</label>
+            <label><input type="radio" name="timeChoose" value="30" v-model="duration">Bezterminowy</label>
           </div>
           <div class="radio">
-            <label><input type="radio" name="timeChoose" value="1">1 dzień</label>
+            <label><input type="radio" name="timeChoose" value="1" v-model="duration">1 dzień</label>
           </div>
           <div class="radio">
-            <label><input type="radio" name="timeChoose" value="3">3 dni</label>
+            <label><input type="radio" name="timeChoose" value="3" v-model="duration">3 dni</label>
           </div>
           <div class="radio">
-            <label><input type="radio" name="timeChoose" value="7">7 dni</label>
+            <label><input type="radio" name="timeChoose" value="7" v-model="duration">7 dni</label>
           </div>
         </div>
 
@@ -43,7 +41,7 @@
           </div>
         </div>
         <br>
-        <input id="imageInput" type="file" @change="onFileChange" multiple>
+        <input ref="imageIn" type="file" @change="onFileChange" multiple>
       </div>
       <div class="text-center">
         <button class="btn btn-success" type="submit" @click.prevent="uploadAdvert">Dodaj</button>
@@ -76,9 +74,6 @@
           duration: 1,
           imagesDescriptions: []
         },
-        added: false,
-        badData: false,
-        message: ''
       }
     },
     methods: {
@@ -100,6 +95,12 @@
         reader.readAsDataURL(file);
       },
       uploadAdvert() {
+        var config = {
+          position: 'bottom-center',
+          singleton: true,
+          duration: 1500
+        };
+
         var formData = new FormData();
         formData.append('title', this.advertData.title)
         formData.append('description', this.advertData.description)
@@ -108,16 +109,22 @@
           formData.append('images', imageInput.files[i])
           formData.append('imagesDescriptions', 'Tego nie będzie.')
         }
+
         this.$http.post('http://localhost:8080/api/newadvert', formData).then(
           (response) => {
-            this.added = true;
-            this.message = response.bodyText
+
+            this.$toasted.success(response.bodyText,config);
+            this.clearData()
           },
           (response) => {
-            this.badData = true;
-            this.message = response.bodyText
+            this.$toasted.error(response.bodyText,config)
           })
       },
+      clearData() {
+        this.advertData = {};
+        this.images = [];
+        this.$refs.imageIn.files = []
+      }
     }
   }
 </script>

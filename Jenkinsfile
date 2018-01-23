@@ -6,11 +6,11 @@ pipeline {
         nodejs 'Node'
     }
     stages {
-        stage('Build') {
-            steps {
-                 	sh 'mvn --projects backend spring-boot:start'
-            }
-        }
+	stage('Build') {
+	     steps {
+		sh 'mvn compile'
+	     }
+	}
         stage('Test') {
             steps {
                 sh 'mvn test'
