@@ -1,12 +1,12 @@
 <template>
   <div>
-    <modal name="login" transition="pop-out" :width="modalWidth" :height="350">
+    <modal name="login" transition="pop-out" :width="modalWidth" :height="322">
       <app-login-form></app-login-form>
     </modal>
     <modal name="register" transition="pop-out" :width="modalWidth" :height="modalHeight">
       <app-register-form></app-register-form>
     </modal>
-    <modal name="buyer" transition="pop-out" :width="modalWidth" :height="400">
+    <modal name="buyer" transition="pop-out" :width="modalWidth" :height="336">
       <app-contact-data></app-contact-data>
     </modal>
   </div>
