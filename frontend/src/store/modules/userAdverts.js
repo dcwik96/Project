@@ -2,7 +2,8 @@ import Vue from 'vue'
 
 const state = {
   userAdverts: [],
-  offers: []
+  offers: [],
+  buyerData: {}
 };
 
 const getters = {
@@ -11,6 +12,9 @@ const getters = {
   },
   getOffers: () => {
     return state.offers
+  },
+  getBuyerData: () => {
+    return state.buyerData
   }
 };
 
@@ -35,6 +39,15 @@ const actions = {
         (response) => {
           console.log(response.body)
         })
+  },
+  acceptOffer({commit}, id) {
+    const url = 'http://localhost:8080/api/advert/select/'+id;
+
+    Vue.http.get(url)
+      .then( (response) => {
+        commit('mutateBuyerData', response.body)
+    }, (response) => {
+    })
   }
 };
 
@@ -44,6 +57,9 @@ const mutations = {
   },
   mutateOffer(state, payload) {
     state.offers = payload
+  },
+  mutateBuyerData(state, payload) {
+    state.buyerData = payload
   }
 };
 

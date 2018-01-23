@@ -44,7 +44,6 @@ const actions = {
         commit('setAdvertsArray', tempAdverts)
       },
       response => {
-        console.log(response)
       }
     )
   },
@@ -71,7 +70,6 @@ const actions = {
         commit('setAdvert', response.data)
       },
       response => {
-        console.log(response)
       }
     )
   },

@@ -12,10 +12,10 @@
         <collapse v-model="showAccordion[index]">
           <div class="panel-body">
             <ul class="list-group">
-              <li class="list-group-item clearfix" v-for="obj in offers">
-                Oferta: {{obj.offer}} zł
+              <li class="list-group-item clearfix" v-for="off in offers">
+                Oferta: {{off.offer}} zł
                 <div class="pull-right">
-                  <button class="btn btn-success">Zaakceptuj</button>
+                  <button class="btn btn-success" @click="acceptOfferAndShowModal(off.id)">Zaakceptuj</button>
                   <button class="btn btn-danger">Odrzuć</button>
                 </div>
               </li>
@@ -40,12 +40,14 @@
     computed: {
     ...mapGetters({
                     userAdverts: 'getUserAdverts',
-                    offers: 'getOffers'
+                    offers: 'getOffers',
+                    buyer: 'getBuyerData'
                   })
     },
     methods: {
       ...mapActions(['fetchUserAdverts',
-                     'fetchOffers']),
+                     'fetchOffers',
+                     'acceptOffer']),
       toggleAccordion (index, id) {
         this.fetchOffers(id);
         if (this.showAccordion[index]) {
@@ -59,6 +61,10 @@
         else {
           this.show = true
         }
+      },
+      acceptOfferAndShowModal(id) {
+        this.acceptOffer(id);
+        this.$modal.show('buyer')
       }
     },
     created() {

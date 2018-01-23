@@ -102,18 +102,17 @@
         };
 
         var formData = new FormData();
-        formData.append('title', this.advertData.title);
-        formData.append('description', this.advertData.description);
-        formData.append('duration', this.advertData.duration);
-        console.log(this.$refs.imageIn.files);
-
-        for (var i = 0; i < this.$refs.imageIn.files.length; ++i) {
-          formData.append('images', this.$refs.imageIn.files[i]);
-          formData.append('imagesDescriptions', 'empty')
+        formData.append('title', this.advertData.title)
+        formData.append('description', this.advertData.description)
+        formData.append('duration', this.advertData.duration)
+        for (var i = 0; i < imageInput.files.length; ++i) {
+          formData.append('images', imageInput.files[i])
+          formData.append('imagesDescriptions', 'Tego nie będzie.')
         }
 
         this.$http.post('http://localhost:8080/api/newadvert', formData).then(
           (response) => {
+
             this.$toasted.success(response.bodyText,config);
             this.clearData()
           },
