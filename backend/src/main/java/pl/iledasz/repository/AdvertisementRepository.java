@@ -15,7 +15,7 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     Advertisement findOneById(Long id);
     Advertisement findAdvertisementsByAppUser_LoginAndId( String login, long id);
     Advertisement findAdvertisementByAppUser_LoginNotLikeAndId(String login, long id);
-    @Query(value="SELECT * FROM Advert ORDER BY RANDOM() LIMIT 1", nativeQuery = true)
+    @Query(value="SELECT * FROM Advert WHERE available = true AND end_date > now() ORDER BY RANDOM() LIMIT 1", nativeQuery = true)
     Advertisement randomOne();
     List<Advertisement> findAllByEndDateAfterAndAndAvailableTrueOrderByEndDateAsc(OffsetDateTime endDate);
     List<Advertisement> findAllByAppUser(AppUser appUser);
