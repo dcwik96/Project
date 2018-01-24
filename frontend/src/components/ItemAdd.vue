@@ -105,8 +105,8 @@
         formData.append('title', this.advertData.title)
         formData.append('description', this.advertData.description)
         formData.append('duration', this.advertData.duration)
-        for (var i = 0; i < imageInput.files.length; ++i) {
-          formData.append('images', imageInput.files[i])
+        for (var i = 0; i < this.$refs.imageIn.files.length; ++i) {
+          formData.append('images', this.$refs.imageIn.files[i])
           formData.append('imagesDescriptions', 'Tego nie będzie.')
         }
 
