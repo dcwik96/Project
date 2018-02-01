@@ -64,11 +64,11 @@ public class AdvertisementController {
     @Transactional
     public ResponseEntity<String> addNewAdvert(@ModelAttribute("advertForm") NewAdvertDTO newAdvertForm, BindingResult bindingResult, Principal principal) throws IOException {
 
-//        newAdvertValidator.validate(newAdvertForm, bindingResult);
+        newAdvertValidator.validate(newAdvertForm, bindingResult);
 
-//        if (bindingResult.hasErrors()) {
-//            return new ResponseEntity<>(bindingResult.getFieldError().getDefaultMessage(), HttpStatus.NOT_ACCEPTABLE);
-//        }
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError().getDefaultMessage(), HttpStatus.NOT_ACCEPTABLE);
+        }
 
         advertisementService.createNewAdvertisement(newAdvertForm, principal);
 
