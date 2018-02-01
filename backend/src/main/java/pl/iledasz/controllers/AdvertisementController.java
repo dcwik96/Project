@@ -64,14 +64,11 @@ public class AdvertisementController {
     @Transactional
     public ResponseEntity<String> addNewAdvert(@ModelAttribute("advertForm") NewAdvertDTO newAdvertForm, BindingResult bindingResult, Principal principal) throws IOException {
 
-        if (principal.getName().isEmpty())
-            return new ResponseEntity<>("Wystąpił błąd przy próbie pobrania danych użytkownika.", HttpStatus.METHOD_NOT_ALLOWED);
+//        newAdvertValidator.validate(newAdvertForm, bindingResult);
 
-        newAdvertValidator.validate(newAdvertForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getFieldError().getDefaultMessage(), HttpStatus.NOT_ACCEPTABLE);
-        }
+//        if (bindingResult.hasErrors()) {
+//            return new ResponseEntity<>(bindingResult.getFieldError().getDefaultMessage(), HttpStatus.NOT_ACCEPTABLE);
+//        }
 
         advertisementService.createNewAdvertisement(newAdvertForm, principal);
 
