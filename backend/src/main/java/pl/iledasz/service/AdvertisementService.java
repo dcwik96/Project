@@ -112,9 +112,7 @@ public class AdvertisementService {
 
     public boolean checkAdvertOwnerIsLoggedUser(Principal principal, Long id) {
         AppUser appUser = appUserService.findByLogin(principal.getName());
-        if (advertisementRepository.findAdvertisementsByAppUserAndId(appUser, id) == null)
-            return false;
-        return true;
+        return advertisementRepository.findAdvertisementsByAppUserAndId(appUser, id) != null;
     }
 
     private List<LightAdvertisementDTO> mapToLightAdvertisement(List<Advertisement> adverts) {
