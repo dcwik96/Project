@@ -45,8 +45,7 @@ public class AdvertisementController {
     @RequestMapping(value = "api/userAdverts")
     public List<LightAdvertisementDTO> getUserLightAdverts(Principal principal, HttpServletResponse httpServletResponse) {
 
-        if (principal == null)
-        {
+        if (principal == null) {
             httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return null;
         }
@@ -76,14 +75,13 @@ public class AdvertisementController {
     }
 
     @RequestMapping(value = "api/randomAdvert")
-            public AdvertisementDTO randomAdvert()
-    {
+    public AdvertisementDTO randomAdvert() {
         return advertisementService.randomAdvert();
     }
 
     @RequestMapping(value = "api/advert/{id}/verify")
     public void checkAdvertOwnerIsLoggedUser(@PathVariable("id") Long id, Principal principal, HttpServletResponse httpServletResponse) {
-        if(advertisementService.checkAdvertOwnerIsLoggedUser(principal, id))
+        if (advertisementService.checkAdvertOwnerIsLoggedUser(principal, id))
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
         else
             httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);

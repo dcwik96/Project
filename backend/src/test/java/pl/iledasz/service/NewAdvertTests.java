@@ -112,7 +112,7 @@ public class NewAdvertTests {
         assertEquals(OffsetDateTime.now().getDayOfYear(), argumentCaptor.getValue().getStartDate().getDayOfYear());
         assertEquals(OffsetDateTime.now().getDayOfYear() + DURATION, argumentCaptor.getValue().getEndDate().getDayOfYear());
         assertEquals(USER, argumentCaptor.getValue().getAppUser().getLogin());
-        assertEquals(FIRST_PHOTO.getBytes(),photoArgumentCaptor.getValue().getImage());
+        assertEquals(FIRST_PHOTO.getBytes(), photoArgumentCaptor.getValue().getImage());
     }
 
 }

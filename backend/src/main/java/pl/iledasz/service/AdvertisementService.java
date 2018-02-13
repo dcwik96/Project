@@ -1,30 +1,29 @@
 package pl.iledasz.service;
 
-import net.coobird.thumbnailator.Thumbnails;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import pl.iledasz.DTO.*;
-import pl.iledasz.entities.*;
+import pl.iledasz.DTO.AdvertPhotoDTO;
+import pl.iledasz.DTO.AdvertisementDTO;
+import pl.iledasz.DTO.LightAdvertisementDTO;
+import pl.iledasz.DTO.NewAdvertDTO;
+import pl.iledasz.entities.AdvertPhoto;
+import pl.iledasz.entities.Advertisement;
+import pl.iledasz.entities.AppUser;
+import pl.iledasz.entities.Photo;
 import pl.iledasz.repository.AdvertPhotoRepository;
 import pl.iledasz.repository.AdvertisementRepository;
 import pl.iledasz.repository.OfferRepository;
 import pl.iledasz.repository.PhotoRepository;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.Principal;
 import java.time.OffsetDateTime;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Service
 public class AdvertisementService {
@@ -47,8 +46,7 @@ public class AdvertisementService {
                 advertisementRepository.findOneById(id), AdvertisementDTO.class);
     }
 
-    public AdvertisementDTO randomAdvert()
-    {
+    public AdvertisementDTO randomAdvert() {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(advertisementRepository.randomOne(), AdvertisementDTO.class);
     }
@@ -112,16 +110,14 @@ public class AdvertisementService {
 
     }
 
-    public boolean checkAdvertOwnerIsLoggedUser(Principal principal, Long id)
-    {
+    public boolean checkAdvertOwnerIsLoggedUser(Principal principal, Long id) {
         AppUser appUser = appUserService.findByLogin(principal.getName());
-        if(advertisementRepository.findAdvertisementsByAppUserAndId(appUser, id) == null)
+        if (advertisementRepository.findAdvertisementsByAppUserAndId(appUser, id) == null)
             return false;
         return true;
     }
 
-    private List<LightAdvertisementDTO> mapToLightAdvertisement(List<Advertisement> adverts)
-    {
+    private List<LightAdvertisementDTO> mapToLightAdvertisement(List<Advertisement> adverts) {
         List<LightAdvertisementDTO> advertisementDTOS = new ArrayList<>();
         ModelMapper modelMapper = new ModelMapper();
         for (Advertisement advertisement : adverts) {
