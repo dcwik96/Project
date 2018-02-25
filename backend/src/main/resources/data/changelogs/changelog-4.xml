@@ -22,7 +22,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="approved" type="boolean" defaultValue="false">
-                <constraints nullable="false"/>
             </column>
         </createTable>
 

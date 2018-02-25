@@ -60,13 +60,4 @@ public class OfferController {
         return new ResponseEntity<>("Error", HttpStatus.FORBIDDEN);
     }
 
-    @RequestMapping(value = "api/advert/select/{offerID}")
-    public AppUserDTO chooseOffer( @PathVariable("offerID") Long offerID, Principal principal, HttpServletResponse httpServletResponse){
-        AppUserDTO selectedUser = offerService.chooseOneOfferAndCloseAdvertisement(offerID, principal);
-        if (selectedUser == null)
-            httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        return selectedUser;
-    }
-
-
 }

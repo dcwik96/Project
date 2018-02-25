@@ -3,8 +3,10 @@ package pl.iledasz.entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "select_offer")
@@ -28,4 +30,8 @@ public class SelectOffer {
 
     @Column(name = "approved")
     private boolean approved;
+
+    @Column(name = "expired_date", nullable = false)
+    @Type(type = "org.hibernate.type.OffsetDateTimeType")
+    private OffsetDateTime expiredDate;
 }
