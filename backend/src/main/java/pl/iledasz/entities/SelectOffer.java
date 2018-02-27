@@ -29,7 +29,7 @@ public class SelectOffer {
     private Offer offer;
 
     @Column(name = "approved")
-    private boolean approved;
+    private Boolean approved;
 
     @Column(name = "expired_date", nullable = false)
     @Type(type = "org.hibernate.type.OffsetDateTimeType")

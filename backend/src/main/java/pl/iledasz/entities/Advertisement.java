@@ -51,6 +51,10 @@ public class Advertisement {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<Offer> offers;
 
+    @OneToMany(mappedBy = "advertisement")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    private List<SelectOffer> selectOffers;
+
 
     @OneToMany(mappedBy = "advertisement")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
