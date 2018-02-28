@@ -9,11 +9,11 @@ import javax.persistence.*;
 import java.time.OffsetDateTime;
 
 @Entity
-@Table(name = "select_offer")
+@Table(name = "chosen_offer")
 @NoArgsConstructor
 @Getter
 @Setter
-public class SelectOffer {
+public class ChosenOffer {
 
     @Id
     @GeneratedValue

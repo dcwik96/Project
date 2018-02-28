@@ -8,7 +8,7 @@
                  http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <changeSet id="5" author="mario">
-        <createTable tableName="select_offer">
+        <createTable tableName="chosen_offer">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -26,8 +26,8 @@
         </createTable>
 
         <addForeignKeyConstraint baseColumnNames="advert_id"
-                                 baseTableName="select_offer"
-                                 constraintName="fk_select_offer_advert"
+                                 baseTableName="chosen_offer"
+                                 constraintName="fk_chosen_offer_advert"
                                  deferrable="true"
                                  initiallyDeferred="true"
                                  onDelete="CASCADE"
@@ -36,8 +36,8 @@
                                  referencedTableName="advert"/>
 
         <addForeignKeyConstraint baseColumnNames="offer_id"
-                                 baseTableName="select_offer"
-                                 constraintName="fk_select_offer_offer"
+                                 baseTableName="chosen_offer"
+                                 constraintName="fk_chosen_offer_offer"
                                  deferrable="true"
                                  initiallyDeferred="true"
                                  onDelete="CASCADE"

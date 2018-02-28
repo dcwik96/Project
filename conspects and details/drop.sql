@@ -1,6 +1,6 @@
 drop table databasechangelog;
 drop table databasechangeloglock;
-drop table "select_offer";
+drop table "chosen_offer";
 drop table offer;
 drop table photo;
 drop table advertphoto;

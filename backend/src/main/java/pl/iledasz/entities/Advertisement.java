@@ -53,7 +53,7 @@ public class Advertisement {
 
     @OneToMany(mappedBy = "advertisement")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private List<SelectOffer> selectOffers;
+    private List<ChosenOffer> chosenOffers;
 
 
     @OneToMany(mappedBy = "advertisement")

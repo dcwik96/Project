@@ -2,9 +2,8 @@ package pl.iledasz.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.iledasz.entities.Advertisement;
 import pl.iledasz.entities.Offer;
-import pl.iledasz.entities.SelectOffer;
+import pl.iledasz.entities.ChosenOffer;
 import pl.iledasz.repository.OfferRepository;
 import pl.iledasz.repository.SelectOfferRepository;
 
@@ -21,17 +20,17 @@ public class SelectOfferService {
     @Autowired
     SelectOfferRepository selectOfferRepository;
 
-
-    //Dopisz sprawdzanie daty, jezeli jest po, to przekręć na false i elo
-    //Dopisz sprawdzenie czy nie została  wybrana ponownie ta sama oferta? Albo automatyczne usuwanie
     public boolean chooseOneOffer(Long offerID, Principal principal) {
         Offer offer = offerRepository.findOfferByIdAndAdvertisement_AppUser_LoginAndAdvertisement_AvailableTrue(offerID, principal.getName());
 
         if(offer != null )
         {
-            List<SelectOffer> selectOffers = offer.getAdvertisement().getSelectOffers();
-            if (selectOffers != null)
-                for ( SelectOffer so : selectOffers){
+
+            List<ChosenOffer> chosenOffers = offer.getAdvertisement().getChosenOffers();
+            if (chosenOffers != null)
+                for ( ChosenOffer so : chosenOffers){
+
+                    if(so.getOffer().getId() == offerID) return false;
                     if (so.getApproved() == null && so.getExpiredDate().isBefore(OffsetDateTime.now())){
                         so.setApproved(false);
                         selectOfferRepository.save(so);
@@ -40,11 +39,11 @@ public class SelectOfferService {
                 }
 
 
-            SelectOffer selectOffer = new SelectOffer();
-            selectOffer.setAdvertisement(offer.getAdvertisement());
-            selectOffer.setOffer(offer);
-            selectOffer.setExpiredDate(OffsetDateTime.now().plusDays(1));
-            selectOfferRepository.save(selectOffer);
+            ChosenOffer chosenOffer = new ChosenOffer();
+            chosenOffer.setAdvertisement(offer.getAdvertisement());
+            chosenOffer.setOffer(offer);
+            chosenOffer.setExpiredDate(OffsetDateTime.now().plusDays(1));
+            selectOfferRepository.save(chosenOffer);
             return true;
         }
         return false;

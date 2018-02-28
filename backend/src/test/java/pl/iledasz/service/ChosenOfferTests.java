@@ -1,6 +1,5 @@
 package pl.iledasz.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,11 +17,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.web.context.WebApplicationContext;
 import pl.iledasz.Application;
-import pl.iledasz.DTO.AppUserDTO;
 import pl.iledasz.entities.Advertisement;
 import pl.iledasz.entities.AppUser;
 import pl.iledasz.entities.Offer;
-import pl.iledasz.entities.SelectOffer;
+import pl.iledasz.entities.ChosenOffer;
 import pl.iledasz.repository.AdvertisementRepository;
 import pl.iledasz.repository.AppUserRepository;
 import pl.iledasz.repository.OfferRepository;
@@ -42,7 +40,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
-public class SelectOfferTests {
+public class ChosenOfferTests {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -72,14 +70,6 @@ public class SelectOfferTests {
     private static final Long idOne = Long.valueOf(1);
     private static final Long idTwo = Long.valueOf(2);
     private static final Long idThree = Long.valueOf(3);
-    private static final String name = "Alex";
-    private static final String surname = " Hunter";
-    private static final String email = "mario@xs.ps";
-    private static final String phone_number = "234332423";
-
-    private static final BigDecimal offerOnePrice = BigDecimal.valueOf(123.44);
-    private static final BigDecimal offerTwoPrice = BigDecimal.valueOf(453.44);
-    private static final BigDecimal badOfferPrice = BigDecimal.valueOf(-123.55);
 
     private RequestBuilder requestBuilder;
     private Advertisement advertisement;
@@ -109,7 +99,7 @@ public class SelectOfferTests {
         offer.setAdvertisement(advertisement);
 
         Mockito.when(offerRepository.findOfferByIdAndAdvertisement_AppUser_LoginAndAdvertisement_AvailableTrue(idTwo, user)).thenReturn(offer);
-        Mockito.when(selectOfferRepository.save(Mockito.any(SelectOffer.class))).thenReturn(null);
+        Mockito.when(selectOfferRepository.save(Mockito.any(ChosenOffer.class))).thenReturn(null);
     }
 
     @Test
@@ -118,13 +108,13 @@ public class SelectOfferTests {
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
 
-        ArgumentCaptor<SelectOffer> argumentCaptor = ArgumentCaptor.forClass(SelectOffer.class);
+        ArgumentCaptor<ChosenOffer> argumentCaptor = ArgumentCaptor.forClass(ChosenOffer.class);
         Mockito.verify(selectOfferRepository).save(argumentCaptor.capture());
-        SelectOffer createdSelectOffer = argumentCaptor.getValue();
+        ChosenOffer createdChosenOffer = argumentCaptor.getValue();
 
-        assertEquals(advertisement.getId(), createdSelectOffer.getAdvertisement().getId());
-        assertEquals(offer.getId(), createdSelectOffer.getOffer().getId());
-        assertEquals(OffsetDateTime.now().plusDays(1).getDayOfYear(), createdSelectOffer.getExpiredDate().getDayOfYear());
+        assertEquals(advertisement.getId(), createdChosenOffer.getAdvertisement().getId());
+        assertEquals(offer.getId(), createdChosenOffer.getOffer().getId());
+        assertEquals(OffsetDateTime.now().plusDays(1).getDayOfYear(), createdChosenOffer.getExpiredDate().getDayOfYear());
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
     }
@@ -136,7 +126,7 @@ public class SelectOfferTests {
         Mockito.when(offerRepository.findOfferByIdAndAdvertisement_AppUser_LoginAndAdvertisement_AvailableTrue(idTwo, user)).thenReturn(null);
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
-        Mockito.verify(selectOfferRepository, Mockito.never()).save(Mockito.any(SelectOffer.class));
+        Mockito.verify(selectOfferRepository, Mockito.never()).save(Mockito.any(ChosenOffer.class));
         assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
 
     }
@@ -145,26 +135,30 @@ public class SelectOfferTests {
     @WithMockUser(username = user, password = password, roles = role_user)
     public void selectOfferWhenOtherOfferIsNotApproved() throws Exception {
 
-        SelectOffer offerInBase = new SelectOffer();
+        ChosenOffer offerInBase = new ChosenOffer();
         offerInBase.setId(idOne);
         offerInBase.setExpiredDate(OffsetDateTime.now().plusHours(6));
         //There is no way to have to selectOffers as approved (true) or without reaction(null)
         offerInBase.setApproved(false);
 
-        List<SelectOffer> inBaseList = new ArrayList<>();
+
+        offerInBase.setOffer(new Offer());
+        offerInBase.getOffer().setId(idOne);
+
+        List<ChosenOffer> inBaseList = new ArrayList<>();
         inBaseList.add(offerInBase);
-        advertisement.setSelectOffers(inBaseList);
+        advertisement.setChosenOffers(inBaseList);
 
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
 
-        ArgumentCaptor<SelectOffer> argumentCaptor = ArgumentCaptor.forClass(SelectOffer.class);
+        ArgumentCaptor<ChosenOffer> argumentCaptor = ArgumentCaptor.forClass(ChosenOffer.class);
         Mockito.verify(selectOfferRepository).save(argumentCaptor.capture());
-        SelectOffer createdSelectOffer = argumentCaptor.getValue();
+        ChosenOffer createdChosenOffer = argumentCaptor.getValue();
 
-        assertEquals(advertisement.getId(), createdSelectOffer.getAdvertisement().getId());
-        assertEquals(offer.getId(), createdSelectOffer.getOffer().getId());
-        assertEquals(OffsetDateTime.now().plusDays(1).getDayOfYear(), createdSelectOffer.getExpiredDate().getDayOfYear());
+        assertEquals(advertisement.getId(), createdChosenOffer.getAdvertisement().getId());
+        assertEquals(offer.getId(), createdChosenOffer.getOffer().getId());
+        assertEquals(OffsetDateTime.now().plusDays(1).getDayOfYear(), createdChosenOffer.getExpiredDate().getDayOfYear());
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
@@ -172,18 +166,20 @@ public class SelectOfferTests {
     @WithMockUser(username = user, password = password, roles = role_user)
     public void selectOfferWhenOtherOfferIsApproved() throws Exception {
 
-        SelectOffer offerInBase = new SelectOffer();
+        ChosenOffer offerInBase = new ChosenOffer();
         offerInBase.setId(idOne);
         offerInBase.setExpiredDate(OffsetDateTime.now().plusHours(6));
-        //There is no way to have two selectOffers as approved (true) or without reaction(null)
         offerInBase.setApproved(true);
+        offerInBase.setOffer(new Offer());
+        offerInBase.getOffer().setId(idOne);
 
-        List<SelectOffer> inBaseList = new ArrayList<>();
+
+        List<ChosenOffer> inBaseList = new ArrayList<>();
         inBaseList.add(offerInBase);
-        advertisement.setSelectOffers(inBaseList);
+        advertisement.setChosenOffers(inBaseList);
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
-        Mockito.verify(selectOfferRepository, Mockito.never()).save(Mockito.any(SelectOffer.class));
+        Mockito.verify(selectOfferRepository, Mockito.never()).save(Mockito.any(ChosenOffer.class));
         assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
     }
 
@@ -191,16 +187,18 @@ public class SelectOfferTests {
     @WithMockUser(username = user, password = password, roles = role_user)
     public void selectOfferWhenOtherOfferIsWaiting() throws Exception {
 
-        SelectOffer offerInBase = new SelectOffer();
+        ChosenOffer offerInBase = new ChosenOffer();
         offerInBase.setId(idOne);
         offerInBase.setExpiredDate(OffsetDateTime.now().plusHours(6));
+        offerInBase.setOffer(new Offer());
+        offerInBase.getOffer().setId(idOne);
 
-        List<SelectOffer> inBaseList = new ArrayList<>();
+        List<ChosenOffer> inBaseList = new ArrayList<>();
         inBaseList.add(offerInBase);
-        advertisement.setSelectOffers(inBaseList);
+        advertisement.setChosenOffers(inBaseList);
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
-        Mockito.verify(selectOfferRepository, Mockito.never()).save(Mockito.any(SelectOffer.class));
+        Mockito.verify(selectOfferRepository, Mockito.never()).save(Mockito.any(ChosenOffer.class));
         assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
     }
 
@@ -208,23 +206,29 @@ public class SelectOfferTests {
     @WithMockUser(username = user, password = password, roles = role_user)
     public void selectOfferWhenThereAreOfferApprovedAndOfferRejected() throws Exception {
 
-        SelectOffer offerInBase = new SelectOffer();
+        ChosenOffer offerInBase = new ChosenOffer();
         offerInBase.setId(idOne);
         offerInBase.setExpiredDate(OffsetDateTime.now().plusHours(6));
         offerInBase.setApproved(false);
-        SelectOffer offerInBaseTwo = new SelectOffer();
+        offerInBase.setOffer(new Offer());
+        offerInBase.getOffer().setId(idOne);
+
+        ChosenOffer offerInBaseTwo = new ChosenOffer();
         offerInBaseTwo.setId(idThree);
         offerInBase.setExpiredDate(OffsetDateTime.now().plusHours(6));
         offerInBaseTwo.setApproved(true);
+        offerInBaseTwo.setOffer(new Offer());
+        offerInBaseTwo.getOffer().setId(idThree);
 
 
-        List<SelectOffer> inBaseList = new ArrayList<>();
+
+        List<ChosenOffer> inBaseList = new ArrayList<>();
         inBaseList.add(offerInBase);
         inBaseList.add(offerInBaseTwo);
-        advertisement.setSelectOffers(inBaseList);
+        advertisement.setChosenOffers(inBaseList);
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
-        Mockito.verify(selectOfferRepository, Mockito.never()).save(Mockito.any(SelectOffer.class));
+        Mockito.verify(selectOfferRepository, Mockito.never()).save(Mockito.any(ChosenOffer.class));
 
         assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
     }
@@ -233,22 +237,28 @@ public class SelectOfferTests {
     @WithMockUser(username = user, password = password, roles = role_user)
     public void selectOfferWhenThereAreTwoRejectedOffers() throws Exception {
 
-        SelectOffer offerInBase = new SelectOffer();
+        ChosenOffer offerInBase = new ChosenOffer();
         offerInBase.setId(idOne);
         offerInBase.setApproved(false);
+        offerInBase.setOffer(new Offer());
+        offerInBase.getOffer().setId(idOne);
+
         offerInBase.setExpiredDate(OffsetDateTime.now().plusHours(6));
-        SelectOffer offerInBaseTwo = new SelectOffer();
+        ChosenOffer offerInBaseTwo = new ChosenOffer();
         offerInBaseTwo.setId(idThree);
         offerInBaseTwo.setApproved(false);
         offerInBase.setExpiredDate(OffsetDateTime.now().minusHours(6));
+        offerInBaseTwo.setOffer(new Offer());
+        offerInBaseTwo.getOffer().setId(idThree);
 
-        List<SelectOffer> inBaseList = new ArrayList<>();
+
+        List<ChosenOffer> inBaseList = new ArrayList<>();
         inBaseList.add(offerInBase);
         inBaseList.add(offerInBaseTwo);
-        advertisement.setSelectOffers(inBaseList);
+        advertisement.setChosenOffers(inBaseList);
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
-        Mockito.verify(selectOfferRepository, Mockito.only()).save(Mockito.any(SelectOffer.class));
+        Mockito.verify(selectOfferRepository, Mockito.only()).save(Mockito.any(ChosenOffer.class));
 
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
@@ -257,23 +267,82 @@ public class SelectOfferTests {
     @WithMockUser(username = user, password = password, roles = role_user)
     public void selectOfferWhenThereIsWaitingOfferButDateExpired() throws Exception {
 
-        SelectOffer offerInBase = new SelectOffer();
+        ChosenOffer offerInBase = new ChosenOffer();
         offerInBase.setId(idOne);
         offerInBase.setExpiredDate(OffsetDateTime.now().minusDays(1));
+        offerInBase.setOffer(new Offer());
+        offerInBase.getOffer().setId(idOne);
 
-        List<SelectOffer> inBaseList = new ArrayList<>();
+
+        List<ChosenOffer> inBaseList = new ArrayList<>();
         inBaseList.add(offerInBase);
-        advertisement.setSelectOffers(inBaseList);
+        advertisement.setChosenOffers(inBaseList);
 
-        ArgumentCaptor<SelectOffer> argumentCaptor = ArgumentCaptor.forClass(SelectOffer.class);
-        List <SelectOffer> createdSelectOffers = argumentCaptor.getAllValues();
+        ArgumentCaptor<ChosenOffer> argumentCaptor = ArgumentCaptor.forClass(ChosenOffer.class);
+        List <ChosenOffer> createdChosenOffers = argumentCaptor.getAllValues();
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
 
         Mockito.verify(selectOfferRepository, Mockito.times(2) ).save(argumentCaptor.capture());
 
-        assertEquals(false,createdSelectOffers.get(0).getApproved());
+        assertEquals(false, createdChosenOffers.get(0).getApproved());
         assertEquals(HttpStatus.OK.value(), response.getStatus());
+
+        assertEquals(advertisement.getId(), createdChosenOffers.get(1).getAdvertisement().getId());
+        assertEquals(offer.getId(), createdChosenOffers.get(1).getOffer().getId());
+        assertEquals(OffsetDateTime.now().plusDays(1).getDayOfYear(), createdChosenOffers.get(1).getExpiredDate().getDayOfYear());
+    }
+
+    @Test
+    @WithMockUser(username = user, password = password, roles = role_user)
+    public void selectTheSameOfferSecondTimes() throws Exception {
+
+        ChosenOffer offerInBase = new ChosenOffer();
+        offerInBase.setId(idOne);
+        offerInBase.setOffer(new Offer());
+        offerInBase.getOffer().setId(idTwo);
+
+        offerInBase.setExpiredDate(OffsetDateTime.now().minusDays(1));
+
+        List<ChosenOffer> inBaseList = new ArrayList<>();
+        inBaseList.add(offerInBase);
+
+        advertisement.setChosenOffers(inBaseList);
+
+        MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
+
+        Mockito.verify(selectOfferRepository, Mockito.never() ).save(Mockito.any(ChosenOffer.class));
+        assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
+    }
+
+    @Test
+    @WithMockUser(username = user, password = password, roles = role_user)
+    public void selectTheSameOfferSecondTimeWithSomeRejectedOfferInBase() throws Exception {
+
+        ChosenOffer offerInBase = new ChosenOffer();
+        offerInBase.setId(idOne);
+        offerInBase.setOffer(new Offer());
+        offerInBase.getOffer().setId(idOne);
+        offerInBase.setApproved(false);
+
+        ChosenOffer offerInBaseTwo = new ChosenOffer();
+        offerInBaseTwo.setId(idTwo);
+        offerInBaseTwo.setOffer(new Offer());
+        offerInBaseTwo.getOffer().setId(idTwo);
+        offerInBaseTwo.setApproved(false);
+
+        offerInBase.setExpiredDate(OffsetDateTime.now().minusDays(1));
+
+        List<ChosenOffer> inBaseList = new ArrayList<>();
+        inBaseList.add(offerInBase);
+        inBaseList.add(offerInBaseTwo);
+
+        advertisement.setChosenOffers(inBaseList);
+
+        MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
+
+        Mockito.verify(selectOfferRepository, Mockito.never() ).save(Mockito.any(ChosenOffer.class));
+        assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
     }
 }
 
