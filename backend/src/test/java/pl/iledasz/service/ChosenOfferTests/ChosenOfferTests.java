@@ -1,4 +1,4 @@
-package pl.iledasz.service;
+package pl.iledasz.service.ChosenOfferTests;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,10 +24,9 @@ import pl.iledasz.entities.ChosenOffer;
 import pl.iledasz.repository.AdvertisementRepository;
 import pl.iledasz.repository.AppUserRepository;
 import pl.iledasz.repository.OfferRepository;
-import pl.iledasz.repository.SelectOfferRepository;
+import pl.iledasz.repository.ChosenOfferRepository;
 
 import javax.servlet.Filter;
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +54,7 @@ public class ChosenOfferTests {
     AdvertisementRepository advertisementRepository;
 
     @MockBean
-    SelectOfferRepository selectOfferRepository;
+    ChosenOfferRepository chosenOfferRepository;
 
     @Autowired
     private Filter springSecurityFilterChain;
@@ -99,7 +98,7 @@ public class ChosenOfferTests {
         offer.setAdvertisement(advertisement);
 
         Mockito.when(offerRepository.findOfferByIdAndAdvertisement_AppUser_LoginAndAdvertisement_AvailableTrue(idTwo, user)).thenReturn(offer);
-        Mockito.when(selectOfferRepository.save(Mockito.any(ChosenOffer.class))).thenReturn(null);
+        Mockito.when(chosenOfferRepository.save(Mockito.any(ChosenOffer.class))).thenReturn(null);
     }
 
     @Test
@@ -109,7 +108,7 @@ public class ChosenOfferTests {
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
 
         ArgumentCaptor<ChosenOffer> argumentCaptor = ArgumentCaptor.forClass(ChosenOffer.class);
-        Mockito.verify(selectOfferRepository).save(argumentCaptor.capture());
+        Mockito.verify(chosenOfferRepository).save(argumentCaptor.capture());
         ChosenOffer createdChosenOffer = argumentCaptor.getValue();
 
         assertEquals(advertisement.getId(), createdChosenOffer.getAdvertisement().getId());
@@ -126,7 +125,7 @@ public class ChosenOfferTests {
         Mockito.when(offerRepository.findOfferByIdAndAdvertisement_AppUser_LoginAndAdvertisement_AvailableTrue(idTwo, user)).thenReturn(null);
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
-        Mockito.verify(selectOfferRepository, Mockito.never()).save(Mockito.any(ChosenOffer.class));
+        Mockito.verify(chosenOfferRepository, Mockito.never()).save(Mockito.any(ChosenOffer.class));
         assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
 
     }
@@ -153,7 +152,7 @@ public class ChosenOfferTests {
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
 
         ArgumentCaptor<ChosenOffer> argumentCaptor = ArgumentCaptor.forClass(ChosenOffer.class);
-        Mockito.verify(selectOfferRepository).save(argumentCaptor.capture());
+        Mockito.verify(chosenOfferRepository).save(argumentCaptor.capture());
         ChosenOffer createdChosenOffer = argumentCaptor.getValue();
 
         assertEquals(advertisement.getId(), createdChosenOffer.getAdvertisement().getId());
@@ -179,7 +178,7 @@ public class ChosenOfferTests {
         advertisement.setChosenOffers(inBaseList);
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
-        Mockito.verify(selectOfferRepository, Mockito.never()).save(Mockito.any(ChosenOffer.class));
+        Mockito.verify(chosenOfferRepository, Mockito.never()).save(Mockito.any(ChosenOffer.class));
         assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
     }
 
@@ -198,7 +197,7 @@ public class ChosenOfferTests {
         advertisement.setChosenOffers(inBaseList);
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
-        Mockito.verify(selectOfferRepository, Mockito.never()).save(Mockito.any(ChosenOffer.class));
+        Mockito.verify(chosenOfferRepository, Mockito.never()).save(Mockito.any(ChosenOffer.class));
         assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
     }
 
@@ -228,7 +227,7 @@ public class ChosenOfferTests {
         advertisement.setChosenOffers(inBaseList);
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
-        Mockito.verify(selectOfferRepository, Mockito.never()).save(Mockito.any(ChosenOffer.class));
+        Mockito.verify(chosenOfferRepository, Mockito.never()).save(Mockito.any(ChosenOffer.class));
 
         assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
     }
@@ -258,7 +257,7 @@ public class ChosenOfferTests {
         advertisement.setChosenOffers(inBaseList);
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
-        Mockito.verify(selectOfferRepository, Mockito.only()).save(Mockito.any(ChosenOffer.class));
+        Mockito.verify(chosenOfferRepository, Mockito.only()).save(Mockito.any(ChosenOffer.class));
 
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
@@ -283,7 +282,7 @@ public class ChosenOfferTests {
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
 
-        Mockito.verify(selectOfferRepository, Mockito.times(2) ).save(argumentCaptor.capture());
+        Mockito.verify(chosenOfferRepository, Mockito.times(2) ).save(argumentCaptor.capture());
 
         assertEquals(false, createdChosenOffers.get(0).getApproved());
         assertEquals(HttpStatus.OK.value(), response.getStatus());
@@ -311,7 +310,7 @@ public class ChosenOfferTests {
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
 
-        Mockito.verify(selectOfferRepository, Mockito.never() ).save(Mockito.any(ChosenOffer.class));
+        Mockito.verify(chosenOfferRepository, Mockito.never() ).save(Mockito.any(ChosenOffer.class));
         assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
     }
 
@@ -341,7 +340,7 @@ public class ChosenOfferTests {
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
 
-        Mockito.verify(selectOfferRepository, Mockito.never() ).save(Mockito.any(ChosenOffer.class));
+        Mockito.verify(chosenOfferRepository, Mockito.never() ).save(Mockito.any(ChosenOffer.class));
         assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
     }
 }

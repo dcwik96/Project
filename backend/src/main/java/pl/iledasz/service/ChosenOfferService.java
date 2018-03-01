@@ -5,20 +5,20 @@ import org.springframework.stereotype.Service;
 import pl.iledasz.entities.Offer;
 import pl.iledasz.entities.ChosenOffer;
 import pl.iledasz.repository.OfferRepository;
-import pl.iledasz.repository.SelectOfferRepository;
+import pl.iledasz.repository.ChosenOfferRepository;
 
 import java.security.Principal;
 import java.time.OffsetDateTime;
 import java.util.List;
 
 @Service
-public class SelectOfferService {
+public class ChosenOfferService {
 
     @Autowired
     OfferRepository offerRepository;
 
     @Autowired
-    SelectOfferRepository selectOfferRepository;
+    ChosenOfferRepository chosenOfferRepository;
 
     public boolean chooseOneOffer(Long offerID, Principal principal) {
         Offer offer = offerRepository.findOfferByIdAndAdvertisement_AppUser_LoginAndAdvertisement_AvailableTrue(offerID, principal.getName());
@@ -33,7 +33,7 @@ public class SelectOfferService {
                     if(so.getOffer().getId() == offerID) return false;
                     if (so.getApproved() == null && so.getExpiredDate().isBefore(OffsetDateTime.now())){
                         so.setApproved(false);
-                        selectOfferRepository.save(so);
+                        chosenOfferRepository.save(so);
                     }
                     if( so.getApproved() == null || so.getApproved().booleanValue() ) return false;
                 }
@@ -43,7 +43,7 @@ public class SelectOfferService {
             chosenOffer.setAdvertisement(offer.getAdvertisement());
             chosenOffer.setOffer(offer);
             chosenOffer.setExpiredDate(OffsetDateTime.now().plusDays(1));
-            selectOfferRepository.save(chosenOffer);
+            chosenOfferRepository.save(chosenOffer);
             return true;
         }
         return false;
