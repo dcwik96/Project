@@ -102,6 +102,13 @@ public class ChosenOfferTests {
     }
 
     @Test
+    public void checkIsEndpointSecure() throws Exception {
+        MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
+
+        assertEquals(HttpStatus.FOUND.value(), response.getStatus());
+    }
+
+    @Test
     @WithMockUser(username = user, password = password, roles = role_user)
     public void selectOfferPositive() throws Exception {
 

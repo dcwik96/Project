@@ -11,4 +11,5 @@ import java.util.List;
 public interface ChosenOfferRepository extends JpaRepository<ChosenOffer, Long> {
 
     List <ChosenOffer> findAllByOffer_AppUser_LoginAndApprovedIsNullAndExpiredDateAfter(String login, OffsetDateTime now);
+    ChosenOffer findByOffer_AppUser_LoginAndIdAndApprovedIsNullAndExpiredDateAfter(String login, Long id, OffsetDateTime now);
 }
