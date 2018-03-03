@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -62,7 +61,7 @@ public class NewAdvertTests {
 
     private static final String TITLE = "Tytul";
     private static final String DESCRIPTION = "Description";
-    private static final Long DURATION = 3l;
+    private static final Long DURATION = 3L;
     private static final String IMAGE_DESCRIPTION = "Description of photo";
     private static final MockMultipartFile FIRST_PHOTO = new MockMultipartFile("images", "filename.txt", "image/jpeg", "Lets see how W.Korol is great".getBytes());
 
@@ -122,7 +121,7 @@ public class NewAdvertTests {
 
         MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
                 MockMvcRequestBuilders
-                    .fileUpload("/api/newadvert")
+                        .fileUpload("/api/newadvert")
                         .file(FIRST_PHOTO)
 //                        .param("title", TITLE)
                         .param("description", DESCRIPTION)
