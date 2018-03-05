@@ -1,7 +1,7 @@
 <template>
   <div>
     <form enctype="multipart/form-data">
-      <div class="form-group">
+      <div class="form-group" enctype="multipart/form-data">
         <label for="title">Tytuł</label>
         <input type="text" class="form-control" id="title" v-model="advertData.title">
       </div>
@@ -9,121 +9,127 @@
         <label for="timeChoose">Wybierz czas trwania</label>
         <div id="timeChoose">
           <div class="radio">
-            <label><input type="radio" name="timeChoose" value="30" v-model="duration">Bezterminowy</label>
+            <label><input type="radio" name="timeChoose" value="30" v-model="advertData.duration">Bezterminowy</label>
           </div>
           <div class="radio">
-            <label><input type="radio" name="timeChoose" value="1" v-model="duration">1 dzień</label>
+            <label><input type="radio" name="timeChoose" value="1" v-model="advertData.duration">1 dzień</label>
           </div>
           <div class="radio">
-            <label><input type="radio" name="timeChoose" value="3" v-model="duration">3 dni</label>
+            <label><input type="radio" name="timeChoose" value="3" v-model="advertData.duration">3 dni</label>
           </div>
           <div class="radio">
-            <label><input type="radio" name="timeChoose" value="7" v-model="duration">7 dni</label>
+            <label><input type="radio" name="timeChoose" value="7" v-model="advertData.duration">7 dni</label>
           </div>
         </div>
-
       </div>
       <div class="form-group">
         <label for="description">Opis</label>
         <textarea class="form-control" rows="5" id="description" v-model="advertData.description"></textarea>
       </div>
       <div class="container">
-        <div class="row">
-          <div v-if="!images[0]">
-            <h2>Dodaj zdjęcia do przedmiotu</h2>
-          </div>
-          <div v-else>
-            <div class="col-md-2" v-for="image in images">
-              <img :src="image" class="img-preview"/>
-              <!--<button @click="removeImage">Remove-->
-              <!--image</button>-->
-            </div>
-          </div>
+        <h1>Wybierz zdjęcia</h1>
+        <div class="dropbox">
+          <input
+            type="file"
+            multiple
+            :name="uploadFieldName"
+            :disabled="isSaving"
+            @change="onFilesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
+            accept="image/*"
+            class="input-file">
+          <p v-if="isInitial">
+            Upuść swoje zdjęcia lub kliknij, aby wybrać z komputera
+          </p>
+          <p v-if="isSaving">
+            Uploading {{fileCount}}
+          </p>
         </div>
-        <br>
-        <input ref="imageIn" type="file" @change="onFileChange" multiple>
       </div>
       <div class="text-center">
-        <button class="btn btn-success" type="submit" @click.prevent="uploadAdvert">Dodaj</button>
-        <button class="btn btn-danger">Anuluj</button>
+        <button class="btn btn-success" type="submit" @click.prevent="upload">Dodaj</button>
+        <button class="btn btn-danger" @click="reset">Anuluj</button>
       </div>
     </form>
   </div>
 </template>
-
 <style>
-  .img-preview {
-    width: 100px;
-    height: 100px;
-    padding: 10px;
-    border: 5px #7f7f7f solid;
-    display: inline-block;
-  }
+.dropbox {
+  outline: 2px dashed grey;
+  outline-offset: -10px;
+  background: lightcyan;
+  color: dimgray;
+  padding: 10px 10px;
+  min-height: 200px;
+  position: relative;
+  coursor: pointer;
+}
+.input-file {
+  opacity: 0;
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  coursor: pointer;
+}
 
-  button {
-  }
+.dropbox:hover {
+  background: lightblue;
+}
+.dropbox p {
+  font-size: 1.2em;
+  text-align: center;
+  padding: 50px 0;
+}
 </style>
 <script>
   export default {
     data() {
       return {
-        images: [],
         advertData: {
           title: '',
           description: '',
           duration: 1,
           imagesDescriptions: []
         },
+        uploadError: null,
+        uploadFieldName: 'images',
+        isInitial: true,
+        isSaving: false,
+        dataToSent: null
       }
     },
     methods: {
-      onFileChange(e) {
+      reset() {
+        this.currentStatus = statusInitial;
         this.images = [];
-        var files = e.target.files || e.dataTransfer.files;
-        if (!files.length)
-          return;
-        for (var i = 0; i < files.length; ++i)
-          this.createImage(files[i]);
+        this.uploadError = null;
       },
-      createImage(file) {
-        var reader = new FileReader();
-        var vm = this;
-
-        reader.onload = (e) => {
-          vm.images.push(e.target.result);
-        };
-        reader.readAsDataURL(file);
-      },
-      uploadAdvert() {
-        var config = {
+      upload() {
+        let config = {
           position: 'bottom-center',
           singleton: true,
           duration: 1500
         };
-
-        var formData = new FormData();
-        formData.append('title', this.advertData.title)
-        formData.append('description', this.advertData.description)
-        formData.append('duration', this.advertData.duration)
-        for (var i = 0; i < this.$refs.imageIn.files.length; ++i) {
-          formData.append('images', this.$refs.imageIn.files[i])
-          formData.append('imagesDescriptions', 'Tego nie będzie.')
-        }
-
-        this.$http.post('http://localhost:8080/api/newadvert', formData).then(
+        this.$http.post('http://localhost:8080/api/newadvert', this.dataToSent).then(
           (response) => {
-
-            this.$toasted.success(response.bodyText,config);
-            this.clearData()
+            this.$toasted.success(response.bodyText, config);
           },
           (response) => {
-            this.$toasted.error(response.bodyText,config)
+            this.$toasted.error(response.bodyText, config)
           })
       },
-      clearData() {
-        this.advertData = {};
-        this.images = [];
-        this.$refs.imageIn.files = []
+      onFilesChange(fieldName, fileList) {
+        if(!fileList.length) return;
+        const formData = new FormData();
+        formData.append('title', this.advertData.title);
+        formData.append('description', this.advertData.description);
+        formData.append('duration', this.advertData.duration.toString());
+        Array
+          .from(Array(fileList.length).keys())
+          .map(x => {
+            formData.append(fieldName, fileList[x], fileList[x].name);
+            formData.append('imagesDescriptions', 'Jakieś hashtagi')
+          });
+        this.dataToSent = formData
       }
     }
   }
