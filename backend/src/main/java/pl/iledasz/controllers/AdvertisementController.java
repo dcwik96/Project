@@ -28,20 +28,17 @@ public class AdvertisementController {
     @Autowired
     NewAdvertValidator newAdvertValidator;
 
-    @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "api/adverts")
     public List<AdvertisementDTO> getAdverts() {
         return advertisementService.getLatestAdverts();
     }
 
-    @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "api/lightAdverts")
     public List<LightAdvertisementDTO> getLightAdverts() {
 
         return advertisementService.getLatestLightAdverts();
     }
 
-    @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "api/userAdverts")
     public List<LightAdvertisementDTO> getUserLightAdverts(Principal principal, HttpServletResponse httpServletResponse) {
 
