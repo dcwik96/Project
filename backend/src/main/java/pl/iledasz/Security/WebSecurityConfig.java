@@ -101,21 +101,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        return bean;
 //    }
 
-//    @Bean
-//    public WebMvcConfigurer corsConfigurer() {
-//        return new WebMvcConfigurerAdapter() {
-//            @Override
-//            public void addCorsMappings(CorsRegistry corsRegistry) {
-//                corsRegistry
-//                        .addMapping("/**")
-//                        .allowedOrigins("http://localhost:8081")
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry corsRegistry) {
+                corsRegistry
+                        .addMapping("/**")
+                        .allowedOrigins("http://localhost:8081");
 //                        .allowedHeaders("*")
 //                        .allowedMethods("*")
 //                        .exposedHeaders("*")
 //                        .allowCredentials(true);
-//            }
-//        };
-//    }
+            }
+        };
+    }
 
 
 }
