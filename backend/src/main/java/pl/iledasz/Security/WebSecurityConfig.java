@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.csrf().disable();
+        http.csrf().disable();
 
         http
                 .authorizeRequests()
@@ -101,21 +101,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        return bean;
 //    }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurerAdapter() {
-            @Override
-            public void addCorsMappings(CorsRegistry corsRegistry) {
-                corsRegistry
-                        .addMapping("/**")
-                        .allowedOrigins("http://localhost:8081")
-                        .allowedHeaders("*")
-                        .allowedMethods("*")
-                        .exposedHeaders("*")
-                        .allowCredentials(true);
-            }
-        };
-    }
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurerAdapter() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry corsRegistry) {
+//                corsRegistry
+//                        .addMapping("/**")
+//                        .allowedOrigins("http://localhost:8081")
+//                        .allowedHeaders("*")
+//                        .allowedMethods("*")
+//                        .exposedHeaders("*")
+//                        .allowCredentials(true);
+//            }
+//        };
+//    }
 
 
 }
