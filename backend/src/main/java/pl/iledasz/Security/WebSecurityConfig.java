@@ -1,7 +1,6 @@
 package pl.iledasz.Security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -16,9 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -108,11 +104,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             public void addCorsMappings(CorsRegistry corsRegistry) {
                 corsRegistry
                         .addMapping("/**")
-                        .allowedOrigins("http://localhost:8081");
-//                        .allowedHeaders("*")
-//                        .allowedMethods("*")
-//                        .exposedHeaders("*")
-//                        .allowCredentials(true);
+                        .allowedOrigins("http://localhost:8081")
+                        .allowedHeaders("*")
+                        .allowedMethods("*")
+                        .exposedHeaders("Access-Control-Allow-Origin",
+                                "Access-Control-Allow-Methods",
+                                "Access-Control-Allow-Headers",
+                                "Access-Control-Max-Age",
+                                "Access-Control-Request-Headers",
+                                "Access-Control-Request-Method")
+                        .allowCredentials(true);
             }
         };
     }
