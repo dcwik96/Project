@@ -28,7 +28,7 @@
       </div>
       <div class="container">
         <h1>Wybierz zdjęcia</h1>
-        <div class="dropbox">
+        <div class="dropbox row text-center">
           <input
             type="file"
             multiple
@@ -36,13 +36,13 @@
             :disabled="isSaving"
             @change="onFilesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
             accept="image/*"
-            class="input-file">
-          <p v-if="isInitial">
-            Upuść swoje zdjęcia lub kliknij, aby wybrać z komputera
-          </p>
-          <p v-if="isSaving">
-            Uploading {{fileCount}}
-          </p>
+            class="input-file row">
+          <div v-if="!images[0]">
+            Wybierz lub upuść zdjęcia
+          </div>
+          <div class="col-md-2 text-center" v-for="image in images">
+            <img :src="image" class="img-preview">
+          </div>
         </div>
       </div>
       <div class="text-center">
@@ -54,14 +54,16 @@
 </template>
 <style>
 .dropbox {
-  outline: 2px dashed grey;
-  outline-offset: -10px;
+  border: 2px dashed grey;
+  border-offset: -10px;
   background: lightcyan;
   color: dimgray;
   padding: 10px 10px;
   min-height: 200px;
   position: relative;
   coursor: pointer;
+  border-radius: 25px;
+  margin-bottom: 10px;
 }
 .input-file {
   opacity: 0;
@@ -79,11 +81,20 @@
   text-align: center;
   padding: 50px 0;
 }
+.img-preview {
+  width: 100%;
+  height: 170px;
+  padding: 5px;
+  display: inline-block;
+  border: 2px dashed gray;
+  border-radius: 25px;
+}
 </style>
 <script>
   export default {
     data() {
       return {
+        images: [],
         advertData: {
           title: '',
           description: '',
@@ -99,7 +110,6 @@
     },
     methods: {
       reset() {
-        this.currentStatus = statusInitial;
         this.images = [];
         this.uploadError = null;
       },
@@ -119,7 +129,8 @@
       },
       onFilesChange(fieldName, fileList) {
         if(!fileList.length) return;
-        const formData = new FormData();
+        this.isSaving = true;
+        const formData = new FormData();https://www.startpage.com/do/search
         formData.append('title', this.advertData.title);
         formData.append('description', this.advertData.description);
         formData.append('duration', this.advertData.duration.toString());
@@ -127,9 +138,18 @@
           .from(Array(fileList.length).keys())
           .map(x => {
             formData.append(fieldName, fileList[x], fileList[x].name);
-            formData.append('imagesDescriptions', 'Jakieś hashtagi')
+            formData.append('imagesDescriptions', 'Jakieś hashtagi');
+            this.createImage(fileList[x]);
           });
         this.dataToSent = formData
+      },
+      createImage(file) {
+        var reader = new FileReader();
+        var vm = this;
+        reader.onload = (e) => {
+          vm.images.push(e.target.result);
+        };
+        reader.readAsDataURL(file);
       }
     }
   }
