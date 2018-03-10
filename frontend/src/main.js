@@ -16,6 +16,8 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(VueCookie);
 Vue.use(Toasted);
+Vue.http.options.credentials = true;
+Vue.http.headers.common['Access-Control-Allow-Origin'] = 'http://localhost:8080';
 
 export const eventBus = new Vue();
 
