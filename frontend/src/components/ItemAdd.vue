@@ -91,6 +91,7 @@
 }
 </style>
 <script>
+  import axios from 'axios';
   export default {
     data() {
       return {
@@ -119,18 +120,21 @@
           singleton: true,
           duration: 1500
         };
-        this.$http.post('http://localhost:8080/api/newadvert', this.dataToSent).then(
-          (response) => {
-            this.$toasted.success(response.bodyText, config);
-          },
-          (response) => {
-            this.$toasted.error(response.bodyText, config)
+        axios.post('http://localhost:8080/api/newadvert', this.dataToSent)
+          .then(
+          response => {
+            this.$toasted.success(response.request.responseText, config);
+          })
+          .catch(
+          e => {
+            console.log(e.response);
+            this.$toasted.error(e.request.responseText, config)
           })
       },
       onFilesChange(fieldName, fileList) {
         if(!fileList.length) return;
         this.isSaving = true;
-        const formData = new FormData();https://www.startpage.com/do/search
+        const formData = new FormData();
         formData.append('title', this.advertData.title);
         formData.append('description', this.advertData.description);
         formData.append('duration', this.advertData.duration.toString());
@@ -144,8 +148,8 @@
         this.dataToSent = formData
       },
       createImage(file) {
-        var reader = new FileReader();
-        var vm = this;
+        let reader = new FileReader();
+        let vm = this;
         reader.onload = (e) => {
           vm.images.push(e.target.result);
         };
