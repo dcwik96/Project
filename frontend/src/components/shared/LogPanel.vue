@@ -26,9 +26,8 @@
 </template>
 
 <script>
-  import ModalForm from '../ModalForm.vue'
-  import avatar from '../../assets/avatar.png'
-  import {mapGetters} from 'vuex'
+  import ModalForm from '../ModalForm.vue';
+  import {mapGetters} from 'vuex';
 
   export default {
     data() {
@@ -43,8 +42,8 @@
     },
     created() {
       if (this.$cookie.get('login') != null) {
-        this.loggedIn = true
-        this.$store.dispatch('setUsername', this.$cookie.get('login'))
+        this.loggedIn = true;
+        return this.$store.dispatch('setUsername', this.$cookie.get('login'))
       }
     },
     computed: {
@@ -52,15 +51,8 @@
     },
     methods: {
       logOut() {
-        this.$http.get('http://localhost:8080/logout')
-          .then(() => {
-            this.loggedIn = false;
-            this.$cookie.delete('login');
-            this.$router.go({name: 'home'})
-          },
-            (response) => {
-              console.log(response)
-            })
+        this.loggedIn = false;
+        return this.$store.dispatch('logout')
       },
       getAttributes() {
         if (this.$refs.functionPanel) {
