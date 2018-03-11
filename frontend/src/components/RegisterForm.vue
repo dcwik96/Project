@@ -41,7 +41,6 @@
   </div>
 </template>
 <script>
-  import Toasted from 'vue-toasted'
   export default {
     data() {
       return {
@@ -58,24 +57,7 @@
     },
     methods: {
       register (userDetails) {
-        const url = 'http://localhost:8080/registration';
-        var config = {
-          position: 'bottom-center',
-          singleton: true,
-          duration: 1500
-        };
-        if (userDetails.password !== this.password) {
-          this.$toasted.error("Wprowadzone hasła nie są identyczne.", config);
-          return
-        }
-        this.$http.post(url, this.userDetails, {
-          emulateJSON: true
-        })
-          .then(() => {
-            this.$toasted.success('Twoje konto zostało założne możesz przejść do logwania.', config)
-          }, response => {
-            this.$toasted.error(response.bodyText, config)
-          })
+        return this.$store.dispatch('register',userDetails)
       }
     }
   }

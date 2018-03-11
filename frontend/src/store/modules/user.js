@@ -25,9 +25,9 @@ const actions = {
       duration: 1500
     };
 
-    let data = JSON.stringify({
-      username: userData.username,
-      password: userData.password});
+    let data = new FormData();
+    data.append('username' ,userData.username);
+    data.append('password', userData.password);
 
     axios.post('login', data)
       .then(() => {
@@ -39,7 +39,7 @@ const actions = {
         Vue.toasted.error("Nieprawidłowy login lub hasło", config)
       })
   },
-  logout: ({commit}) => {
+  logout: () => {
     axios.get('logout')
       .then(() => {
           Vue.cookie.delete('login');
@@ -49,6 +49,29 @@ const actions = {
         (e) => {
           console.log(e)
         })
+  },
+  register: ({commit}, userData) => {
+    let config = {
+      position: 'bottom-center',
+      singleton: true,
+      duration: 1500
+    };
+
+    let data = new FormData();
+    data.append('name', userData.name);
+    data.append('surname', userData.surname);
+    data.append('login', userData.login);
+    data.append('email', userData.email);
+    data.append('phone_number', userData.phone_number);
+    data.append('password', userData.password);
+
+    axios.post('registration', data)
+      .then(() => {
+        Vue.toasted.success('Twoje konto zostało założne możesz przejść do logwania.', config)
+      })
+      .catch((e) => {
+        Vue.toasted.error(e.bodyText, config)
+      })
   }
 };
 
