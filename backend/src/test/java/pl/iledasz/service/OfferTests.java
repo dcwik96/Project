@@ -66,8 +66,8 @@ public class OfferTests {
     private static final String password = "SpringBootKing";
     private static final String role_user = "USER";
 
-    private static final Long idOne = Long.valueOf(1);
-    private static final Long idTwo = Long.valueOf(2);
+    private static final Long idOne = 1L;
+    private static final Long idTwo = 2L;
     private static final String name = "Alex";
     private static final String surname = " Hunter";
     private static final String email = "mario@xs.ps";
@@ -77,7 +77,7 @@ public class OfferTests {
     private static final BigDecimal offerTwoPrice = BigDecimal.valueOf(453.44);
     private static final BigDecimal badOfferPrice = BigDecimal.valueOf(-123.55);
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    private ObjectMapper objectMapper = new ObjectMapper();
 
 
     @Before

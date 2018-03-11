@@ -12,8 +12,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,8 +26,6 @@ import pl.iledasz.repository.AppUserRepository;
 import pl.iledasz.repository.RoleRepository;
 
 import javax.servlet.Filter;
-import java.util.HashSet;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -61,7 +57,7 @@ public class AppUserTests {
     static String name = "Wiktor";
     static String surname = "Korol";
     static String login = "appleIsBullshit";
-    static String weakLogin ="sd";
+    static String weakLogin = "sd";
     static String email = "wkorol@ssh.com";
     static String phone = "345234234";
     static String password = "ILoveMacDonald";
@@ -108,7 +104,7 @@ public class AppUserTests {
         AppUser createdUser = argumentCaptor.getValue();
 
         MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(HttpStatus.OK.value(),response.getStatus());
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
 
         //verify received user detail
         assertEquals(createdUser.getLogin(), login);
@@ -136,7 +132,7 @@ public class AppUserTests {
         MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(), response.getStatus());
     }
 
     @Test
@@ -155,7 +151,7 @@ public class AppUserTests {
         MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(), response.getStatus());
     }
 
     @Test
@@ -174,7 +170,7 @@ public class AppUserTests {
         MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(), response.getStatus());
     }
 
     @Test
@@ -193,7 +189,7 @@ public class AppUserTests {
         MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(), response.getStatus());
     }
 
     @Test
@@ -211,7 +207,7 @@ public class AppUserTests {
         MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(), response.getStatus());
     }
 
     @Test
@@ -230,7 +226,7 @@ public class AppUserTests {
         MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(), response.getStatus());
     }
 
     @Test
@@ -250,7 +246,7 @@ public class AppUserTests {
         MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(), response.getStatus());
     }
 
     @Test
@@ -270,7 +266,7 @@ public class AppUserTests {
         MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(), response.getStatus());
     }
 
     @Test
@@ -290,7 +286,7 @@ public class AppUserTests {
         MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(), response.getStatus());
     }
 
     @Test
@@ -313,7 +309,7 @@ public class AppUserTests {
         MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(),response.getStatus());
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(), response.getStatus());
     }
 
     @Test

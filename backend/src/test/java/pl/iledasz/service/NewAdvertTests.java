@@ -61,9 +61,16 @@ public class NewAdvertTests {
 
     private static final String TITLE = "Tytul";
     private static final String DESCRIPTION = "Description";
-    private static final Long DURATION = 3l;
+    private static final Long DURATION = 3L;
     private static final String IMAGE_DESCRIPTION = "Description of photo";
     private static final MockMultipartFile FIRST_PHOTO = new MockMultipartFile("images", "filename.txt", "image/jpeg", "Lets see how W.Korol is great".getBytes());
+
+    private static final String defaultMessageOfNullTitle = "Tytuł nie moze byc pusty!";
+    private static final String defaultMessageOfNullDescription = "Opis nie moze byc pusty!";
+    private static final String defaultMessageOfNullDuration = "Czas trwania oferty nie moze byc pusty!";
+    private static final String defaultMessageOfNullImages = "Przynajmniej jedno zdjęcie!";
+    private static final String defaultMessageOfNullImageDescription = "Opis  zdjęcia nie może byc pusty!";
+    private static final String defaultMessageOfNotEqualsImageAndImageDescription = "Liczba opisów zdjęć nie odpowiada liczbie zdjęć";
 
     @Before
     public void setup() {
@@ -115,4 +122,166 @@ public class NewAdvertTests {
         assertEquals(FIRST_PHOTO.getBytes(), photoArgumentCaptor.getValue().getImage());
     }
 
+    @Test
+    @WithMockUser(username = USER, password = PASSWORD, roles = ROLE_USER)
+    public void checkAddAdvertWithoutTitle() throws Exception {
+
+        MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
+                MockMvcRequestBuilders
+                        .fileUpload("/api/newadvert")
+                        .file(FIRST_PHOTO)
+//                        .param("title", TITLE)
+                        .param("description", DESCRIPTION)
+                        .param("duration", String.valueOf(DURATION))
+                        .param("imagesDescriptions", IMAGE_DESCRIPTION);
+
+        AppUser appUser = new AppUser();
+        appUser.setLogin(USER);
+        Mockito.when(advertisementRepository.save(Mockito.any(Advertisement.class))).thenReturn(null);
+        Mockito.when(appUserRepository.findByLogin(USER)).thenReturn(appUser);
+        Mockito.when(advertPhotoRepository.save(Mockito.any(AdvertPhoto.class))).thenReturn(null);
+        Mockito.when(photoRepository.save(Mockito.any(Photo.class))).thenReturn(null);
+
+        MvcResult mvcResult = this.mockMvc.perform(mockHttpServletRequestBuilder).andReturn();
+
+        Mockito.verify(appUserRepository, Mockito.times(0)).findByLogin(USER);
+        Mockito.verify(advertPhotoRepository, Mockito.times(0)).save(Mockito.any(AdvertPhoto.class));
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(), response.getStatus());
+        assertEquals(defaultMessageOfNullTitle, response.getContentAsString());
+    }
+
+    @Test
+    @WithMockUser(username = USER, password = PASSWORD, roles = ROLE_USER)
+    public void checkAddAdvertWithoutDescription() throws Exception {
+
+        MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
+                MockMvcRequestBuilders
+                        .fileUpload("/api/newadvert")
+                        .file(FIRST_PHOTO)
+                        .param("title", TITLE)
+//                        .param("description", DESCRIPTION)
+                        .param("duration", String.valueOf(DURATION))
+                        .param("imagesDescriptions", IMAGE_DESCRIPTION);
+
+        AppUser appUser = new AppUser();
+        appUser.setLogin(USER);
+        Mockito.when(advertisementRepository.save(Mockito.any(Advertisement.class))).thenReturn(null);
+        Mockito.when(appUserRepository.findByLogin(USER)).thenReturn(appUser);
+        Mockito.when(advertPhotoRepository.save(Mockito.any(AdvertPhoto.class))).thenReturn(null);
+        Mockito.when(photoRepository.save(Mockito.any(Photo.class))).thenReturn(null);
+
+        MvcResult mvcResult = this.mockMvc.perform(mockHttpServletRequestBuilder).andReturn();
+
+        Mockito.verify(appUserRepository, Mockito.times(0)).findByLogin(USER);
+        Mockito.verify(advertPhotoRepository, Mockito.times(0)).save(Mockito.any(AdvertPhoto.class));
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(), response.getStatus());
+        assertEquals(defaultMessageOfNullDescription, response.getContentAsString());
+    }
+
+    @Test
+    @WithMockUser(username = USER, password = PASSWORD, roles = ROLE_USER)
+    public void checkAddAdvertWithoutDuration() throws Exception {
+
+        MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
+                MockMvcRequestBuilders
+                        .fileUpload("/api/newadvert")
+                        .file(FIRST_PHOTO)
+                        .param("title", TITLE)
+                        .param("description", DESCRIPTION)
+//                        .param("duration", String.valueOf(DURATION))
+                        .param("imagesDescriptions", IMAGE_DESCRIPTION);
+
+        AppUser appUser = new AppUser();
+        appUser.setLogin(USER);
+        Mockito.when(advertisementRepository.save(Mockito.any(Advertisement.class))).thenReturn(null);
+        Mockito.when(appUserRepository.findByLogin(USER)).thenReturn(appUser);
+        Mockito.when(advertPhotoRepository.save(Mockito.any(AdvertPhoto.class))).thenReturn(null);
+        Mockito.when(photoRepository.save(Mockito.any(Photo.class))).thenReturn(null);
+
+        MvcResult mvcResult = this.mockMvc.perform(mockHttpServletRequestBuilder).andReturn();
+
+        Mockito.verify(appUserRepository, Mockito.times(0)).findByLogin(USER);
+        Mockito.verify(advertPhotoRepository, Mockito.times(0)).save(Mockito.any(AdvertPhoto.class));
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(), response.getStatus());
+        assertEquals(defaultMessageOfNullDuration, response.getContentAsString());
+    }
+
+    @Test
+    @WithMockUser(username = USER, password = PASSWORD, roles = ROLE_USER)
+    public void checkAddAdvertWithoutImage() throws Exception {
+
+        MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
+                MockMvcRequestBuilders
+                        .fileUpload("/api/newadvert")
+//                        .file(FIRST_PHOTO)
+                        .param("title", TITLE)
+                        .param("description", DESCRIPTION)
+                        .param("duration", String.valueOf(DURATION))
+                        .param("imagesDescriptions", IMAGE_DESCRIPTION);
+
+        AppUser appUser = new AppUser();
+        appUser.setLogin(USER);
+        Mockito.when(advertisementRepository.save(Mockito.any(Advertisement.class))).thenReturn(null);
+        Mockito.when(appUserRepository.findByLogin(USER)).thenReturn(appUser);
+        Mockito.when(advertPhotoRepository.save(Mockito.any(AdvertPhoto.class))).thenReturn(null);
+        Mockito.when(photoRepository.save(Mockito.any(Photo.class))).thenReturn(null);
+
+        MvcResult mvcResult = this.mockMvc.perform(mockHttpServletRequestBuilder).andReturn();
+
+        Mockito.verify(appUserRepository, Mockito.times(0)).findByLogin(USER);
+        Mockito.verify(advertPhotoRepository, Mockito.times(0)).save(Mockito.any(AdvertPhoto.class));
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(), response.getStatus());
+        assertEquals(defaultMessageOfNullImages, response.getContentAsString());
+    }
+
+    @Test
+    @WithMockUser(username = USER, password = PASSWORD, roles = ROLE_USER)
+    public void checkAddAdvertWithoutImageDescription() throws Exception {
+
+        MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
+                MockMvcRequestBuilders
+                        .fileUpload("/api/newadvert")
+                        .file(FIRST_PHOTO)
+                        .param("title", TITLE)
+                        .param("description", DESCRIPTION)
+                        .param("duration", String.valueOf(DURATION));
+//                        .param("imagesDescriptions", IMAGE_DESCRIPTION);
+
+        AppUser appUser = new AppUser();
+        appUser.setLogin(USER);
+        Mockito.when(advertisementRepository.save(Mockito.any(Advertisement.class))).thenReturn(null);
+        Mockito.when(appUserRepository.findByLogin(USER)).thenReturn(appUser);
+        Mockito.when(advertPhotoRepository.save(Mockito.any(AdvertPhoto.class))).thenReturn(null);
+        Mockito.when(photoRepository.save(Mockito.any(Photo.class))).thenReturn(null);
+
+        MvcResult mvcResult = this.mockMvc.perform(mockHttpServletRequestBuilder).andReturn();
+
+        Mockito.verify(appUserRepository, Mockito.times(0)).findByLogin(USER);
+        Mockito.verify(advertPhotoRepository, Mockito.times(0)).save(Mockito.any(AdvertPhoto.class));
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.NOT_ACCEPTABLE.value(), response.getStatus());
+        assertEquals(defaultMessageOfNullImageDescription, response.getContentAsString());
+    }
+
+    @Test
+    @WithMockUser(username = USER, password = PASSWORD, roles = ROLE_USER)
+    public void checkIfNumberOfDescriptionOfPhotoIsEqualsToPhotos() {
+        //nie dodaje wiecej jak 1 zdj wiec ciezko narazie to sprawdzic.
+    }
+
+    //SPRAWDZENIE BINDINGRESULT
 }

@@ -10,6 +10,13 @@ import pl.iledasz.DTO.NewAdvertDTO;
 @Component
 public class NewAdvertValidator implements Validator {
 
+    private static final String defaultMessageOfNullTitle = "Tytuł nie moze byc pusty!";
+    private static final String defaultMessageOfNullDescription = "Opis nie moze byc pusty!";
+    private static final String defaultMessageOfNullDuration = "Czas trwania oferty nie moze byc pusty!";
+    private static final String defaultMessageOfNullImages = "Przynajmniej jedno zdjęcie!";
+    private static final String defaultMessageOfNullImageDescription = "Opis  zdjęcia nie może byc pusty!";
+    private static final String defaultMessageOfNotEqualsImageAndImageDescription = "Liczba opisów zdjęć nie odpowiada liczbie zdjęć";
+
     @Override
     public boolean supports(Class<?> clazz) {
         return false;
@@ -20,16 +27,15 @@ public class NewAdvertValidator implements Validator {
 
         NewAdvertDTO advert = (NewAdvertDTO) target;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "NotEmpty", "Tytuł nie moze byc pusty!");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "NotEmpty", "Opis nie moze byc pusty!");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "duration", "NotEmpty", "Czas trwania oferty nie moze byc pusty!");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "images", "NotEmpty", "Przynajmniej jedno zdjęcie!");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "imagesDescriptions", "NotEmpty", "Opis  zdjęcia nie może byc pusty!");
-
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "NotEmpty", defaultMessageOfNullTitle);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "NotEmpty", defaultMessageOfNullDescription);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "duration", "NotEmpty", defaultMessageOfNullDuration);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "images", "NotEmpty", defaultMessageOfNullImages);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "imagesDescriptions", "NotEmpty", defaultMessageOfNullImageDescription);
 
         if (!errors.hasErrors()) {
             if (advert.getImagesDescriptions().size() != advert.getImages().size())
-                errors.rejectValue("images", "Liczba opisów zdjęć nie odpowiada liczbie zdjęć");
+                errors.rejectValue("images", defaultMessageOfNotEqualsImageAndImageDescription);
         }
     }
 }
