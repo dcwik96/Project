@@ -102,34 +102,30 @@
           duration: 1,
           imagesDescriptions: []
         },
-        uploadError: null,
         uploadFieldName: 'images',
-        isInitial: true,
-        isSaving: false,
         dataToSent: null
       }
     },
     methods: {
-      reset() {
-        this.images = [];
-        this.uploadError = null;
-      },
       upload() {
         let config = {
           position: 'bottom-center',
           singleton: true,
           duration: 1500
         };
-        axios.post('http://localhost:8080/api/newadvert', this.dataToSent)
+        axios.post('api/newadvert', this.dataToSent)
           .then(
-          response => {
-            this.$toasted.success(response.request.responseText, config);
-          })
+            response => {
+              this.$toasted.success(response.request.responseText, config);
+            })
           .catch(
-          e => {
-            console.log(e.response);
-            this.$toasted.error(e.request.responseText, config)
-          })
+            e => {
+              console.log(e.response);
+              this.$toasted.error(e.request.responseText, config)
+            })
+      },
+      reset() {
+        this.images = [];
       },
       onFilesChange(fieldName, fileList) {
         if(!fileList.length) return;
