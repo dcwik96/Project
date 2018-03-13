@@ -33,7 +33,6 @@
             type="file"
             multiple
             :name="uploadFieldName"
-            :disabled="isSaving"
             @change="onFilesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
             accept="image/*"
             class="input-file row">

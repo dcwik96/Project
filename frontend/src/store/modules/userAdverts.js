@@ -1,4 +1,5 @@
-import Vue from 'vue'
+import Vue from 'vue';
+import axios from 'axios';
 
 const state = {
   userAdverts: [],
@@ -20,36 +21,34 @@ const getters = {
 
 const actions = {
   fetchUserAdverts: ({commit}) => {
-    const url = 'http://localhost:8080/api/userAdverts';
-    Vue.http.get(url,
-      {
-        emulateHTTP: true,
-        emulateJSON: true
-      })
+
+    axios.get('api/userAdverts',)
       .then((response) => {
-        commit('mutateUserAdverts', response.body)
-      },(response) => {
+        commit('mutateUserAdverts', response.data)
+      })
+      .catch((e) => {
+        console.log(e)
       })
   },
   fetchOffers: ({commit}, id) => {
-    Vue.http.get('http://localhost:8080/api/advert/'+id+'/offers')
+    axios.get('/api/advert/' + id + '/offers')
       .then((response) => {
-        commit('mutateOffer', response.body)
-      },
-        (response) => {
-          console.log(response.body)
-        })
+        commit('mutateOffer', response.data)
+      })
+      .catch((e) => {
+        console.log(e)
+      })
   },
   acceptOffer({commit}, id) {
-    const url = 'http://localhost:8080/api/advert/select/'+id;
-
-    Vue.http.get(url)
-      .then( (response) => {
-        commit('mutateBuyerData', response.body)
-    }, (response) => {
-    })
+    axios.get('/api/advert/select/' + id)
+      .then((response) => {
+        commit('mutateBuyerData', response.data)
+      })
+      .catch((e) => {
+        console.log(e)
+      })
   }
-};
+}
 
 const mutations = {
   mutateUserAdverts(state, payload) {

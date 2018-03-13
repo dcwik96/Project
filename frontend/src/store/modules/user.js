@@ -67,7 +67,7 @@ const actions = {
 
     axios.post('registration', data)
       .then(() => {
-        Vue.toasted.success('Twoje konto zostało założne możesz przejść do logwania.', config)
+        Vue.toasted.success('Twoje konto zostało założne możesz przejść do logowania.', config)
       })
       .catch((e) => {
         Vue.toasted.error(e.bodyText, config)
