@@ -36,7 +36,7 @@
         this.$modal.hide('login')
       },
       goToRegister() {
-        this.$modal.hide('login')
+        this.$modal.hide('login');
         this.$modal.show('register')
       }
     }

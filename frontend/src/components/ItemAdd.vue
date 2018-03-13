@@ -1,7 +1,7 @@
 <template>
   <div>
     <form enctype="multipart/form-data">
-      <div class="form-group">
+      <div class="form-group" enctype="multipart/form-data">
         <label for="title">Tytuł</label>
         <input type="text" class="form-control" id="title" v-model="advertData.title">
       </div>
@@ -9,61 +9,88 @@
         <label for="timeChoose">Wybierz czas trwania</label>
         <div id="timeChoose">
           <div class="radio">
-            <label><input type="radio" name="timeChoose" value="30" v-model="duration">Bezterminowy</label>
+            <label><input type="radio" name="timeChoose" value="30" v-model="advertData.duration">Bezterminowy</label>
           </div>
           <div class="radio">
-            <label><input type="radio" name="timeChoose" value="1" v-model="duration">1 dzień</label>
+            <label><input type="radio" name="timeChoose" value="1" v-model="advertData.duration">1 dzień</label>
           </div>
           <div class="radio">
-            <label><input type="radio" name="timeChoose" value="3" v-model="duration">3 dni</label>
+            <label><input type="radio" name="timeChoose" value="3" v-model="advertData.duration">3 dni</label>
           </div>
           <div class="radio">
-            <label><input type="radio" name="timeChoose" value="7" v-model="duration">7 dni</label>
+            <label><input type="radio" name="timeChoose" value="7" v-model="advertData.duration">7 dni</label>
           </div>
         </div>
-
       </div>
       <div class="form-group">
         <label for="description">Opis</label>
         <textarea class="form-control" rows="5" id="description" v-model="advertData.description"></textarea>
       </div>
       <div class="container">
-        <div class="row">
+        <h1>Wybierz zdjęcia</h1>
+        <div class="dropbox row text-center">
+          <input
+            type="file"
+            multiple
+            :name="uploadFieldName"
+            @change="onFilesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
+            accept="image/*"
+            class="input-file row">
           <div v-if="!images[0]">
-            <h2>Dodaj zdjęcia do przedmiotu</h2>
+            Wybierz lub upuść zdjęcia
           </div>
-          <div v-else>
-            <div class="col-md-2" v-for="image in images">
-              <img :src="image" class="img-preview"/>
-              <!--<button @click="removeImage">Remove-->
-              <!--image</button>-->
-            </div>
+          <div class="col-md-2 text-center" v-for="image in images">
+            <img :src="image" class="img-preview">
           </div>
         </div>
-        <br>
-        <input ref="imageIn" type="file" @change="onFileChange" multiple>
       </div>
       <div class="text-center">
-        <button class="btn btn-success" type="submit" @click.prevent="uploadAdvert">Dodaj</button>
-        <button class="btn btn-danger">Anuluj</button>
+        <button class="btn btn-success" type="submit" @click.prevent="upload">Dodaj</button>
+        <button class="btn btn-danger" @click="reset">Anuluj</button>
       </div>
     </form>
   </div>
 </template>
-
 <style>
-  .img-preview {
-    width: 100px;
-    height: 100px;
-    padding: 10px;
-    border: 5px #7f7f7f solid;
-    display: inline-block;
-  }
+.dropbox {
+  border: 2px dashed grey;
+  border-offset: -10px;
+  background: lightcyan;
+  color: dimgray;
+  padding: 10px 10px;
+  min-height: 200px;
+  position: relative;
+  coursor: pointer;
+  border-radius: 25px;
+  margin-bottom: 10px;
+}
+.input-file {
+  opacity: 0;
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  coursor: pointer;
+}
 
-  button {
-  }
+.dropbox:hover {
+  background: lightblue;
+}
+.dropbox p {
+  font-size: 1.2em;
+  text-align: center;
+  padding: 50px 0;
+}
+.img-preview {
+  width: 100%;
+  height: 170px;
+  padding: 5px;
+  display: inline-block;
+  border: 2px dashed gray;
+  border-radius: 25px;
+}
 </style>
 <script>
+  import axios from 'axios';
   export default {
     data() {
       return {
@@ -74,56 +101,54 @@
           duration: 1,
           imagesDescriptions: []
         },
+        uploadFieldName: 'images',
+        dataToSent: null
       }
     },
     methods: {
-      onFileChange(e) {
-        this.images = [];
-        var files = e.target.files || e.dataTransfer.files;
-        if (!files.length)
-          return;
-        for (var i = 0; i < files.length; ++i)
-          this.createImage(files[i]);
-      },
-      createImage(file) {
-        var reader = new FileReader();
-        var vm = this;
-
-        reader.onload = (e) => {
-          vm.images.push(e.target.result);
-        };
-        reader.readAsDataURL(file);
-      },
-      uploadAdvert() {
-        var config = {
+      upload() {
+        let config = {
           position: 'bottom-center',
           singleton: true,
           duration: 1500
         };
-
-        var formData = new FormData();
-        formData.append('title', this.advertData.title)
-        formData.append('description', this.advertData.description)
-        formData.append('duration', this.advertData.duration)
-        for (var i = 0; i < this.$refs.imageIn.files.length; ++i) {
-          formData.append('images', this.$refs.imageIn.files[i])
-          formData.append('imagesDescriptions', 'Tego nie będzie.')
-        }
-
-        this.$http.post('http://localhost:8080/api/newadvert', formData).then(
-          (response) => {
-
-            this.$toasted.success(response.bodyText,config);
-            this.clearData()
-          },
-          (response) => {
-            this.$toasted.error(response.bodyText,config)
-          })
+        axios.post('api/newadvert', this.dataToSent)
+          .then(
+            response => {
+              this.$toasted.success(response.request.responseText, config);
+            })
+          .catch(
+            e => {
+              console.log(e.response);
+              this.$toasted.error(e.request.responseText, config)
+            })
       },
-      clearData() {
-        this.advertData = {};
+      reset() {
         this.images = [];
-        this.$refs.imageIn.files = []
+      },
+      onFilesChange(fieldName, fileList) {
+        if(!fileList.length) return;
+        this.isSaving = true;
+        const formData = new FormData();
+        formData.append('title', this.advertData.title);
+        formData.append('description', this.advertData.description);
+        formData.append('duration', this.advertData.duration.toString());
+        Array
+          .from(Array(fileList.length).keys())
+          .map(x => {
+            formData.append(fieldName, fileList[x], fileList[x].name);
+            formData.append('imagesDescriptions', 'Jakieś hashtagi');
+            this.createImage(fileList[x]);
+          });
+        this.dataToSent = formData
+      },
+      createImage(file) {
+        let reader = new FileReader();
+        let vm = this;
+        reader.onload = (e) => {
+          vm.images.push(e.target.result);
+        };
+        reader.readAsDataURL(file);
       }
     }
   }

@@ -1,7 +1,9 @@
-import Vue from 'vue'
-import toasted from 'vue-toasted'
+import Vue from 'vue';
+import toasted from 'vue-toasted';
+import axios from 'axios';
 
-Vue.use(toasted)
+Vue.use(toasted);
+
 const state =
   {
     adverts: [],
@@ -33,78 +35,71 @@ const actions = {
     commit('toggleShowInput', payload)
   },
   fetchData: ({commit}) => {
-    const url = 'http://localhost:8080/api/adverts'
-    var tempAdverts = []
-    Vue.http.get(url).then(
-      response => {
-        tempAdverts = response.data
+    let tempAdverts = [];
+    axios.get('api/adverts')
+      .then(response => {
+        tempAdverts = response.data;
         Array.from(tempAdverts).forEach(advert => {
           advert.showInput = true
-        })
+        });
         commit('setAdvertsArray', tempAdverts)
-      },
-      response => {
-      }
-    )
+      })
+      .catch((e) => {
+        console.log(e)
+      })
   },
   fetchLightData: ({commit}) => {
-    const url = 'http://localhost:8080/api/lightAdverts';
-    var tempAdverts = [];
-    Vue.http.get(url).then(
-      response => {
+    let tempAdverts = [];
+    axios.get('api/lightAdverts')
+      .then(response => {
         tempAdverts = response.data;
         Array.from(tempAdverts).forEach(advert => {
           advert.showInput = true
         });
         commit('setLightAdvertsArray', tempAdverts)
-      },
-      response => {
-        console.log(response)
+      })
+      .catch((e) => {
+        console.log(e)
       }
     )
   },
   fetchAdvert: ({commit}, id) => {
-    const url = 'http://localhost:8080/api/oneadvert/' + id;
-    Vue.http.get(url, {credentials: true}).then(
+    axios.get('api/oneadvert/' + id)
+      .then(
       response => {
         commit('setAdvert', response.data)
-      },
-      response => {
-      }
-    )
+      })
+      .catch((e) => {
+        Vue.toasted.error('Wystąpił problem', config)
+      })
   },
   makeOffer: (payload, data) => {
-    var config = {
+    let config = {
       position: 'bottom-center',
       singleton: true,
       duration: 1000
     };
-    const url = 'http://localhost:8080/api/advert/' + data.id + '/newOffer';
-    var offerData = {
-      offer: data.price
-    };
 
-    Vue.http.post(url, offerData, {
-      emulateJSON: true,
-      emulateHTTP: true,
-      credentials: true
-    })
+    let formData = new FormData();
+    formData.append('offer',data.price);
+
+    axios.post('api/advert/' + data.id + '/newOffer', formData)
       .then(() => {
         Vue.toasted.success('Twoja oferta została złożona', config)
-      }, () => {
+      })
+      .catch((e) => {
         Vue.toasted.error('Wystąpił problem', config)
       })
   },
   fetchRandomAdvert: ({commit}) => {
-    const url = 'http://localhost:8080/api/randomAdvert';
-    Vue.http.get(url, {credentials: false}).then(
+    axios.get('api/randomAdvert')
+      .then(
       response => {
         commit('setRandomAdvert', response.data)
-      },
-      response => {
-        console.log(response)
-      }
-    )
+      })
+      .catch((e) => {
+        console.log(e)
+    })
   }
 };
 

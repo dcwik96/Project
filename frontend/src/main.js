@@ -9,13 +9,18 @@ import store from './store'
 import Toasted from 'vue-toasted'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import * as uiv from 'uiv'
-import {mapActions} from 'vuex'
+import axios from 'axios';
+
 Vue.use(uiv);
 Vue.use(VModal);
 Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(VueCookie);
 Vue.use(Toasted);
+Vue.http.options.credentials = true;
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = 'http://localhost:8080';
 
 export const eventBus = new Vue();
 
@@ -42,12 +47,12 @@ const Plugin = {
       }
     }
   }
-}
+};
 
 global.router = new VueRouter({
   routes,
   mode: 'history'
-})
+});
 
 
 Vue.config.productionTip = false;
