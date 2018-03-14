@@ -41,7 +41,7 @@
         id: '',
         showInput: false,
         price: 0,
-        keyValue: false
+        keyValue: false,
         photoSrc: 'http://localhost:8080/api/photos/'
       }
     },
