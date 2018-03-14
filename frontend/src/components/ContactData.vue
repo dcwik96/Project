@@ -65,7 +65,7 @@
     import Vue from 'vue'
     import Clipboard from 'v-clipboard';
     Vue.use(Clipboard);
-    var config = {
+    let config = {
       position : 'bottom-center',
       singleton: true,
       duration: 1000
