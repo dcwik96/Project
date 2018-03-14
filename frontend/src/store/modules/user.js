@@ -42,6 +42,7 @@ const actions = {
   logout: () => {
     axios.get('logout')
       .then(() => {
+          console.log('Deleting cookie');
           Vue.cookie.delete('login');
           router.go({name: 'home'})
         })
