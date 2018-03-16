@@ -1,22 +1,21 @@
-import Vue from 'vue'
-import App from './App'
-import VueRouter from 'vue-router'
-import VueCookie from 'vue-cookie'
-import VueResource from 'vue-resource'
-import {routes} from './router/index'
-import VModal from 'vue-js-modal'
-import store from './store'
-import Toasted from 'vue-toasted'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import * as uiv from 'uiv'
+import Vue from 'vue';
+import App from './App';
+import VueRouter from 'vue-router';
+import VueCookie from 'vue-cookie';
+import {routes} from './router/index';
+import VModal from 'vue-js-modal';
+import store from './store';
+import Toasted from 'vue-toasted';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import * as uiv from 'uiv';
 import axios from 'axios';
 
 Vue.use(uiv);
 Vue.use(VModal);
 Vue.use(VueRouter);
-Vue.use(VueResource);
 Vue.use(VueCookie);
 Vue.use(Toasted);
+
 Vue.http.options.credentials = true;
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:8080";
