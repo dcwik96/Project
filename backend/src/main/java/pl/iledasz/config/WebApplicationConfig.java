@@ -20,6 +20,7 @@ public class WebApplicationConfig extends WebMvcConfigurerAdapter {
     public EmbeddedServletContainerCustomizer containerCustomizer() {
         return container -> {
             container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/notFound"));
+            container.addErrorPages(new ErrorPage(HttpStatus.UNAUTHORIZED, "/unauthorized"));
         };
     }
 }
