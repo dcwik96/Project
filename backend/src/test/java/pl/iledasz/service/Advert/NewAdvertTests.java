@@ -1,4 +1,4 @@
-package pl.iledasz.service;
+package pl.iledasz.service.Advert;
 
 import org.junit.Before;
 import org.junit.Test;

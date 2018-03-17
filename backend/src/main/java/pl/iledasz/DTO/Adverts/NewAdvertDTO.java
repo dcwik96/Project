@@ -1,4 +1,4 @@
-package pl.iledasz.DTO;
+package pl.iledasz.DTO.Adverts;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

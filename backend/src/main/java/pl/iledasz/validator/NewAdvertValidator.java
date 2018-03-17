@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import pl.iledasz.DTO.NewAdvertDTO;
+import pl.iledasz.DTO.Adverts.NewAdvertDTO;
 
 @Component
 public class NewAdvertValidator implements Validator {

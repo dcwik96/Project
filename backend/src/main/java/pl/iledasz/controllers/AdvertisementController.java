@@ -1,14 +1,17 @@
 package pl.iledasz.controllers;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.iledasz.DTO.AdvertisementDTO;
-import pl.iledasz.DTO.LightAdvertisementDTO;
-import pl.iledasz.DTO.NewAdvertDTO;
+import pl.iledasz.DTO.Adverts.AdvertisementDTO;
+import pl.iledasz.DTO.Adverts.LightAdvertisementDTO;
+import pl.iledasz.DTO.Adverts.NewAdvertDTO;
+import pl.iledasz.DTO.Adverts.NewMinimalAdvertDTO;
 import pl.iledasz.service.AdvertisementService;
 import pl.iledasz.validator.NewAdvertValidator;
 
@@ -29,17 +32,20 @@ public class AdvertisementController {
     NewAdvertValidator newAdvertValidator;
 
     @RequestMapping(value = "api/adverts")
+    @ResponseBody
     public List<AdvertisementDTO> getAdverts() {
         return advertisementService.getLatestAdverts();
     }
 
     @RequestMapping(value = "api/lightAdverts")
+    @ResponseBody
     public List<LightAdvertisementDTO> getLightAdverts() {
 
         return advertisementService.getLatestLightAdverts();
     }
 
     @RequestMapping(value = "api/userAdverts")
+    @ResponseBody
     public List<LightAdvertisementDTO> getUserLightAdverts(Principal principal, HttpServletResponse httpServletResponse) {
 
         if (principal == null) {
@@ -50,6 +56,7 @@ public class AdvertisementController {
     }
 
     @RequestMapping(value = "api/oneadvert/{id}")
+    @ResponseBody
     public AdvertisementDTO getAdvertById(@PathVariable("id") Long id) {
 
         return advertisementService.findOneById(id);
@@ -69,6 +76,25 @@ public class AdvertisementController {
         advertisementService.createNewAdvertisement(newAdvertForm, principal);
 
         return new ResponseEntity<>("Nowe ogłoszenie zostało dodane", HttpStatus.OK);
+    }
+
+    @PostMapping(value = "api/newAdvert")
+    @JsonView(String.class)
+    public String addNewMinimalAdvert(@ModelAttribute NewMinimalAdvertDTO newMinimalAdvertDTO, Principal principal, HttpServletResponse httpServletResponse, Model model) throws IOException {
+
+       if(newMinimalAdvertDTO.getTitle() == null &&
+               newMinimalAdvertDTO.getDescription() == null &&
+               newMinimalAdvertDTO.getDuration() == null){
+           httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+           return "none";
+       }
+
+        httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+        Long id = advertisementService.createNewMinimalAdvertisement(newMinimalAdvertDTO, principal);
+
+        return String.valueOf(id);
+
+
     }
 
     @RequestMapping(value = "api/randomAdvert")

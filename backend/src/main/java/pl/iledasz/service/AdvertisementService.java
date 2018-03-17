@@ -5,9 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.iledasz.DTO.AdvertPhotoDTO;
-import pl.iledasz.DTO.AdvertisementDTO;
-import pl.iledasz.DTO.LightAdvertisementDTO;
-import pl.iledasz.DTO.NewAdvertDTO;
+import pl.iledasz.DTO.Adverts.AdvertisementDTO;
+import pl.iledasz.DTO.Adverts.LightAdvertisementDTO;
+import pl.iledasz.DTO.Adverts.NewAdvertDTO;
+import pl.iledasz.DTO.Adverts.NewMinimalAdvertDTO;
 import pl.iledasz.entities.AdvertPhoto;
 import pl.iledasz.entities.Advertisement;
 import pl.iledasz.entities.AppUser;
@@ -110,6 +111,27 @@ public class AdvertisementService {
 
     }
 
+    public Long createNewMinimalAdvertisement(NewMinimalAdvertDTO newMinimalAdvertDTO, Principal principal) throws IOException {
+
+        Advertisement newAdvertisement = new Advertisement();
+
+        newAdvertisement.setDescription(newMinimalAdvertDTO.getDescription());
+        newAdvertisement.setTitle(newMinimalAdvertDTO.getTitle());
+        newAdvertisement.setStartDate(OffsetDateTime.now());
+        newAdvertisement.setEndDate(newAdvertisement.getStartDate().plusDays(newMinimalAdvertDTO.getDuration()));
+        newAdvertisement.setDuration(newMinimalAdvertDTO.getDuration());
+        newAdvertisement.setAvailable(true);
+
+        AppUser appUser = appUserService.findByLogin(principal.getName());
+
+        newAdvertisement.setAppUser(appUser);
+
+        //Setting newAdvertisement here is Not mandatory but this is hacky way to set id value for tests (save() method updates given object and sets it ID value)
+        newAdvertisement = advertisementRepository.save(newAdvertisement);
+
+        return newAdvertisement.getId();
+
+    }
     public boolean checkAdvertOwnerIsLoggedUser(Principal principal, Long id) {
         AppUser appUser = appUserService.findByLogin(principal.getName());
         return advertisementRepository.findAdvertisementsByAppUserAndId(appUser, id) != null;
