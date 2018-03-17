@@ -16,7 +16,6 @@ Vue.use(VueRouter);
 Vue.use(VueCookie);
 Vue.use(Toasted);
 
-Vue.http.options.credentials = true;
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:8080";
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = 'http://localhost:8080';
