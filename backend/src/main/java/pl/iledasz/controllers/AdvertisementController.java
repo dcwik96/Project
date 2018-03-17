@@ -82,11 +82,12 @@ public class AdvertisementController {
     @JsonView(String.class)
     public String addNewMinimalAdvert(@ModelAttribute NewMinimalAdvertDTO newMinimalAdvertDTO, Principal principal, HttpServletResponse httpServletResponse, Model model) throws IOException {
 
-       if(newMinimalAdvertDTO.getTitle() == null &&
-               newMinimalAdvertDTO.getDescription() == null &&
-               newMinimalAdvertDTO.getDuration() == null){
+       if((newMinimalAdvertDTO.getTitle() == null ||
+               newMinimalAdvertDTO.getDescription() == null ||
+               newMinimalAdvertDTO.getDuration() == null ||
+               newMinimalAdvertDTO.getDuration() < 0)){
            httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-           return "none";
+           return "0";
        }
 
         httpServletResponse.setStatus(HttpServletResponse.SC_OK);

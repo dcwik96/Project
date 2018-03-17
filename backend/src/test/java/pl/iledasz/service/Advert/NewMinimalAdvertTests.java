@@ -60,6 +60,7 @@ public class NewMinimalAdvertTests {
     private static final String TITLE = "Tytul";
     private static final String DESCRIPTION = "Description";
     private static final Long DURATION = 3L;
+    private static final Long FAIL_DURATION = -3L;
 
     @Before
     public void setup() {
@@ -76,6 +77,25 @@ public class NewMinimalAdvertTests {
 
         Mockito.when(appUserRepository.findByLogin(USER)).thenReturn(appUser);
         Mockito.when(advertisementRepository.save(Mockito.any(Advertisement.class))).thenReturn(advertisement);
+    }
+
+    @Test
+    public void IsEndpointSecure() throws Exception {
+
+        MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
+                MockMvcRequestBuilders
+                        .post("/api/newAdvert")
+                        .param("title", TITLE)
+                        .param("description", DESCRIPTION)
+                        .param("duration", String.valueOf(DURATION));
+
+        MvcResult mvcResult = this.mockMvc.perform(mockHttpServletRequestBuilder).andReturn();
+
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.FOUND.value(), response.getStatus());
+
     }
 
     @Test
@@ -106,5 +126,81 @@ public class NewMinimalAdvertTests {
         assertEquals(OffsetDateTime.now().getDayOfYear() + DURATION, advertisementArgumentCaptor.getValue().getEndDate().getDayOfYear());
         assertEquals(USER, advertisementArgumentCaptor.getValue().getAppUser().getLogin());
         assertEquals(Long.valueOf(1), Long.valueOf(response.getContentAsString()));
+    }
+
+    @Test
+    @WithMockUser(username = USER, password = PASSWORD, roles = ROLE_USER)
+    public void AddMinimalAdvertWithoutTitle() throws Exception {
+
+        MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
+                MockMvcRequestBuilders
+                        .post("/api/newAdvert")
+//                        .param("title", TITLE)
+                        .param("description", DESCRIPTION)
+                        .param("duration", String.valueOf(DURATION));
+
+        MvcResult mvcResult = this.mockMvc.perform(mockHttpServletRequestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
+        assertEquals(Long.valueOf(0), Long.valueOf(response.getContentAsString()));
+    }
+
+    @Test
+    @WithMockUser(username = USER, password = PASSWORD, roles = ROLE_USER)
+    public void AddMinimalAdvertWithoutDescription() throws Exception {
+
+        MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
+                MockMvcRequestBuilders
+                        .post("/api/newAdvert")
+                        .param("title", TITLE)
+//                        .param("description", DESCRIPTION)
+                        .param("duration", String.valueOf(DURATION));
+
+        MvcResult mvcResult = this.mockMvc.perform(mockHttpServletRequestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
+        assertEquals(Long.valueOf(0), Long.valueOf(response.getContentAsString()));
+    }
+
+    @Test
+    @WithMockUser(username = USER, password = PASSWORD, roles = ROLE_USER)
+    public void AddMinimalAdvertWithoutDuration() throws Exception {
+
+        MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
+                MockMvcRequestBuilders
+                        .post("/api/newAdvert")
+                        .param("title", TITLE)
+                        .param("description", DESCRIPTION);
+//                        .param("duration", String.valueOf(DURATION));
+
+        MvcResult mvcResult = this.mockMvc.perform(mockHttpServletRequestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
+        assertEquals(Long.valueOf(0), Long.valueOf(response.getContentAsString()));
+    }
+
+    @Test
+    @WithMockUser(username = USER, password = PASSWORD, roles = ROLE_USER)
+    public void AddMinimalAdvertWithoutNonValid() throws Exception {
+
+        MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
+                MockMvcRequestBuilders
+                        .post("/api/newAdvert")
+                        .param("title", TITLE)
+                        .param("description", DESCRIPTION)
+                        .param("duration", String.valueOf(FAIL_DURATION));
+
+        MvcResult mvcResult = this.mockMvc.perform(mockHttpServletRequestBuilder).andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+
+        assertEquals(HttpStatus.FORBIDDEN.value(), response.getStatus());
+        assertEquals(Long.valueOf(0), Long.valueOf(response.getContentAsString()));
     }
 }

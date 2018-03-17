@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/hello").permitAll()
-                .antMatchers("/hellosecure", "/api/newadvert").authenticated()
+                .antMatchers("/hellosecure", "/api/newadvert", "/api/newAdvert").authenticated()
                 .antMatchers("/helloadmin").hasAuthority("ADMINISTRATOR")
                 .antMatchers("/api/advert/**/*").authenticated()
                 .antMatchers("/api/offer/*").authenticated()
