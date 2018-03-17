@@ -52,10 +52,11 @@
       }
     },
     methods: {
-      ...mapActions(['fetchLightData',
-        'enableInput',
-        'disableInput',
-        'makeOffer'])
+      ...mapActions([
+          'fetchLightData',
+          'enableInput',
+          'disableInput',
+          'makeOffer'])
     },
     computed: {
       ...mapGetters({adverts: 'getArrayOfLightAdverts'}),

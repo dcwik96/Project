@@ -6,7 +6,9 @@
              v-model="buyerInfo.name">
       <span class="input-group-btn">
           <button
-            @click="copy(buyerInfo.name)"
+            v-clipboard:copy="buyerInfo.name"
+            v-clipboard:success="onCopy"
+            v-clipboard:error="onError"
             class="btn btn-default"
             type="button">
             <i class="glyphicon glyphicon-copy"></i>
@@ -19,7 +21,9 @@
              v-model="buyerInfo.surname">
       <span class="input-group-btn">
           <button
-            @click="copy(buyerInfo.surname)"
+            v-clipboard:copy="buyerInfo.surname"
+            v-clipboard:success="onCopy"
+            v-clipboard:error="onError"
             class="btn btn-default"
             type="button">
             <i class="glyphicon glyphicon-copy"></i>
@@ -32,7 +36,9 @@
              v-model="buyerInfo.email">
       <span class="input-group-btn">
           <button
-            @click="copy(buyerInfo.email)"
+            v-clipboard:copy="buyerInfo.email"
+            v-clipboard:success="onCopy"
+            v-clipboard:error="onError"
             class="btn btn-default"
             type="button">
             <i class="glyphicon glyphicon-copy"></i>
@@ -45,7 +51,9 @@
              v-model="buyerInfo.phone_number">
       <span class="input-group-btn">
           <button
-            @click="copy(buyerInfo.phone_number)"
+            v-clipboard:copy="buyerInfo.phone_number"
+            v-clipboard:success="onCopy"
+            v-clipboard:error="onError"
             class="btn btn-default"
             type="button">
             <i class="glyphicon glyphicon-copy"></i>
@@ -58,8 +66,9 @@
 <script>
   import {mapGetters} from 'vuex';
   import Vue from 'vue'
-  import Clipboard from 'v-clipboard';
-  Vue.use(Clipboard);
+  import VueClipboard from 'vue-clipboard2'
+  Vue.use(VueClipboard);
+  
   let config = {
     position : 'bottom-center',
     singleton: true,
@@ -71,9 +80,11 @@
       ...mapGetters({buyerInfo: 'getBuyerData'})
     },
     methods: {
-      copy(data) {
-        this.$clipboard(data);
-        this.$toasted.success("Skopiowano.", config);
+      onCopy: function (e) {
+        this.$toasted.success("Skopiowano.", config)
+      },
+      onError: function (e) {
+        console.log('Failed to copy texts')
       }
     }
   }

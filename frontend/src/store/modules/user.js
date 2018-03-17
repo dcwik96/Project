@@ -30,7 +30,7 @@ const actions = {
     data.append('password', userData.password);
 
     axios.post('login', data)
-      .then(() => {
+      .then(response => {
         Vue.cookie.set('login', userData.username, 1);
         router.go({name: 'home'});
         commit('mutateUsername', userData.username)
@@ -45,8 +45,7 @@ const actions = {
           Vue.cookie.delete('login');
           router.go({name: 'home'})
         })
-      .catch(
-        (e) => {
+      .catch((e) => {
           console.log(e)
         })
   },
