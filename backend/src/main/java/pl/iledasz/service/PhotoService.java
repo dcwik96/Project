@@ -2,9 +2,12 @@ package pl.iledasz.service;
 
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import pl.iledasz.DTO.OnlyIdDTO;
 import pl.iledasz.DTO.PhotoDTO;
 import pl.iledasz.entities.AdvertPhoto;
 import pl.iledasz.entities.Advertisement;
@@ -29,6 +32,7 @@ public class PhotoService {
 
     @Autowired
     private AdvertisementRepository advertisementRepository;
+    private ModelMapper modelMapper = new ModelMapper();
 
     public List<PhotoDTO> list() {
 
@@ -61,5 +65,11 @@ public class PhotoService {
 
         Photo photo = new Photo( image, advertPhoto);
         photoRepository.save(photo);
+    }
+
+    public List<OnlyIdDTO> getadvertPhotoIdsForAdvert(Long id) {
+        List<AdvertPhoto> list = advertPhotoRepository.findAllByAdvertisement_Id(id);
+
+        return modelMapper.map(list, new TypeToken<List<OnlyIdDTO>>() {}.getType());
     }
 }

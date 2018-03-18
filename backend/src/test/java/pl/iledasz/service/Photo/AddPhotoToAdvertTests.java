@@ -94,8 +94,6 @@ public class AddPhotoToAdvertTests {
         MockHttpServletResponse response = mvcResult.getResponse();
         assertEquals(HttpStatus.FOUND.value(), response.getStatus());
 
-
-
         advertisement.setId(ID_ONE);
 
     }

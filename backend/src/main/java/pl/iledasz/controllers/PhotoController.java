@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pl.iledasz.DTO.OnlyIdDTO;
 import pl.iledasz.DTO.PhotoDTO;
 import pl.iledasz.entities.Advertisement;
 import pl.iledasz.entities.Photo;
@@ -33,6 +34,11 @@ public class PhotoController {
     @RequestMapping(value = "api/photos")
     public List<PhotoDTO> getPhotos() {
         return photoService.list();
+    }
+
+    @RequestMapping(value = "api/{advertID}/photos")
+    public List<OnlyIdDTO> getAdvertPhotoIds(@PathVariable(value = "advertID") Long advertId) {
+        return photoService.getadvertPhotoIdsForAdvert(advertId);
     }
 
     @RequestMapping(value = "api/photos/{id}")
