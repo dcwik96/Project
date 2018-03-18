@@ -5,10 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.iledasz.DTO.PhotoDTO;
 import pl.iledasz.entities.Advertisement;
@@ -49,13 +46,13 @@ public class PhotoController {
         return new ResponseEntity<>(photo.getImage(), headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "api/{advertId}/sendNudes")
+    @PostMapping(value = "api/{advertId}/sendNudes")
     public void addPhotoToAdvert(@PathVariable("advertId") Long advertID,Principal principal, @ModelAttribute MultipartFile image, HttpServletResponse httpServletResponse){
         httpServletResponse.setStatus(HttpServletResponse.SC_OK);
 
         try {
             photoService.addPhotoToAdvert(advertID, default_image_desc, image.getBytes(), principal);
-        }catch (IOException | SecurityException e) {
+        }catch (IOException | SecurityException|NullPointerException e) {
             httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
     }
