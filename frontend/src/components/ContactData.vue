@@ -68,13 +68,12 @@
   import Vue from 'vue'
   import VueClipboard from 'vue-clipboard2'
   Vue.use(VueClipboard);
-  
+
   let config = {
     position : 'bottom-center',
     singleton: true,
     duration: 1000
   };
-
   export default {
     computed: {
       ...mapGetters({buyerInfo: 'getBuyerData'})
