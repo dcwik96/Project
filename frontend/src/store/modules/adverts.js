@@ -9,7 +9,8 @@ const state =
     adverts: [],
     lightAdverts: [],
     advert: {},
-    randomAdvert: {}
+    randomAdvert: {},
+    advertId: 0
   };
 
 const getters = {
@@ -29,10 +30,10 @@ const getters = {
 
 const actions = {
   enableInput: ({commit}, payload) => {
-    commit('toggleShowInput', payload)
+    commit('TOGGLE_SHOW_INPUT', payload)
   },
   disableInput: ({commit}, payload) => {
-    commit('toggleShowInput', payload)
+    commit('TOGGLE_SHOW_INPUT', payload)
   },
   fetchData: ({commit}) => {
     let tempAdverts = [];
@@ -42,7 +43,7 @@ const actions = {
         Array.from(tempAdverts).forEach(advert => {
           advert.showInput = true
         });
-        commit('setAdvertsArray', tempAdverts)
+        commit('SET_ADVERTS_ARRAY', tempAdverts)
       })
       .catch((e) => {
         console.log(e)
@@ -56,7 +57,7 @@ const actions = {
         Array.from(tempAdverts).forEach(advert => {
           advert.showInput = true
         });
-        commit('setLightAdvertsArray', tempAdverts)
+        commit('SET_LIGHT_ADVERTS_ARRAY', tempAdverts)
       })
       .catch((e) => {
         console.log(e)
@@ -67,7 +68,7 @@ const actions = {
     axios.get('api/oneadvert/' + id)
       .then(
       response => {
-        commit('setAdvert', response.data)
+        commit('SET_ADVERT', response.data)
       })
       .catch((e) => {
         Vue.toasted.error('Wystąpił problem', config)
@@ -95,29 +96,44 @@ const actions = {
     axios.get('api/randomAdvert')
       .then(
       response => {
-        commit('setRandomAdvert', response.data)
+        commit('SET_RANDOM_ADVERT', response.data)
       })
       .catch((e) => {
         console.log(e)
     })
+  },
+  addAdvert({commit}, payload) {
+    axios.post('api/newAdvert', payload);
+  },
+  addPhotos({commit}, payload) {
+    let formData = new FormData();
+    payload.images.forEach(img => {
+      formData.append('image',img);
+      axios.post('api/'+advertId+'/sendNudes', formData);
+      formData = new FormData()
+    })
+
   }
 };
 
 const mutations = {
-  setAdvertsArray(state, payload) {
+  SET_ADVERTS_ARRAY(state, payload) {
     state.adverts = payload
   },
-  setLightAdvertsArray(state, payload) {
+  SET_LIGHT_ADVERTS_ARRAY(state, payload) {
     state.lightAdverts = payload
   },
-  toggleShowInput(state, payload) {
+  TOGGLE_SHOW_INPUT(state, payload) {
     state.lightAdverts[payload].showInput = !state.lightAdverts[payload].showInput
   },
-  setAdvert(state, payload) {
+  SET_ADVERT(state, payload) {
     state.advert = payload
   },
-  setRandomAdvert(state, payload) {
+  SET_RANDOM_ADVERT(state, payload) {
     state.randomAdvert = payload
+  },
+  SET_ADVERT_ID(state, payload) {
+    state.advertId = payload;
   }
 };
 

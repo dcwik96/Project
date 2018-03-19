@@ -16,7 +16,7 @@ const getters = {
 
 const actions = {
   setUsername: ({commit}, payload) => {
-    commit('mutateUsername', payload)
+    commit('SET_USERNAME', payload)
   },
   login: ({commit},userData) => {
     const config = {
@@ -33,7 +33,7 @@ const actions = {
       .then(response => {
         Vue.cookie.set('login', userData.username, 1);
         router.go({name: 'home'});
-        commit('mutateUsername', userData.username)
+        commit('SET_USERNAME', userData.username)
       })
       .catch ((e) => {
         Vue.toasted.error("Nieprawidłowy login lub hasło", config)
@@ -75,7 +75,7 @@ const actions = {
 };
 
 const mutations = {
-  mutateUsername(state, payload) {
+  SET_USERNAME(state, payload) {
     state.username = payload
   }
 };

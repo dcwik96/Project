@@ -24,7 +24,7 @@ const actions = {
 
     axios.get('api/userAdverts',)
       .then((response) => {
-        commit('mutateUserAdverts', response.data)
+        commit('SET_USER_ADVERTS', response.data)
       })
       .catch((e) => {
         console.log(e)
@@ -33,7 +33,7 @@ const actions = {
   fetchOffers: ({commit}, id) => {
     axios.get('/api/advert/' + id + '/offers')
       .then((response) => {
-        commit('mutateOffer', response.data)
+        commit('SET_OFFER', response.data)
       })
       .catch((e) => {
         console.log(e)
@@ -42,22 +42,22 @@ const actions = {
   acceptOffer({commit}, id) {
     axios.get('/api/advert/select/' + id)
       .then((response) => {
-        commit('mutateBuyerData', response.data)
+        commit('SET_BUYER_DATA', response.data)
       })
       .catch((e) => {
         console.log(e)
       })
   }
-}
+};
 
 const mutations = {
-  mutateUserAdverts(state, payload) {
+  SET_USER_ADVERTS(state, payload) {
     state.userAdverts = payload
   },
-  mutateOffer(state, payload) {
+  SET_OFFER(state, payload) {
     state.offers = payload
   },
-  mutateBuyerData(state, payload) {
+  SET_BUYER_DATA(state, payload) {
     state.buyerData = payload
   }
 };
