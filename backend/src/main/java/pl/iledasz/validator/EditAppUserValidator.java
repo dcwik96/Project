@@ -7,7 +7,7 @@ import org.springframework.validation.Validator;
 import pl.iledasz.entities.AppUser;
 
 @Component
-public class EditAppUserValidator implements Validator{
+public class EditAppUserValidator implements Validator {
     @Override
     public boolean supports(Class<?> aClass) {
         return AppUser.class.equals(aClass);

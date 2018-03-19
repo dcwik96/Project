@@ -29,29 +29,26 @@ public class OfferService {
 
     private ModelMapper modelMapper = new ModelMapper();
 
-    public List<OfferDTO> getOffersForAdvert(long id, Principal principal )
-    {
+    public List<OfferDTO> getOffersForAdvert(long id, Principal principal) {
         Advertisement advertisement = advertisementRepository.findAdvertisementsByAppUser_LoginAndId(principal.getName(), id);
 
-        if(advertisement != null)
+        if (advertisement != null)
             return mapOfferListToOfferDTOList(advertisement.getOffers());
         return null;
     }
 
-    private List<OfferDTO> mapOfferListToOfferDTOList(List<Offer> offerList)
-    {
-        return modelMapper.map(offerList, new TypeToken<List<OfferDTO>>() {}.getType());
+    private List<OfferDTO> mapOfferListToOfferDTOList(List<Offer> offerList) {
+        return modelMapper.map(offerList, new TypeToken<List<OfferDTO>>() {
+        }.getType());
     }
 
-    public boolean saveNewOfferOrUpdate(Principal principal, OfferDTO offerDTO, Long advertId)
-    {
-        Advertisement advertisement = advertisementRepository.findAdvertisementByAppUser_LoginNotLikeAndId(principal.getName(),advertId);
-        if(advertisement == null)
+    public boolean saveNewOfferOrUpdate(Principal principal, OfferDTO offerDTO, Long advertId) {
+        Advertisement advertisement = advertisementRepository.findAdvertisementByAppUser_LoginNotLikeAndId(principal.getName(), advertId);
+        if (advertisement == null)
             return false;
 
         Offer newOffer = offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(advertId, principal.getName());
-        if(newOffer == null)
-        {
+        if (newOffer == null) {
             newOffer = new Offer();
             newOffer.setAdvertisement(advertisement);
             newOffer.setAppUser(appUserRepository.findByLogin(principal.getName()));
@@ -61,18 +58,16 @@ public class OfferService {
         return true;
     }
 
-    public OfferDTO getUserOfferForAdvert(Long advertId, Principal principal)
-    {
+    public OfferDTO getUserOfferForAdvert(Long advertId, Principal principal) {
         Offer offer = offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(advertId, principal.getName());
-        if( offer == null)
+        if (offer == null)
             return null;
-        return modelMapper.map(offer,OfferDTO.class);
+        return modelMapper.map(offer, OfferDTO.class);
     }
 
     public AppUserDTO chooseOneOfferAndCloseAdvertisement(Long offerID, Principal principal) {
         Offer selectedOffer = offerRepository.findOfferByIdAndAdvertisement_AppUser_Login(offerID, principal.getName());
-        if(selectedOffer != null)
-        {
+        if (selectedOffer != null) {
             Advertisement advertisement = selectedOffer.getAdvertisement();
             advertisement.setAvailable(false);
             advertisementRepository.save(advertisement);
