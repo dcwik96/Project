@@ -33,6 +33,7 @@ import java.time.OffsetDateTime;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -78,6 +79,18 @@ public class NewAdvertTests {
                 .addFilter(springSecurityFilterChain)
                 .apply(springSecurity())
                 .build();
+    }
+
+    @Test
+    public void isEndpointSecure() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                .fileUpload("/api/newadvert")
+                .file(FIRST_PHOTO)
+                .param("title", TITLE)
+                .param("description", DESCRIPTION)
+                .param("duration", String.valueOf(DURATION))
+                .param("imagesDescriptions", IMAGE_DESCRIPTION)
+        ).andExpect(status().isFound());
     }
 
     @Test

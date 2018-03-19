@@ -38,6 +38,7 @@ import static org.junit.Assert.assertEquals;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -86,6 +87,28 @@ public class OfferTests {
                 .addFilter(springSecurityFilterChain)
                 .apply(springSecurity())
                 .build();
+    }
+
+    @Test
+    public void areEndpointsSecure() throws Exception {
+
+        List<RequestBuilder> requestBuilderList = new ArrayList<>();
+
+        requestBuilderList.add(get("/api/advert/" + idOne + "/offers")
+                        .accept(MediaType.APPLICATION_JSON));
+        requestBuilderList.add(get("/api/advert/" + idOne + "/UserOffer")
+                .accept(MediaType.APPLICATION_JSON));
+        requestBuilderList.add(post("/api/advert/" + idOne + "/newOffer")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("offer", offerOnePrice.toString()));
+        requestBuilderList.add(get("/api/advert/select/" + idTwo)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED));
+
+        for(RequestBuilder requestBuilder : requestBuilderList)
+            mockMvc.perform(requestBuilder).andExpect(status().isFound());
+
     }
 
     @Test
