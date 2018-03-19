@@ -34,34 +34,31 @@ public class OfferController {
 
     //We need to remember about secure this endpoint, only advert owner has to get response.
     @RequestMapping(value = "api/advert/{id}/offers")
-    public List<OfferDTO> getOffersForAdvert(@PathVariable("id") long id, Principal principal, HttpServletResponse httpServletResponse)
-    {
+    public List<OfferDTO> getOffersForAdvert(@PathVariable("id") long id, Principal principal, HttpServletResponse httpServletResponse) {
         List<OfferDTO> offerDTOList = offerService.getOffersForAdvert(id, principal);
-        if(offerDTOList == null) {
+        if (offerDTOList == null) {
             httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
         return offerDTOList;
     }
 
     @RequestMapping(value = "api/advert/{id}/UserOffer")
-    public OfferDTO getUserOfferForAdvert(@PathVariable("id") Long id, Principal principal, HttpServletResponse httpServletResponse)
-    {
-            return offerService.getUserOfferForAdvert(id, principal);
+    public OfferDTO getUserOfferForAdvert(@PathVariable("id") Long id, Principal principal, HttpServletResponse httpServletResponse) {
+        return offerService.getUserOfferForAdvert(id, principal);
     }
 
     @PostMapping(value = "api/advert/{id}/newOffer")
-    public ResponseEntity<String> putNewOffer(@PathVariable("id") Long id, @ModelAttribute OfferDTO offerDTO, Principal principal)
-    {
+    public ResponseEntity<String> putNewOffer(@PathVariable("id") Long id, @ModelAttribute OfferDTO offerDTO, Principal principal) {
 
-        if( offerDTO.getOffer() != null &&
+        if (offerDTO.getOffer() != null &&
                 offerDTO.getOffer().compareTo(BigDecimal.valueOf(0.00)) >= 0 &&
-                        offerService.saveNewOfferOrUpdate(principal, offerDTO, id))
+                offerService.saveNewOfferOrUpdate(principal, offerDTO, id))
             return new ResponseEntity<>("Accepted", HttpStatus.OK);
         return new ResponseEntity<>("Error", HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(value = "api/advert/select/{offerID}")
-    public AppUserDTO chooseOffer( @PathVariable("offerID") Long offerID, Principal principal, HttpServletResponse httpServletResponse){
+    public AppUserDTO chooseOffer(@PathVariable("offerID") Long offerID, Principal principal, HttpServletResponse httpServletResponse) {
         AppUserDTO selectedUser = offerService.chooseOneOfferAndCloseAdvertisement(offerID, principal);
         if (selectedUser == null)
             httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);

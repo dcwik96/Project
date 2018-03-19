@@ -2,7 +2,6 @@ package pl.iledasz.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import pl.iledasz.DTO.AdvertPhotoDTO;
@@ -11,12 +10,8 @@ import pl.iledasz.entities.AppUser;
 import pl.iledasz.service.AdvertPhotoService;
 import pl.iledasz.service.AppUserService;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class HomeController {
