@@ -30,9 +30,4 @@ public class Offer {
     @JoinColumn(name = "advert_id")
     private Advertisement advertisement;
 
-    public Offer(BigDecimal offer, AppUser appUser, Advertisement advertisement) {
-        this.offer = offer;
-        this.appUser = appUser;
-        this.advertisement = advertisement;
-    }
 }

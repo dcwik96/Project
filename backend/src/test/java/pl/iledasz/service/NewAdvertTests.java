@@ -70,7 +70,8 @@ public class NewAdvertTests {
     private static final String defaultMessageOfNullDuration = "Czas trwania oferty nie moze byc pusty!";
     private static final String defaultMessageOfNullImages = "Przynajmniej jedno zdjęcie!";
     private static final String defaultMessageOfNullImageDescription = "Opis  zdjęcia nie może byc pusty!";
-    private static final String defaultMessageOfNotEqualsImageAndImageDescription = "Liczba opisów zdjęć nie odpowiada liczbie zdjęć";
+
+    private static final String newItemPath = "/api/newItem";
 
     @Before
     public void setup() {
@@ -86,7 +87,7 @@ public class NewAdvertTests {
 
         MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
                 MockMvcRequestBuilders
-                        .fileUpload("/api/newItem")
+                        .fileUpload(newItemPath)
                         .file(FIRST_PHOTO)
                         .param("title", TITLE)
                         .param("description", DESCRIPTION)
@@ -128,7 +129,7 @@ public class NewAdvertTests {
 
         MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
                 MockMvcRequestBuilders
-                        .fileUpload("/api/newItem")
+                        .fileUpload(newItemPath)
                         .file(FIRST_PHOTO)
 //                        .param("title", TITLE)
                         .param("description", DESCRIPTION)
@@ -159,7 +160,7 @@ public class NewAdvertTests {
 
         MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
                 MockMvcRequestBuilders
-                        .fileUpload("/api/newItem")
+                        .fileUpload(newItemPath)
                         .file(FIRST_PHOTO)
                         .param("title", TITLE)
 //                        .param("description", DESCRIPTION)
@@ -190,7 +191,7 @@ public class NewAdvertTests {
 
         MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
                 MockMvcRequestBuilders
-                        .fileUpload("/api/newItem")
+                        .fileUpload(newItemPath)
                         .file(FIRST_PHOTO)
                         .param("title", TITLE)
                         .param("description", DESCRIPTION)
@@ -221,7 +222,7 @@ public class NewAdvertTests {
 
         MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
                 MockMvcRequestBuilders
-                        .fileUpload("/api/newItem")
+                        .fileUpload(newItemPath)
 //                        .file(FIRST_PHOTO)
                         .param("title", TITLE)
                         .param("description", DESCRIPTION)
@@ -252,7 +253,7 @@ public class NewAdvertTests {
 
         MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
                 MockMvcRequestBuilders
-                        .fileUpload("/api/newItem")
+                        .fileUpload(newItemPath)
                         .file(FIRST_PHOTO)
                         .param("title", TITLE)
                         .param("description", DESCRIPTION)
@@ -276,12 +277,4 @@ public class NewAdvertTests {
         assertEquals(HttpStatus.NOT_ACCEPTABLE.value(), response.getStatus());
         assertEquals(defaultMessageOfNullImageDescription, response.getContentAsString());
     }
-
-    @Test
-    @WithMockUser(username = USER, password = PASSWORD, roles = ROLE_USER)
-    public void checkIfNumberOfDescriptionOfPhotoIsEqualsToPhotos() {
-        //nie dodaje wiecej jak 1 zdj wiec ciezko narazie to sprawdzic.
-    }
-
-    //SPRAWDZENIE BINDINGRESULT
 }

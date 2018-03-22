@@ -23,8 +23,4 @@ public class Role {
     @Column(name = "role", nullable = false)
     private String role;
 
-    public Role(String role) {
-        this.role = role;
-    }
-
 }

@@ -22,9 +22,6 @@ public class HomeController {
     @Autowired
     private AppUserService appUserService;
 
-
-    private BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder(11);
-
     @RequestMapping(value = "/hello")
     public String hello() {
         return "gello";

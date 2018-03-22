@@ -77,6 +77,12 @@ public class OfferTests {
     private static final BigDecimal offerTwoPrice = BigDecimal.valueOf(453.44);
     private static final BigDecimal badOfferPrice = BigDecimal.valueOf(-123.55);
 
+    private static final String itemsOffersPath = "/api/item/" + idOne + "/offers";
+    private static final String itemNewOfferPath = "/api/item/" + idOne + "/newOffer";
+    private static final String itemsUserOfferPath = "/api/item/" + idOne + "/UserOffer";
+    private static final String itemsOfferSelectPath = "/api/item/select/" + idTwo;
+
+
     private ObjectMapper objectMapper = new ObjectMapper();
 
 
@@ -119,7 +125,7 @@ public class OfferTests {
         Mockito.when(advertisementRepository.findAdvertisementsByAppUser_LoginAndId(user, idOne)).thenReturn(advertisement);
 
         RequestBuilder requestBuilder =
-                get("/api/item/" + idOne + "/offers")
+                get(itemsOffersPath)
                         .accept(MediaType.APPLICATION_JSON);
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
@@ -155,7 +161,7 @@ public class OfferTests {
         Mockito.when(advertisementRepository.findAdvertisementsByAppUser_LoginAndId(userTwo, idOne)).thenReturn(null);
 
         RequestBuilder requestBuilder =
-                get("/api/item/" + idOne + "/offers")
+                get(itemsOffersPath)
                         .accept(MediaType.APPLICATION_JSON);
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
@@ -179,7 +185,7 @@ public class OfferTests {
         Mockito.when(advertisementRepository.findAdvertisementsByAppUser_LoginAndId(user, idOne)).thenReturn(advertisement);
 
         RequestBuilder requestBuilder =
-                get("/api/item/" + idOne + "/offers")
+                get(itemsOffersPath)
                         .accept(MediaType.APPLICATION_JSON);
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
@@ -199,7 +205,7 @@ public class OfferTests {
         Mockito.when(offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(idOne, user)).thenReturn(offer);
 
         RequestBuilder requestBuilder =
-                get("/api/item/" + idOne + "/UserOffer")
+                get(itemsUserOfferPath)
                         .accept(MediaType.APPLICATION_JSON);
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
@@ -219,7 +225,7 @@ public class OfferTests {
         Mockito.when(offerRepository.findOfferByAdvertisement_IdAndAppUser_Login(idOne, user)).thenReturn(null);
 
         RequestBuilder requestBuilder =
-                get("/api/item/" + idOne + "/UserOffer")
+                get(itemsUserOfferPath)
                         .accept(MediaType.APPLICATION_JSON);
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
@@ -233,7 +239,7 @@ public class OfferTests {
     public void putNewOfferWhenUserDidNotHaveOfferForAdvert() throws Exception {
 
         RequestBuilder requestBuilder =
-                post("/api/item/" + idOne + "/newOffer")
+                post(itemNewOfferPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("offer", offerOnePrice.toString());
@@ -274,7 +280,7 @@ public class OfferTests {
     public void putNewOfferWhenUserHadOfferForAdvert() throws Exception {
 
         RequestBuilder requestBuilder =
-                post("/api/item/" + idOne + "/newOffer")
+                post(itemNewOfferPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("offer", offerTwoPrice.toString());
@@ -321,7 +327,7 @@ public class OfferTests {
     public void putNewOfferWhenUserIsAdvertOwner() throws Exception {
 
         RequestBuilder requestBuilder =
-                post("/api/item/" + idOne + "/newOffer")
+                post(itemNewOfferPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("offer", offerOnePrice.toString());
@@ -343,7 +349,7 @@ public class OfferTests {
     public void putNewOfferWithBadOfferPrice() throws Exception {
 
         RequestBuilder requestBuilder =
-                post("/api/item/" + idOne + "/newOffer")
+                post(itemNewOfferPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("offer", badOfferPrice.toString());
@@ -358,7 +364,7 @@ public class OfferTests {
     public void putNewOfferWithoutOfferPrice() throws Exception {
 
         RequestBuilder requestBuilder =
-                post("/api/item/" + idOne + "/newOffer")
+                post(itemNewOfferPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED);
 
@@ -373,7 +379,7 @@ public class OfferTests {
     public void selectOfferPositive() throws Exception {
 
         RequestBuilder requestBuilder =
-                get("/api/item/select/" + idTwo)
+                get(itemsOfferSelectPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED);
 
@@ -419,7 +425,7 @@ public class OfferTests {
     public void selectOfferWhenLoggedUserIsNotAdvertOwnerOrOfferDoNotExists() throws Exception {
 
         RequestBuilder requestBuilder =
-                get("/api/item/select/" + idTwo)
+                get(itemsOfferSelectPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED);
 

@@ -14,7 +14,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) {
         httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }
 }

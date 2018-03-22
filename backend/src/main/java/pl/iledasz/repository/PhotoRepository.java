@@ -7,7 +7,6 @@ import pl.iledasz.entities.Photo;
 @Repository
 public interface PhotoRepository extends JpaRepository<Photo, Long> {
 
-    Photo findOneById(Long id);
     Photo findByAdvertphoto_Id(Long id);
 
 }
