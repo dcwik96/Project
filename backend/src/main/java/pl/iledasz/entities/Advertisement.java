@@ -56,16 +56,4 @@ public class Advertisement {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<AdvertPhoto> photos;
 
-    public Advertisement(String title, String description, AppUser appUser, OffsetDateTime startDate,
-                         Long duration, OffsetDateTime endDate, List<AdvertPhoto> photos) {
-        this.title = title;
-        this.description = description;
-        this.appUser = appUser;
-        this.startDate = startDate;
-        this.duration = duration;
-        this.endDate = endDate;
-        this.photos = photos;
-
-
-    }
 }

@@ -34,7 +34,7 @@ public class AppUserService {
 
     public void save(AppUser user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRole(roleRepository.findOne(2l));
+        user.setRole(roleRepository.findOne(2L));
         user.setEnable(true);
         appUserRepository.save(user);
     }

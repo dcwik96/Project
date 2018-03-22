@@ -54,15 +54,18 @@ public class AppUserTests {
 
     private MockMvc mockMvc;
 
-    static String name = "Wiktor";
-    static String surname = "Korol";
-    static String login = "appleIsBullshit";
-    static String weakLogin = "sd";
-    static String email = "wkorol@ssh.com";
-    static String phone = "345234234";
-    static String password = "ILoveMacDonald";
-    static String weakPassword = "KfcKing";
-    static String incorrectEmail = "asad.321#ypu.pl";
+    private static String name = "Wiktor";
+    private static String surname = "Korol";
+    private static String login = "appleIsBullshit";
+    private static String weakLogin = "sd";
+    private static String email = "wkorol@ssh.com";
+    private static String phone = "345234234";
+    private static String password = "ILoveMacDonald";
+    private static String weakPassword = "KfcKing";
+    private static String incorrectEmail = "asad.321#ypu.pl";
+
+    private static String registrationPath = "/registration";
+    private static String loginPath = "/login";
 
     @Before
     public void setup() {
@@ -82,7 +85,7 @@ public class AppUserTests {
     public void testCorrectRegistrationProcess() throws Exception {
 
         RequestBuilder requestBuilder =
-                post("/registration")
+                post(registrationPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
@@ -120,7 +123,7 @@ public class AppUserTests {
     public void testRegistrationWithoutName() throws Exception {
 
         RequestBuilder requestBuilder =
-                post("/registration")
+                post(registrationPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("surname", surname)
@@ -139,7 +142,7 @@ public class AppUserTests {
     public void testRegistrationWithoutSurname() throws Exception {
 
         RequestBuilder requestBuilder =
-                post("/registration")
+                post(registrationPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
@@ -158,7 +161,7 @@ public class AppUserTests {
     public void testRegistrationWithoutPhone() throws Exception {
 
         RequestBuilder requestBuilder =
-                post("/registration")
+                post(registrationPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
@@ -177,7 +180,7 @@ public class AppUserTests {
     public void testRegistrationWithoutLogin() throws Exception {
 
         RequestBuilder requestBuilder =
-                post("/registration")
+                post(registrationPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
@@ -196,7 +199,7 @@ public class AppUserTests {
     public void testRegistrationWithoutEmail() throws Exception {
 
         RequestBuilder requestBuilder =
-                post("/registration")
+                post(registrationPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
@@ -214,7 +217,7 @@ public class AppUserTests {
     public void testRegistrationWithoutPassword() throws Exception {
 
         RequestBuilder requestBuilder =
-                post("/registration")
+                post(registrationPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
@@ -233,7 +236,7 @@ public class AppUserTests {
     public void testRegistrationWithWeakPassword() throws Exception {
 
         RequestBuilder requestBuilder =
-                post("/registration")
+                post(registrationPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
@@ -253,7 +256,7 @@ public class AppUserTests {
     public void testRegistrationWithIncorrectEmail() throws Exception {
 
         RequestBuilder requestBuilder =
-                post("/registration")
+                post(registrationPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
@@ -273,7 +276,7 @@ public class AppUserTests {
     public void testRegistrationWithWeakLogin() throws Exception {
 
         RequestBuilder requestBuilder =
-                post("/registration")
+                post(registrationPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
@@ -293,7 +296,7 @@ public class AppUserTests {
     public void testRegistrationWhenLoginIsEngaged() throws Exception {
 
         RequestBuilder requestBuilder =
-                post("/registration")
+                post(registrationPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("name", name)
@@ -315,7 +318,7 @@ public class AppUserTests {
     @Test
     public void testLogin() throws Exception {
         RequestBuilder requestBuilder =
-                post("/login")
+                post(loginPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("username", login)
@@ -355,7 +358,7 @@ public class AppUserTests {
     @Test
     public void testBadLogin() throws Exception {
         RequestBuilder requestBuilder =
-                post("/login")
+                post(loginPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("username", login)
@@ -375,7 +378,7 @@ public class AppUserTests {
     @Test
     public void testLoginWithWrongPassword() throws Exception {
         RequestBuilder requestBuilder =
-                post("/login")
+                post(loginPath)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("username", login)

@@ -60,12 +60,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/hello").permitAll()
-                .antMatchers("/hellosecure", "/api/newadvert").authenticated()
+                .antMatchers("/hellosecure", "/api/newItem").authenticated()
                 .antMatchers("/helloadmin").hasAuthority("ADMINISTRATOR")
-                .antMatchers("/api/advert/**/*").authenticated()
+                .antMatchers("/api/item/**/*").authenticated()
                 .antMatchers("/api/offer/*").authenticated()
                 .antMatchers("/api/user/edit").authenticated()
-                .antMatchers("/api/userAdverts").authenticated()
+                .antMatchers("/api/userItems").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().failureHandler(authenticationFailureHandler)
@@ -80,8 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth)
-            throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
 

@@ -9,10 +9,6 @@ import java.util.List;
 @Repository
 public interface OfferRepository extends JpaRepository<Offer, Long> {
 
-    List<Offer> findAllByAdvertisement_Id(Long id);
-
-    Offer findOneById(Long id);
-
     Offer findOfferByAdvertisement_IdAndAppUser_Login(long id, String login);
 
     Offer findOfferByIdAndAdvertisement_AppUser_Login(long id, String login);

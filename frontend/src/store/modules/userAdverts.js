@@ -22,7 +22,7 @@ const getters = {
 const actions = {
   fetchUserAdverts: ({commit}) => {
 
-    axios.get('api/userAdverts',)
+    axios.get('api/userItems',)
       .then((response) => {
         commit('SET_USER_ADVERTS', response.data)
       })
@@ -31,7 +31,7 @@ const actions = {
       })
   },
   fetchOffers: ({commit}, id) => {
-    axios.get('/api/advert/' + id + '/offers')
+    axios.get('/api/item/' + id + '/offers')
       .then((response) => {
         commit('SET_OFFER', response.data)
       })
@@ -40,7 +40,7 @@ const actions = {
       })
   },
   acceptOffer({commit}, id) {
-    axios.get('/api/advert/select/' + id)
+    axios.get('/api/item/select/' + id)
       .then((response) => {
         commit('SET_BUYER_DATA', response.data)
       })

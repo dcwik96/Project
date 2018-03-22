@@ -55,7 +55,7 @@ export const routes = [
   {path: '/browse', name: 'browse', component: ItemBrowse},
   {path: '/register', name: 'register', component: RegisterForm},
   {path: '/additem', name: 'additem', component: ItemAdd, beforeEnter: notAuthorizedUserHandler },
-  {path: '/advert/:id', name: 'advert', component: ItemView},
+  {path: '/item/:id', name: 'item', component: ItemView},
   {path: '/youritems', name: 'youritems', component: ItemOwner, beforeEnter: notAuthorizedUserHandler },
   {path: '/random', name: 'randomadvert', component: ItemRandom},
   {path: '*', redirect: '/'}

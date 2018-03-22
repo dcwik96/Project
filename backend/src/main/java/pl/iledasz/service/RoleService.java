@@ -17,7 +17,4 @@ public class RoleService {
         return roleRepository.findAll();
     }
 
-    public Role getUserRole(long id) {
-        return roleRepository.findOne(id);
-    }
 }

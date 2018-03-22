@@ -22,9 +22,6 @@ public class HomeController {
     @Autowired
     private AppUserService appUserService;
 
-
-    private BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder(11);
-
     @RequestMapping(value = "/hello")
     public String hello() {
         return "gello";
@@ -40,7 +37,7 @@ public class HomeController {
         return "gello admin";
     }
 
-    @RequestMapping(value = "api/advertphoto")
+    @RequestMapping(value = "api/itemPhoto")
     public List<AdvertPhotoDTO> getAll() {
         return advertPhotoService.list();
     }
