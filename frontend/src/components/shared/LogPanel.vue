@@ -14,7 +14,7 @@
     </button>
     <ul class="dropdown-menu">
       <!--<li><a href="#" >Ustawienia konta</a></li>-->
-      <li><a href @click="logOut">Wyloguj</a></li>
+      <li><a href="#" @click.prevent="logOut">Wyloguj</a></li>
     </ul>
     <div id="functionPanel" ref="functionPanel" class="btn-group-vertical">
       <router-link to="/additem" tag="div" class="btn btn-default mb-1" exact>Wystaw przedmiot</router-link>
