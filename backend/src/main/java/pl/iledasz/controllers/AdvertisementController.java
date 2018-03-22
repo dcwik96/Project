@@ -28,18 +28,18 @@ public class AdvertisementController {
     @Autowired
     NewAdvertValidator newAdvertValidator;
 
-    @RequestMapping(value = "api/adverts")
+    @RequestMapping(value = "api/items")
     public List<AdvertisementDTO> getAdverts() {
         return advertisementService.getLatestAdverts();
     }
 
-    @RequestMapping(value = "api/lightAdverts")
+    @RequestMapping(value = "api/lightItems")
     public List<LightAdvertisementDTO> getLightAdverts() {
 
         return advertisementService.getLatestLightAdverts();
     }
 
-    @RequestMapping(value = "api/userAdverts")
+    @RequestMapping(value = "api/userItems")
     public List<LightAdvertisementDTO> getUserLightAdverts(Principal principal, HttpServletResponse httpServletResponse) {
 
         if (principal == null) {
@@ -49,13 +49,13 @@ public class AdvertisementController {
         return advertisementService.getUserLightAdverts(principal);
     }
 
-    @RequestMapping(value = "api/oneadvert/{id}")
+    @RequestMapping(value = "api/oneItem/{id}")
     public AdvertisementDTO getAdvertById(@PathVariable("id") Long id) {
 
         return advertisementService.findOneById(id);
     }
 
-    @PostMapping(value = "/api/newadvert")
+    @PostMapping(value = "/api/newItem")
     @ResponseBody
     @Transactional
     public ResponseEntity<String> addNewAdvert(@ModelAttribute("advertForm") NewAdvertDTO newAdvertForm, BindingResult bindingResult, Principal principal) throws IOException {
@@ -71,12 +71,12 @@ public class AdvertisementController {
         return new ResponseEntity<>("Nowe ogłoszenie zostało dodane", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "api/randomAdvert")
+    @RequestMapping(value = "api/randomItem")
     public AdvertisementDTO randomAdvert() {
         return advertisementService.randomAdvert();
     }
 
-    @RequestMapping(value = "api/advert/{id}/verify")
+    @RequestMapping(value = "api/item/{id}/verify")
     public void checkAdvertOwnerIsLoggedUser(@PathVariable("id") Long id, Principal principal, HttpServletResponse httpServletResponse) {
         if (advertisementService.checkAdvertOwnerIsLoggedUser(principal, id))
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);

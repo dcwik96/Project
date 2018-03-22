@@ -112,7 +112,7 @@
           singleton: true,
           duration: 1500
         };
-        axios.post('api/newadvert', this.dataToSent)
+        axios.post('api/newItem', this.dataToSent)
           .then(
             response => {
               this.$toasted.success(response.request.responseText, config);

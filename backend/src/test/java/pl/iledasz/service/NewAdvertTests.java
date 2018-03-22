@@ -86,7 +86,7 @@ public class NewAdvertTests {
 
         MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
                 MockMvcRequestBuilders
-                        .fileUpload("/api/newadvert")
+                        .fileUpload("/api/newItem")
                         .file(FIRST_PHOTO)
                         .param("title", TITLE)
                         .param("description", DESCRIPTION)
@@ -128,7 +128,7 @@ public class NewAdvertTests {
 
         MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
                 MockMvcRequestBuilders
-                        .fileUpload("/api/newadvert")
+                        .fileUpload("/api/newItem")
                         .file(FIRST_PHOTO)
 //                        .param("title", TITLE)
                         .param("description", DESCRIPTION)
@@ -159,7 +159,7 @@ public class NewAdvertTests {
 
         MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
                 MockMvcRequestBuilders
-                        .fileUpload("/api/newadvert")
+                        .fileUpload("/api/newItem")
                         .file(FIRST_PHOTO)
                         .param("title", TITLE)
 //                        .param("description", DESCRIPTION)
@@ -190,7 +190,7 @@ public class NewAdvertTests {
 
         MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
                 MockMvcRequestBuilders
-                        .fileUpload("/api/newadvert")
+                        .fileUpload("/api/newItem")
                         .file(FIRST_PHOTO)
                         .param("title", TITLE)
                         .param("description", DESCRIPTION)
@@ -221,7 +221,7 @@ public class NewAdvertTests {
 
         MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
                 MockMvcRequestBuilders
-                        .fileUpload("/api/newadvert")
+                        .fileUpload("/api/newItem")
 //                        .file(FIRST_PHOTO)
                         .param("title", TITLE)
                         .param("description", DESCRIPTION)
@@ -252,7 +252,7 @@ public class NewAdvertTests {
 
         MockHttpServletRequestBuilder mockHttpServletRequestBuilder =
                 MockMvcRequestBuilders
-                        .fileUpload("/api/newadvert")
+                        .fileUpload("/api/newItem")
                         .file(FIRST_PHOTO)
                         .param("title", TITLE)
                         .param("description", DESCRIPTION)

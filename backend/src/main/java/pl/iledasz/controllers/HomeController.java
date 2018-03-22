@@ -40,7 +40,7 @@ public class HomeController {
         return "gello admin";
     }
 
-    @RequestMapping(value = "api/advertphoto")
+    @RequestMapping(value = "api/itemPhoto")
     public List<AdvertPhotoDTO> getAll() {
         return advertPhotoService.list();
     }

@@ -33,7 +33,7 @@ public class OfferController {
 
 
     //We need to remember about secure this endpoint, only advert owner has to get response.
-    @RequestMapping(value = "api/advert/{id}/offers")
+    @RequestMapping(value = "api/item/{id}/offers")
     public List<OfferDTO> getOffersForAdvert(@PathVariable("id") long id, Principal principal, HttpServletResponse httpServletResponse) {
         List<OfferDTO> offerDTOList = offerService.getOffersForAdvert(id, principal);
         if (offerDTOList == null) {
@@ -42,12 +42,12 @@ public class OfferController {
         return offerDTOList;
     }
 
-    @RequestMapping(value = "api/advert/{id}/UserOffer")
+    @RequestMapping(value = "api/item/{id}/UserOffer")
     public OfferDTO getUserOfferForAdvert(@PathVariable("id") Long id, Principal principal, HttpServletResponse httpServletResponse) {
         return offerService.getUserOfferForAdvert(id, principal);
     }
 
-    @PostMapping(value = "api/advert/{id}/newOffer")
+    @PostMapping(value = "api/item/{id}/newOffer")
     public ResponseEntity<String> putNewOffer(@PathVariable("id") Long id, @ModelAttribute OfferDTO offerDTO, Principal principal) {
 
         if (offerDTO.getOffer() != null &&
@@ -57,7 +57,7 @@ public class OfferController {
         return new ResponseEntity<>("Error", HttpStatus.FORBIDDEN);
     }
 
-    @RequestMapping(value = "api/advert/select/{offerID}")
+    @RequestMapping(value = "api/item/select/{offerID}")
     public AppUserDTO chooseOffer(@PathVariable("offerID") Long offerID, Principal principal, HttpServletResponse httpServletResponse) {
         AppUserDTO selectedUser = offerService.chooseOneOfferAndCloseAdvertisement(offerID, principal);
         if (selectedUser == null)

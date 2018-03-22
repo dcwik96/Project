@@ -37,7 +37,7 @@ const actions = {
   },
   fetchData: ({commit}) => {
     let tempAdverts = [];
-    axios.get('api/adverts')
+    axios.get('api/items')
       .then(response => {
         tempAdverts = response.data;
         Array.from(tempAdverts).forEach(advert => {
@@ -51,7 +51,7 @@ const actions = {
   },
   fetchLightData: ({commit}) => {
     let tempAdverts = [];
-    axios.get('api/lightAdverts')
+    axios.get('api/lightItems')
       .then(response => {
         tempAdverts = response.data;
         Array.from(tempAdverts).forEach(advert => {
@@ -65,7 +65,7 @@ const actions = {
     )
   },
   fetchAdvert: ({commit}, id) => {
-    axios.get('api/oneadvert/' + id)
+    axios.get('api/oneItem/' + id)
       .then(
       response => {
         commit('SET_ADVERT', response.data)
@@ -84,7 +84,7 @@ const actions = {
     let formData = new FormData();
     formData.append('offer',data.price);
 
-    axios.post('api/advert/' + data.id + '/newOffer', formData)
+    axios.post('api/item/' + data.id + '/newOffer', formData)
       .then(() => {
         Vue.toasted.success('Twoja oferta została złożona', config)
       })
@@ -93,7 +93,7 @@ const actions = {
       })
   },
   fetchRandomAdvert: ({commit}) => {
-    axios.get('api/randomAdvert')
+    axios.get('api/randomItem')
       .then(
       response => {
         commit('SET_RANDOM_ADVERT', response.data)
