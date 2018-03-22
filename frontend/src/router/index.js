@@ -13,6 +13,23 @@ import axios from 'axios';
 
 Vue.use(toasted);
 
+const notAuthorizedUserHandler = (to, from, next) => {
+  const config = {
+    position: 'bottom-center',
+    singleton: true,
+    duration: 1500
+  };
+
+  axios.get('/hellosecure')
+    .then(() => {
+      next()
+    })
+    .catch(() => {
+      Vue.toasted.error("Musisz być zalogowany", config);
+      next('/')
+    })
+};
+
 export const routes = [
   {
     path: '', name: 'home', components: {
@@ -37,43 +54,9 @@ export const routes = [
   },
   {path: '/browse', name: 'browse', component: ItemBrowse},
   {path: '/register', name: 'register', component: RegisterForm},
-  {path: '/additem', name: 'additem', component: ItemAdd,
-    beforeEnter: (to, from, next) => {
-      const config = {
-        position: 'bottom-center',
-        singleton: true,
-        duration: 1500
-      };
-
-      axios.get('/hellosecure')
-        .then(() => {
-          next()
-        })
-        .catch(() => {
-          Vue.toasted.error("Musisz być zalogowany", config);
-          next('/')
-        })
-    }
-  },
+  {path: '/additem', name: 'additem', component: ItemAdd, beforeEnter: notAuthorizedUserHandler },
   {path: '/advert/:id', name: 'advert', component: ItemView},
-  {path: '/youritems', name: 'youritems', component: ItemOwner,
-    beforeEnter: (to, from, next) => {
-      const config = {
-        position: 'bottom-center',
-        singleton: true,
-        duration: 1500
-      };
-
-      axios.get('/hellosecure')
-        .then(() => {
-          next()
-        })
-        .catch(() => {
-          Vue.toasted.error("Musisz być zalogowany", config);
-          next('/')
-        })
-    }
-  },
+  {path: '/youritems', name: 'youritems', component: ItemOwner, beforeEnter: notAuthorizedUserHandler },
   {path: '/random', name: 'randomadvert', component: ItemRandom},
   {path: '*', redirect: '/'}
 ];
