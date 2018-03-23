@@ -6,9 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.iledasz.DTO.AdvertPhotoDTO;
 import pl.iledasz.DTO.AdvertisementDTO;
 import pl.iledasz.DTO.LightAdvertisementDTO;
 import pl.iledasz.DTO.NewAdvertDTO;
+import pl.iledasz.service.AdvertPhotoService;
 import pl.iledasz.service.AdvertisementService;
 import pl.iledasz.validator.NewAdvertValidator;
 
@@ -23,6 +25,8 @@ public class AdvertisementController {
 
     @Autowired
     private AdvertisementService advertisementService;
+    @Autowired
+    private AdvertPhotoService advertPhotoService;
 
 
     @Autowired
@@ -82,6 +86,11 @@ public class AdvertisementController {
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
         else
             httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+    }
+
+    @RequestMapping(value = "api/item/{id}/photos")
+    public List<AdvertPhotoDTO> getAllPhotosOfItem(@PathVariable("id") Long id) {
+        return advertPhotoService.getAllPhotosOfItem(id);
     }
 
 }

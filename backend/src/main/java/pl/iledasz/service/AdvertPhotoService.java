@@ -29,5 +29,17 @@ public class AdvertPhotoService {
         return advertPhotoDTOS;
     }
 
+    public List<AdvertPhotoDTO> getAllPhotosOfItem(long id) {
+        ModelMapper modelMapper = new ModelMapper();
+
+        List<AdvertPhoto> advertPhotos = advertPhotoRepository.findAdvertPhotosByAdvertisement_Id(id);
+        List<AdvertPhotoDTO> advertPhotoDTOS = new ArrayList<>();
+
+        for (AdvertPhoto advertPhoto : advertPhotos)
+            advertPhotoDTOS.add(modelMapper.map(advertPhoto, AdvertPhotoDTO.class));
+
+        return advertPhotoDTOS;
+    }
+
 
 }
