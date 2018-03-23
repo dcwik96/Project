@@ -15,7 +15,7 @@
               <p v-if="advert.showInput">
                 <span v-popover.hover="{content:'Zaloguj się!'}">
                 <button class="btn btn-success" :disabled="$cookie.get('login') == null ? true : false"  role="button"  @click="enableInput(index)">Ile dasz?</button></span>
-                <router-link :to="{name: 'advert', params: {id: advert.id}}" tag="button" class="btn btn-default" exact>
+                <router-link :to="{name: 'item', params: {id: advert.id}}" tag="button" class="btn btn-default" exact>
                   Zobacz ofertę
                 </router-link>
               </p>

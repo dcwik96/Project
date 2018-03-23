@@ -103,7 +103,7 @@ const actions = {
     })
   },
   addAdvert({commit}, payload) {
-    axios.post('api/newAdvert', payload);
+    axios.post('api/newItem', payload);
   },
   addPhotos({commit}, payload) {
     let formData = new FormData();
